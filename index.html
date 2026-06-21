@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scalio — Meta Ads, SEO & Web Development Agency | Founded by Masum Gandhi</title>
+  <meta name="description" content="Scalio is India's fastest-growing D2C performance marketing agency. Founded by Masum Gandhi — who scaled his own ecommerce brand to 7-figure revenue via Meta Ads. Now helping other brands do the same." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: #111827; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    :root {
+      --orange: #FF5C00;
+      --orange2: #FF7A35;
+      --text: #111827;
+      --muted: #6B7280;
+      --border: #E5E7EB;
+      --bg: #F8F9FA;
+    }
+
+    .tag {
+      background: #FFF2EC;
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 100px;
+      letter-spacing: .6px;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #FF5C00, #FF7A35);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform .2s, box-shadow .2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255,92,0,.35); }
+
+    .btn-outline {
+      background: transparent;
+      color: #111827;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 15px;
+      border: 1.5px solid #E5E7EB;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all .2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-outline:hover { border-color: var(--orange); color: var(--orange); }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid #E5E7EB;
+      padding: 0 5%;
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+    .logo { font-size: 26px; font-weight: 900; color: var(--orange); letter-spacing: -1.5px; font-style: italic; }
+    .nav-links { display: flex; gap: 26px; font-size: 14px; font-weight: 500; }
+    .nav-links a { color: #6B7280; transition: color .2s; }
+    .nav-links a:hover { color: var(--orange); }
+    .nav-right { display: flex; align-items: center; gap: 32px; }
+
+    /* HERO */
+    .hero { background: #fff; padding: 80px 5% 60px; overflow: hidden; }
+    .hero-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .hero-left { opacity: 0; transform: translateY(30px); transition: all .7s ease; }
+    .hero-left.visible { opacity: 1; transform: translateY(0); }
+    .hero-right { opacity: 0; transform: translateY(20px) translateX(20px); transition: all .8s ease .2s; position: relative; }
+    .hero-right.visible { opacity: 1; transform: translateY(0) translateX(0); }
+
+    h1 { font-size: 48px; font-weight: 900; line-height: 1.1; letter-spacing: -2px; margin: 20px 0 16px; color: #111827; }
+    .gradient-text {
+      background: linear-gradient(135deg, #FF5C00, #FF7A35);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-desc { font-size: 16px; color: #6B7280; line-height: 1.7; margin-bottom: 32px; max-width: 480px; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+    .hero-stats { display: flex; gap: 28px; }
+    .stat-num { font-size: 26px; font-weight: 900; color: var(--orange); }
+    .stat-label { font-size: 12px; color: #6B7280; font-weight: 500; margin-top: 2px; }
+    .stat-divider { width: 1px; background: #E5E7EB; }
+
+    /* Dashboard card */
+    .dashboard-card {
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid #E5E7EB;
+      box-shadow: 0 20px 60px rgba(0,0,0,.08);
+      padding: 22px;
+    }
+    .chart-bars { height: 72px; display: flex; align-items: flex-end; gap: 3px; margin-bottom: 14px; }
+    .chart-bar { flex: 1; background: linear-gradient(to top, #FF5C00, #FF7A35); border-radius: 3px 3px 0 0; }
+    .dashboard-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+    .dashboard-cell { background: #F8F9FA; border-radius: 10px; padding: 10px; text-align: center; }
+    .dashboard-cell.orange { background: #FFF2EC; }
+    .dashboard-cell .val { font-size: 14px; font-weight: 800; color: #111827; }
+    .dashboard-cell.orange .val { color: var(--orange); }
+    .dashboard-cell .lbl { font-size: 10px; color: #6B7280; }
+
+    /* Floating chips */
+    .float-chip {
+      position: absolute;
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid #E5E7EB;
+      box-shadow: 0 8px 24px rgba(0,0,0,.1);
+      padding: 11px 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .float-chip.top { top: -18px; right: -18px; }
+    .float-chip.bottom { bottom: -18px; left: -18px; }
+    .chip-icon {
+      width: 34px; height: 34px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .chip-icon.orange { background: linear-gradient(135deg,#FF5C00,#FF7A35); }
+    .chip-icon.green { background: #DCFCE7; }
+    .chip-sub { font-size: 10px; color: #6B7280; }
+    .chip-val { font-size: 14px; font-weight: 800; color: #111827; }
+    .chip-val.green { color: #16a34a; }
+
+    /* LOGOS */
+    .logos-bar { background: #F8F9FA; padding: 24px 5%; border-top: 1px solid #E5E7EB; border-bottom: 1px solid #E5E7EB; }
+    .logos-bar p { text-align: center; font-size: 11px; color: #9CA3AF; font-weight: 700; letter-spacing: 1.2px; margin-bottom: 16px; }
+    .logos-row { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
+    .logos-row span { font-size: 16px; font-weight: 800; color: #D1D5DB; letter-spacing: -1px; }
+
+    /* FOUNDER */
+    .section { padding: 80px 5%; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: 52px; }
+    .section-header h2 { font-size: 40px; font-weight: 900; letter-spacing: -1.5px; margin: 16px 0 12px; color: #111827; }
+    .section-header p { font-size: 16px; color: #6B7280; max-width: 480px; margin: 0 auto; }
+
+    .founder-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+
+    .founder-card {
+      background: linear-gradient(160deg, #FFF2EC, #fff);
+      border-radius: 24px;
+      border: 1px solid #FFD4B8;
+      padding: 36px;
+      position: relative;
+    }
+    .founder-header { display: flex; align-items: center; gap: 18px; margin-bottom: 28px; }
+    .founder-photo {
+      width: 80px; height: 80px; border-radius: 20px; overflow: hidden;
+      flex-shrink: 0; border: 3px solid var(--orange);
+      background: linear-gradient(135deg,#FF5C00,#FF7A35);
+    }
+    .founder-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .founder-name { font-size: 20px; font-weight: 900; color: #111827; letter-spacing: -.5px; }
+    .founder-title { font-size: 13px; color: var(--orange); font-weight: 600; margin-top: 3px; }
+    .founder-ig {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 600; color: #6B7280;
+      text-decoration: none; margin-top: 6px; transition: color .2s;
+    }
+    .founder-ig:hover { color: #E1306C; }
+    .podcast-badge {
+      margin-left: auto;
+      display: flex; align-items: center; gap: 5px;
+      background: #0F0F0F; padding: 6px 11px; border-radius: 100px;
+    }
+    .podcast-dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; animation: pulse 1.4s infinite; }
+    .podcast-label { font-size: 11px; color: var(--orange); font-weight: 700; }
+
+    .founder-quote { padding-left: 16px; border-left: 3px solid var(--orange); margin-bottom: 24px; }
+    .founder-quote p { font-size: 15px; color: #374151; line-height: 1.75; font-style: italic; }
+
+    .founder-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .founder-stat { background: #fff; border-radius: 12px; padding: 14px; border: 1px solid #FFD4B8; }
+    .founder-stat .fs-val { font-size: 20px; font-weight: 900; color: var(--orange); }
+    .founder-stat .fs-lbl { font-size: 12px; color: #6B7280; margin-top: 2px; }
+
+    .corner-icon {
+      position: absolute; top: -14px; right: -14px;
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg,#FF5C00,#FF7A35);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    }
+
+    .founder-right h2 { font-size: 38px; font-weight: 900; letter-spacing: -1.5px; margin: 16px 0 16px; color: #111827; line-height: 1.15; }
+    .founder-right p { font-size: 15px; color: #6B7280; line-height: 1.8; margin-bottom: 16px; }
+
+    .check-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+    .check-item { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; background: #F8F9FA; border-radius: 12px; }
+    .check-icon {
+      width: 28px; height: 28px; background: linear-gradient(135deg,#FF5C00,#FF7A35);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .check-title { font-size: 14px; font-weight: 600; color: #111827; }
+    .check-desc { font-size: 13px; color: #6B7280; margin-top: 2px; }
+
+    .founder-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .ig-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 24px; border-radius: 12px; font-weight: 600; font-size: 15px;
+      border: 1.5px solid #E5E7EB; color: #111827; text-decoration: none; transition: all .2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .ig-btn:hover { border-color: #E1306C; color: #E1306C; }
+
+    /* SERVICES */
+    .services-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; }
+    .svc-card {
+      background: #fff; border-radius: 20px; padding: 32px;
+      border: 1px solid #E5E7EB; transition: all .3s; cursor: default;
+    }
+    .svc-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(255,92,0,.1); border-color: rgba(255,92,0,.3); }
+    .svc-card.featured { border: 2px solid var(--orange); box-shadow: 0 8px 32px rgba(255,92,0,.08); }
+    .svc-card.featured:hover { box-shadow: 0 20px 48px rgba(255,92,0,.16); }
+    .svc-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; }
+    .svc-icon-wrap {
+      width: 52px; height: 52px; background: #FFF2EC; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .svc-icon-wrap.filled { background: linear-gradient(135deg,#FF5C00,#FF7A35); }
+    .svc-badge { font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 100px; }
+    .svc-badge.orange { background: #FFF2EC; color: var(--orange); }
+    .svc-badge.green { background: #F0FDF4; color: #16a34a; }
+    .svc-badge.blue { background: #EFF6FF; color: #1d4ed8; }
+    .svc-card h3 { font-size: 22px; font-weight: 800; color: #111827; margin-bottom: 10px; }
+    .svc-card p { font-size: 14px; color: #6B7280; line-height: 1.7; margin-bottom: 20px; }
+
+    .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .meta-cell { background: #FFF2EC; border-radius: 10px; padding: 12px; }
+    .meta-cell-title { font-size: 11px; font-weight: 700; color: var(--orange); margin-bottom: 4px; }
+    .meta-cell-desc { font-size: 12px; color: #6B7280; line-height: 1.5; }
+
+    .seo-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    .seo-cell { text-align: center; padding: 14px 10px; background: #F8F9FA; border-radius: 10px; }
+    .seo-cell-title { font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 4px; }
+    .seo-cell-desc { font-size: 11px; color: #6B7280; line-height: 1.5; }
+
+    .dot-list { display: flex; flex-direction: column; gap: 10px; }
+    .dot-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #F8F9FA; border-radius: 10px; }
+    .dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; flex-shrink: 0; }
+    .dot-item span { font-size: 13px; color: #374151; }
+
+    .creative-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .creative-cell { background: #F8F9FA; border-radius: 10px; padding: 14px; }
+    .creative-cell-title { font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 4px; }
+    .creative-cell-desc { font-size: 12px; color: #6B7280; line-height: 1.5; }
+
+    .meta-proof {
+      margin-top: 14px; padding: 12px 16px; background: #F8F9FA; border-radius: 10px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .meta-proof span:first-child { font-size: 12px; color: #6B7280; }
+    .meta-proof span:last-child { font-size: 13px; font-weight: 700; color: var(--orange); }
+
+    .seo-note { padding: 10px 14px; background: #F0FDF4; border-radius: 10px; font-size: 12px; color: #16a34a; font-weight: 600; }
+
+    /* RESULTS */
+    .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+    .result-card { background: #fff; border-radius: 20px; padding: 28px; border: 1px solid #E5E7EB; }
+    .result-card.featured { border: 2px solid var(--orange); box-shadow: 0 8px 32px rgba(255,92,0,.08); }
+    .result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .result-label { font-size: 11px; color: #6B7280; font-weight: 600; }
+    .result-name { font-size: 17px; font-weight: 800; color: #111827; margin-top: 3px; }
+    .active-badge { background: #DCFCE7; color: #16a34a; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 100px; }
+    .result-body { background: #F8F9FA; border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+    .result-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .result-cell .rc-label { font-size: 11px; color: #6B7280; }
+    .result-cell .rc-val { font-size: 22px; font-weight: 900; color: #111827; }
+    .result-cell .rc-val.orange { color: var(--orange); }
+    .result-cell .rc-val.green { font-size: 11px; color: #16a34a; font-weight: 700; }
+    .result-metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+    .rm-cell { border-radius: 10px; padding: 10px; text-align: center; }
+    .rm-cell.orange-bg { background: #FFF2EC; }
+    .rm-cell.gray-bg { background: #F8F9FA; }
+    .rm-cell .rm-val { font-size: 18px; font-weight: 900; }
+    .rm-cell.orange-bg .rm-val { color: var(--orange); font-size: 18px; }
+    .rm-cell.gray-bg .rm-val { color: #111827; font-size: 14px; }
+    .rm-cell .rm-lbl { font-size: 10px; color: #6B7280; }
+
+    .metrics-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; }
+    .metric-box { background: #F8F9FA; border-radius: 16px; padding: 22px; text-align: center; }
+    .metric-num { font-size: 32px; font-weight: 900; color: var(--orange); margin-bottom: 6px; }
+    .metric-lbl { font-size: 13px; color: #6B7280; }
+
+    /* PROCESS */
+    .process-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+    .process-card {
+      text-align: center; padding: 28px 20px; border-radius: 20px;
+      border: 1px solid #E5E7EB; background: #fff; transition: all .3s;
+    }
+    .process-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(255,92,0,.12); border-color: var(--orange); }
+    .process-num {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg,#FF5C00,#FF7A35);
+      border-radius: 14px; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px; font-size: 20px; font-weight: 900; color: #fff;
+    }
+    .process-card h3 { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 8px; }
+    .process-card p { font-size: 13px; color: #6B7280; line-height: 1.6; }
+
+    /* CTA */
+    .cta-section {
+      padding: 80px 5%;
+      background: linear-gradient(135deg,#FF5C00 0%,#FF7A35 60%,#FF5C00 100%);
+      text-align: center;
+    }
+    .cta-inner { max-width: 680px; margin: 0 auto; }
+    .cta-logo { font-size: 32px; font-weight: 900; color: #fff; letter-spacing: -1px; margin-bottom: 6px; font-style: italic; }
+    .cta-sub { font-size: 14px; color: rgba(255,255,255,.8); margin-bottom: 20px; font-weight: 500; }
+    .cta-section h2 { font-size: 40px; font-weight: 900; color: #fff; letter-spacing: -1.5px; margin-bottom: 16px; line-height: 1.1; }
+    .cta-section p { font-size: 16px; color: rgba(255,255,255,.85); margin-bottom: 36px; line-height: 1.6; }
+    .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-white {
+      background: #fff; color: var(--orange); padding: 16px 32px; border-radius: 12px;
+      font-weight: 800; font-size: 16px; border: none; cursor: pointer; transition: all .2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,.15); }
+    .btn-ghost-white {
+      background: transparent; color: #fff; padding: 16px 32px; border-radius: 12px;
+      font-weight: 600; font-size: 16px; border: 2px solid rgba(255,255,255,.5);
+      cursor: pointer; transition: all .2s; font-family: 'Inter', sans-serif;
+    }
+    .btn-ghost-white:hover { border-color: rgba(255,255,255,.9); }
+    .cta-note { margin-top: 18px; font-size: 12px; color: rgba(255,255,255,.65); }
+
+    /* FOOTER */
+    footer { background: #0F0F0F; padding: 48px 5% 28px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-logo { font-size: 28px; font-weight: 900; color: var(--orange); letter-spacing: -1px; font-style: italic; margin-bottom: 4px; }
+    .footer-founded { font-size: 12px; color: #6B7280; margin-bottom: 14px; font-weight: 500; }
+    .footer-desc { font-size: 14px; color: #9CA3AF; line-height: 1.7; max-width: 240px; margin-bottom: 14px; }
+    .footer-ig { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #9CA3AF; text-decoration: none; transition: color .2s; }
+    .footer-ig:hover { color: #E1306C; }
+    .footer-col-title { font-size: 11px; font-weight: 700; color: #6B7280; letter-spacing: 1px; margin-bottom: 16px; }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 14px; color: #9CA3AF; transition: color .2s; }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-contact span { display: block; font-size: 14px; color: #9CA3AF; margin-bottom: 10px; }
+    .footer-bottom { border-top: 1px solid #1F2937; padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 13px; color: #4B5563; }
+    .footer-legal { display: flex; gap: 16px; }
+    .footer-legal a { font-size: 13px; color: #4B5563; transition: color .2s; }
+    .footer-legal a:hover { color: var(--orange); }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      h1 { font-size: 36px; }
+      .hero-inner, .founder-grid, .results-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-right { display: none; }
+      .services-grid { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: repeat(2,1fr); }
+      .metrics-row { grid-template-columns: repeat(2,1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <span class="logo">scalio</span>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#founder">About</a>
+        <a href="#results">Results</a>
+        <a href="#process">Process</a>
+      </div>
+      <button class="btn-primary" onclick="window.location.href='#cta'">Book Strategy Call</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left" id="hero-left">
+      <span class="tag">🚀 Founded by a D2C Founder. Built for D2C Brands.</span>
+      <h1>Meta Ads. SEO.<br>Web Dev. All Under<br><span class="gradient-text">One Roof.</span></h1>
+      <p class="hero-desc">Scalio was built by Masum Gandhi — a founder who scaled his own ecommerce brand to 7-figure revenue using Meta Ads. Now he helps other brands do the same.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="window.location.href='#services'">Explore Services <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        <button class="btn-outline" onclick="window.location.href='#results'">View Real Results</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num" id="c1">0</div><div class="stat-label">Crore Revenue Generated</div></div>
+        <div class="stat-divider"></div>
+        <div><div class="stat-num" id="c2">0</div><div class="stat-label">Active Campaigns</div></div>
+        <div class="stat-divider"></div>
+        <div><div class="stat-num" id="c3">0</div><div class="stat-label">Avg. ROAS</div></div>
+      </div>
+    </div>
+
+    <div class="hero-right" id="hero-right">
+      <div class="dashboard-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+          <div>
+            <div style="font-size:11px;color:#6B7280;font-weight:600;letter-spacing:.5px">SHOPIFY · Oct 2025 – Apr 2026</div>
+            <div style="font-size:22px;font-weight:900;color:#111827;margin-top:4px">₹67,35,194 <span style="font-size:12px;color:#16a34a;font-weight:700;background:#DCFCE7;padding:3px 8px;border-radius:6px">↑ 792%</span></div>
+          </div>
+          <div style="background:#FFF2EC;padding:7px 13px;border-radius:8px;font-size:11px;font-weight:700;color:#FF5C00">LIVE</div>
+        </div>
+        <div class="chart-bars">
+          <div class="chart-bar" style="height:22%;opacity:.45"></div>
+          <div class="chart-bar" style="height:30%;opacity:.5"></div>
+          <div class="chart-bar" style="height:40%;opacity:.58"></div>
+          <div class="chart-bar" style="height:52%;opacity:.65"></div>
+          <div class="chart-bar" style="height:66%;opacity:.72"></div>
+          <div class="chart-bar" style="height:78%;opacity:.8"></div>
+          <div class="chart-bar" style="height:92%;opacity:.9"></div>
+          <div class="chart-bar" style="height:100%"></div>
+          <div class="chart-bar" style="height:88%;opacity:.88"></div>
+          <div class="chart-bar" style="height:70%;opacity:.7"></div>
+          <div class="chart-bar" style="height:40%;opacity:.5"></div>
+        </div>
+        <div class="dashboard-grid">
+          <div class="dashboard-cell"><div class="val">4,322</div><div class="lbl">Orders ↑432%</div></div>
+          <div class="dashboard-cell"><div class="val">₹45.4L</div><div class="lbl">Net Sales</div></div>
+          <div class="dashboard-cell"><div class="val">20.26%</div><div class="lbl">Return Rate</div></div>
+          <div class="dashboard-cell orange"><div class="val">₹48.1L</div><div class="lbl">↑ 481%</div></div>
+        </div>
+      </div>
+
+      <div class="float-chip top" id="float1">
+        <div class="chip-icon orange">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div><div class="chip-sub">Meta Spend → Revenue</div><div class="chip-val">₹7.3L → ₹42.2L</div></div>
+      </div>
+
+      <div class="float-chip bottom" id="float2">
+        <div class="chip-icon green">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        </div>
+        <div><div class="chip-sub">Top Campaign ROAS</div><div class="chip-val green">8.5x Purchase ROAS</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOGOS -->
+<section class="logos-bar">
+  <div style="max-width:1100px;margin:0 auto">
+    <p>TRUSTED BY INDIA'S FASTEST-GROWING D2C BRANDS</p>
+    <div class="logos-row">
+      <span>JEWELLERY</span><span>FASHION</span><span>SKINCARE</span><span>LIFESTYLE</span><span>HOMEWARE</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section class="section" id="founder">
+  <div class="section-inner">
+    <div class="founder-grid">
+      <div class="founder-card">
+        <div class="founder-header">
+          <div class="founder-photo">
+            <!-- Replace src below with your hosted photo URL -->
+            <img src="masum-photo.jpg" alt="Masum Gandhi — Founder, Scalio"
+              onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#fff\'>MG</div>'" />
+          </div>
+          <div>
+            <div class="founder-name">Masum Gandhi</div>
+            <div class="founder-title">Founder &amp; CEO, Scalio</div>
+            <a href="https://www.instagram.com/masumgandhi_/" target="_blank" rel="noopener" class="founder-ig">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
+              @masumgandhi_
+            </a>
+          </div>
+          <div class="podcast-badge">
+            <div class="podcast-dot"></div>
+            <span class="podcast-label">PODCAST</span>
+          </div>
+        </div>
+
+        <div class="founder-quote">
+          <p>"I didn't start as an agency owner. I started as a D2C founder who was bleeding money on ads with no results. I figured out Meta the hard way — and scaled my own ecommerce brand to 7-figure revenue. Scalio exists because I wanted other founders to skip the painful part."</p>
+        </div>
+
+        <div class="founder-stats">
+          <div class="founder-stat"><div class="fs-val">7-Figure</div><div class="fs-lbl">Own ecommerce revenue via Meta Ads</div></div>
+          <div class="founder-stat"><div class="fs-val">Podcast Host</div><div class="fs-lbl">Business · D2C · Meta growth</div></div>
+        </div>
+
+        <div class="corner-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+      </div>
+
+      <div class="founder-right">
+        <span class="tag">The Founder's Story</span>
+        <h2>Built by Someone<br>Who's <span class="gradient-text">Done It Himself</span></h2>
+        <p>Most agency founders have never run their own ecommerce brand. Masum Gandhi has. He built and scaled his own D2C business to <strong style="color:#111827">7-figure revenue</strong> — powered entirely by Meta Ads, with no outside funding.</p>
+        <p>After cracking the code on Meta's algorithm, creative strategy, and scaling playbooks — he founded <strong style="color:#FF5C00">Scalio</strong> to help brands skip the learning curve. He also hosts his own <strong style="color:#111827">podcast</strong> where he talks raw about building D2C brands, running profitable ads, and the founder mindset.</p>
+        <div class="check-list">
+          <div class="check-item">
+            <div class="check-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div><div class="check-title">Real founder experience</div><div class="check-desc">Masum knows the pressure of running a brand — not just managing campaigns from a distance.</div></div>
+          </div>
+          <div class="check-item">
+            <div class="check-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div><div class="check-title">Meta-first, deep expertise</div><div class="check-desc">Built an entire business on Meta Ads alone — knows what actually moves ROAS.</div></div>
+          </div>
+          <div class="check-item">
+            <div class="check-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div><div class="check-title">Helping others scale + sharing openly</div><div class="check-desc">Through Scalio's services and his podcast — he shares everything so founders can grow faster.</div></div>
+          </div>
+        </div>
+        <div class="founder-btns">
+          <button class="btn-primary" onclick="window.location.href='#cta'">Book Strategy Call <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          <a href="https://www.instagram.com/masumgandhi_/" target="_blank" rel="noopener" class="ig-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
+            @masumgandhi_
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services" style="background:#F8F9FA">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="tag">Everything You Need to Scale</span>
+      <h2>One Agency.<br>Every Growth Channel.</h2>
+      <p>Meta Ads, SEO, Website — every lever that drives your revenue, guided by someone who's done it himself.</p>
+    </div>
+    <div class="services-grid">
+      <!-- Meta Ads -->
+      <div class="svc-card featured">
+        <div class="svc-header">
+          <div class="svc-icon-wrap filled"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
+          <span class="svc-badge orange">MASUM'S EXPERTISE</span>
+        </div>
+        <h3>Meta Ads — Full Service</h3>
+        <p>From ad account setup to scaling past ₹10L/month in spend. Masum built a 7-figure business on Meta — now he runs yours with the same playbook.</p>
+        <div class="meta-grid">
+          <div class="meta-cell"><div class="meta-cell-title">AD ACCOUNT SETUP</div><div class="meta-cell-desc">BM · Pixel · Events API · Catalogue · Audiences</div></div>
+          <div class="meta-cell"><div class="meta-cell-title">STRATEGY & SCALING</div><div class="meta-cell-desc">Campaign structure · Creative testing · ROAS scaling</div></div>
+          <div class="meta-cell"><div class="meta-cell-title">CAMPAIGN MANAGEMENT</div><div class="meta-cell-desc">Daily optimisation · Budget mgmt · A/B testing</div></div>
+          <div class="meta-cell"><div class="meta-cell-title">CONSULTING</div><div class="meta-cell-desc">Strategy calls · Account audits · Team training</div></div>
+        </div>
+        <div class="meta-proof">
+          <span>Proven across 51+ campaigns</span>
+          <span>₹7.3L Spend → ₹42.2L Revenue</span>
+        </div>
+      </div>
+
+      <!-- SEO -->
+      <div class="svc-card">
+        <div class="svc-header">
+          <div class="svc-icon-wrap"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FF5C00" stroke-width="2" stroke-linecap="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+          <span class="svc-badge green">LONG-TERM GROWTH</span>
+        </div>
+        <h3>SEO Management</h3>
+        <p>Organic traffic that compounds every month. Reduce your dependency on paid ads with content and authority that ranks long-term.</p>
+        <div class="seo-grid">
+          <div class="seo-cell"><div class="seo-cell-title">Technical</div><div class="seo-cell-desc">Core Web Vitals · Speed · Schema</div></div>
+          <div class="seo-cell"><div class="seo-cell-title">On-Page</div><div class="seo-cell-desc">Keywords · Meta tags · Content</div></div>
+          <div class="seo-cell"><div class="seo-cell-title">Off-Page</div><div class="seo-cell-desc">Link building · Authority signals</div></div>
+        </div>
+        <div class="seo-note">Monthly reporting + keyword rank tracking included</div>
+      </div>
+
+      <!-- Website -->
+      <div class="svc-card">
+        <div class="svc-header">
+          <div class="svc-icon-wrap"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FF5C00" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+          <span class="svc-badge blue">D2C READY</span>
+        </div>
+        <h3>Website Management &amp; Development</h3>
+        <p>High-converting Shopify stores and landing pages — built, managed, and optimised for performance.</p>
+        <div class="dot-list">
+          <div class="dot-item"><div class="dot"></div><span>Shopify store setup, theming &amp; custom development</span></div>
+          <div class="dot-item"><div class="dot"></div><span>High-converting landing pages for Meta campaigns</span></div>
+          <div class="dot-item"><div class="dot"></div><span>CRO — A/B testing, checkout &amp; UX optimisation</span></div>
+          <div class="dot-item"><div class="dot"></div><span>Ongoing maintenance, speed &amp; updates</span></div>
+        </div>
+      </div>
+
+      <!-- Creative -->
+      <div class="svc-card">
+        <div class="svc-header">
+          <div class="svc-icon-wrap"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FF5C00" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        </div>
+        <h3>Creative &amp; Influencer Marketing</h3>
+        <p>Scroll-stopping ad creatives and UGC that convert. Influencer campaigns tracked for performance, not just reach.</p>
+        <div class="creative-grid">
+          <div class="creative-cell"><div class="creative-cell-title">Creative Production</div><div class="creative-cell-desc">Static · Video · UGC · Carousel ads</div></div>
+          <div class="creative-cell"><div class="creative-cell-title">Influencer Marketing</div><div class="creative-cell-desc">Sourcing · Briefs · Tracking · Whitelisting</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="section" id="results">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="tag">Real Numbers. Real Clients.</span>
+      <h2>Proof Over Promises</h2>
+      <p>Live Shopify + Meta dashboards from our active client accounts. No fabricated numbers.</p>
+    </div>
+    <div class="results-grid">
+      <div class="result-card featured">
+        <div class="result-header">
+          <div><div class="result-label">CLIENT 01 — JEWELLERY D2C</div><div class="result-name">Meta Ads · All Campaigns</div></div>
+          <span class="active-badge">ACTIVE</span>
+        </div>
+        <div class="result-body">
+          <div class="result-row">
+            <div class="result-cell"><div class="rc-label">Ad Spend</div><div class="rc-val">₹7,34,846</div></div>
+            <div class="result-cell"><div class="rc-label">Website Revenue</div><div class="rc-val orange">₹42,22,629</div></div>
+          </div>
+        </div>
+        <div class="result-metrics">
+          <div class="rm-cell orange-bg"><div class="rm-val">5.7x</div><div class="rm-lbl">ROAS</div></div>
+          <div class="rm-cell orange-bg"><div class="rm-val">51</div><div class="rm-lbl">Campaigns</div></div>
+          <div class="rm-cell orange-bg"><div class="rm-val">₹211</div><div class="rm-lbl">Avg CPA</div></div>
+        </div>
+      </div>
+      <div class="result-card">
+        <div class="result-header">
+          <div><div class="result-label">CLIENT 02 — FASHION D2C</div><div class="result-name">Shopify · Oct 25 – Apr 26</div></div>
+          <span class="active-badge">ACTIVE</span>
+        </div>
+        <div class="result-body">
+          <div class="result-row">
+            <div class="result-cell"><div class="rc-label">Gross Sales</div><div class="rc-val">₹67,35,194</div><div class="rc-val green">↑ 792.4%</div></div>
+            <div class="result-cell"><div class="rc-label">Total Orders</div><div class="rc-val orange">4,322</div><div class="rc-val green">↑ 432.1%</div></div>
+          </div>
+        </div>
+        <div class="result-metrics">
+          <div class="rm-cell gray-bg"><div class="rm-val">₹48.1L</div><div class="rm-lbl">Total Sales ↑481%</div></div>
+          <div class="rm-cell gray-bg"><div class="rm-val">₹45.4L</div><div class="rm-lbl">Net Sales ↑454%</div></div>
+          <div class="rm-cell gray-bg"><div class="rm-val">3,451</div><div class="rm-lbl">Fulfilled</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="metrics-row">
+      <div class="metric-box"><div class="metric-num" id="m1">0</div><div class="metric-lbl">Revenue Generated</div></div>
+      <div class="metric-box"><div class="metric-num" id="m2">0</div><div class="metric-lbl">Meta Spend Managed</div></div>
+      <div class="metric-box"><div class="metric-num" id="m3">0</div><div class="metric-lbl">Avg Purchase ROAS</div></div>
+      <div class="metric-box"><div class="metric-num" id="m4">0</div><div class="metric-lbl">Total Purchases</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section" id="process" style="background:#F8F9FA">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="tag">How We Work</span>
+      <h2>The Scalio Playbook</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-card"><div class="process-num">01</div><h3>Deep Audit</h3><p>Ad account, website, SEO health — we find every leak in your growth funnel.</p></div>
+      <div class="process-card"><div class="process-num">02</div><h3>Strategy</h3><p>Masum builds a custom growth plan across Meta, SEO and your website — tied to your revenue targets.</p></div>
+      <div class="process-card"><div class="process-num">03</div><h3>Execute</h3><p>Launch campaigns, build the website, fix SEO. We move fast and measure everything from day one.</p></div>
+      <div class="process-card"><div class="process-num">04</div><h3>Scale</h3><p>Double winners. Cut losers. Grow every channel in sync for compounding, predictable revenue.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <div class="cta-inner">
+    <div class="cta-logo">scalio</div>
+    <div class="cta-sub">Founded by Masum Gandhi</div>
+    <h2>Work Directly With<br>Someone Who's<br>Done It Himself</h2>
+    <p>Book a free 30-min strategy call. Walk away with a clear Meta + growth plan — even if you don't hire us.</p>
+    <div class="cta-btns">
+      <button class="btn-white" onclick="window.location.href='mailto:hello@scalio.in'">Book Strategy Call →</button>
+      <button class="btn-ghost-white">See Pricing</button>
+    </div>
+    <p class="cta-note">No commitment. No credit card. Just a real conversation about your growth.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">scalio</div>
+        <div class="footer-founded">Founded by Masum Gandhi</div>
+        <p class="footer-desc">Meta Ads · SEO · Website Development. Built by a D2C founder, for D2C brands.</p>
+        <a href="https://www.instagram.com/masumgandhi_/" target="_blank" rel="noopener" class="footer-ig">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
+          @masumgandhi_
+        </a>
+      </div>
+      <div>
+        <div class="footer-col-title">SERVICES</div>
+        <div class="footer-links">
+          <a href="#services">Meta Ads Setup</a>
+          <a href="#services">Meta Strategy &amp; Scaling</a>
+          <a href="#services">SEO Management</a>
+          <a href="#services">Website Dev</a>
+          <a href="#services">Creative &amp; Influencer</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">COMPANY</div>
+        <div class="footer-links">
+          <a href="#founder">About Masum</a>
+          <a href="#results">Case Studies</a>
+          <a href="#">Podcast</a>
+          <a href="#">Blog</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">CONTACT</div>
+        <div class="footer-contact">
+          <span>hello@scalio.in</span>
+          <span>Mumbai, India</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Scalio by Masum Gandhi. All rights reserved.</div>
+      <div class="footer-legal"><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Animate counters on scroll
+  function animateCount(el, target, suffix, decimals, prefix) {
+    decimals = decimals || 0; prefix = prefix || '';
+    let v = 0; const inc = target / 112;
+    const t = setInterval(() => {
+      v = Math.min(v + inc, target);
+      el.textContent = prefix + (decimals > 0 ? v.toFixed(decimals) : Math.floor(v)) + suffix;
+      if (v >= target) clearInterval(t);
+    }, 16);
+  }
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const id = e.target.id;
+      if (id === 'c1') animateCount(e.target, 1.09, 'Cr+', 2, '₹');
+      if (id === 'c2') animateCount(e.target, 75, '+');
+      if (id === 'c3') animateCount(e.target, 5.7, 'x', 1);
+      if (id === 'm1') animateCount(e.target, 109, 'L+', 0, '₹');
+      if (id === 'm2') animateCount(e.target, 14.9, 'L+', 1, '₹');
+      if (id === 'm3') animateCount(e.target, 5.7, 'x', 1);
+      if (id === 'm4') animateCount(e.target, 6200, '+');
+      obs.unobserve(e.target);
+    });
+  }, { threshold: 0.3 });
+
+  ['c1','c2','c3','m1','m2','m3','m4'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) obs.observe(el);
+  });
+
+  // Hero fade-in
+  setTimeout(() => {
+    const hl = document.getElementById('hero-left');
+    const hr = document.getElementById('hero-right');
+    if (hl) hl.classList.add('visible');
+    if (hr) hr.classList.add('visible');
+  }, 80);
+
+  // Floating chip animation
+  let tick = 0;
+  const f1 = document.getElementById('float1');
+  const f2 = document.getElementById('float2');
+  setInterval(() => {
+    tick += 0.03;
+    if (f1) f1.style.transform = `translateY(${Math.sin(tick) * 7}px)`;
+    if (f2) f2.style.transform = `translateY(${Math.sin(tick + 1.6) * 7}px)`;
+  }, 30);
+</script>
+</body>
+</html>
