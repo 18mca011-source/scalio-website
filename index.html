@@ -393,6 +393,42 @@
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
       .nav-links { display: none; }
     }
+    @media (max-width: 600px) {
+      nav { padding: 0 4%; }
+      .nav-inner { height: 60px; }
+      .logo { font-size: 22px; }
+      .btn-primary { padding: 11px 18px; font-size: 13px; }
+      .hero { padding: 48px 4% 40px; }
+      h1 { font-size: 30px; letter-spacing: -1px; }
+      .hero-desc { font-size: 14px; }
+      .hero-btns { flex-direction: column; }
+      .hero-btns .btn-primary, .hero-btns .btn-outline { width: 100%; justify-content: center; }
+      .hero-stats { gap: 16px; }
+      .stat-num { font-size: 20px; }
+      .section { padding: 52px 4%; }
+      .section-header h2 { font-size: 28px; }
+      .founder-card { padding: 22px; }
+      .founder-btns { flex-direction: column; }
+      .founder-btns .btn-primary, .founder-btns .ig-btn { width: 100%; justify-content: center; }
+      .founder-right h2 { font-size: 26px; }
+      .process-grid { grid-template-columns: 1fr; }
+      .metrics-row { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .result-card { padding: 18px; }
+      .result-row { grid-template-columns: 1fr; gap: 8px; }
+      .result-metrics { grid-template-columns: repeat(3,1fr); gap: 6px; }
+      .rm-cell .rm-val { font-size: 14px; }
+      .cta-section { padding: 52px 4%; }
+      .cta-section h2 { font-size: 28px; }
+      .cta-btns { flex-direction: column; align-items: center; }
+      .btn-white, .btn-ghost-white { width: 100%; max-width: 320px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .meta-grid { grid-template-columns: 1fr; }
+      .seo-grid { grid-template-columns: 1fr; }
+      .creative-grid { grid-template-columns: 1fr; }
+      .founder-stats { grid-template-columns: 1fr; }
+      .dashboard-grid { grid-template-columns: repeat(2,1fr); }
+    }
   </style>
 </head>
 <body>
@@ -408,7 +444,7 @@
         <a href="#results">Results</a>
         <a href="#process">Process</a>
       </div>
-      <button class="btn-primary" onclick="window.location.href='#cta'">Book Strategy Call</button>
+      <a href="https://calendly.com/services-masumgandhi/30min" target="_blank" rel="noopener" class="btn-primary">Book Strategy Call</a>
     </div>
   </div>
 </nav>
@@ -421,7 +457,7 @@
       <h1>Meta Ads. SEO.<br>Web Dev. All Under<br><span class="gradient-text">One Roof.</span></h1>
       <p class="hero-desc">Scalio was built by Masum Gandhi — a founder who scaled his own ecommerce brand to 7-figure revenue using Meta Ads. Now he helps other brands do the same.</p>
       <div class="hero-btns">
-        <button class="btn-primary" onclick="window.location.href='#services'">Explore Services <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        <a href="https://calendly.com/services-masumgandhi/30min" target="_blank" rel="noopener" class="btn-primary">Book Strategy Call <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
         <button class="btn-outline" onclick="window.location.href='#results'">View Real Results</button>
       </div>
       <div class="hero-stats">
@@ -549,7 +585,7 @@
           </div>
         </div>
         <div class="founder-btns">
-          <button class="btn-primary" onclick="window.location.href='#cta'">Book Strategy Call <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          <a href="https://calendly.com/services-masumgandhi/30min" target="_blank" rel="noopener" class="btn-primary">Book Strategy Call <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
           <a href="https://www.instagram.com/masumgandhi_/" target="_blank" rel="noopener" class="ig-btn">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
             @masumgandhi_
@@ -714,7 +750,7 @@
     <h2>Work Directly With<br>Someone Who's<br>Done It Himself</h2>
     <p>Book a free 30-min strategy call. Walk away with a clear Meta + growth plan — even if you don't hire us.</p>
     <div class="cta-btns">
-      <button class="btn-white" onclick="window.location.href='mailto:hello@scalio.in'">Book Strategy Call →</button>
+      <a href="https://calendly.com/services-masumgandhi/30min" target="_blank" rel="noopener" class="btn-white">Book Strategy Call →</a>
       <button class="btn-ghost-white">See Pricing</button>
     </div>
     <p class="cta-note">No commitment. No credit card. Just a real conversation about your growth.</p>
