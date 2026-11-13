@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="mj-logo.png">
+<title>Mahavir Jewellers Gold Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap">
+<style>
+/* Layout: centred showroom header with the MJ logo; below it a rate card and a bill card, side by side on wide screens, stacked on phones. White ground, gold as the only accent, Trajan-like caps echoing the logo. */
+:root {
+  --bg: #ffffff;
+  --card: #ffffff;
+  --field: #fdfbf6;
+  --ink: #1d1a15;
+  --muted: #7a705f;
+  --line: #ece4d2;
+  --gold: #a9802c;
+  --gold-deep: #8a6620;
+  --gold-light: #e6cf8f;
+  --gold-wash: #fbf6ea;
+  --ok: #3d7a52;
+  --grad: linear-gradient(135deg, #b8892b 0%, #d9b964 50%, #a9802c 100%);
+  --f-brand: "Jost", "Helvetica Neue", system-ui, sans-serif;
+  --f-num: "Jost", "Helvetica Neue", system-ui, sans-serif;
+  --f-body: "Jost", "Helvetica Neue", system-ui, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 12px 40px;
+}
+.wrap { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+
+/* Header */
+header { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+header img { width: 100%; max-width: 300px; height: auto; display: block; }
+.rule { display: flex; align-items: center; gap: 12px; width: 100%; max-width: 420px; }
+.rule::before, .rule::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-light), transparent); }
+.rule span { width: 7px; height: 7px; transform: rotate(45deg); background: var(--grad); }
+header h1 { margin: 0; font-family: var(--f-brand); font-weight: 500; font-size: clamp(1rem, 2.6vw, 1.2rem); letter-spacing: .28em; text-transform: uppercase; color: var(--gold-deep); }
+.date { font-size: .85rem; color: var(--muted); letter-spacing: .06em; }
+
+.grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
+@media (min-width: 860px) { .grid { grid-template-columns: 1fr 1.15fr; align-items: start; } }
+
+.card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 26px 22px;
+  display: flex; flex-direction: column; gap: 18px; min-width: 0;
+  box-shadow: 0 1px 0 rgba(169,128,44,.06), 0 18px 40px -24px rgba(120,90,30,.25);
+  position: relative;
+}
+.card::before { content: ""; position: absolute; inset: 0 22px auto; height: 2px; border-radius: 0 0 2px 2px; background: var(--grad); opacity: .8; }
+.card h2 { margin: 0; font-family: var(--f-brand); font-weight: 600; font-size: 1rem; letter-spacing: .22em; text-transform: uppercase; color: var(--ink); }
+
+.eyebrow { display: block; font-size: .75rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.eyebrow .hint { font-weight: 400; letter-spacing: .04em; text-transform: none; }
+.field { display: flex; flex-direction: column; min-width: 0; }
+.inputbox { display: flex; align-items: center; border: 1px solid var(--line); border-radius: 12px; background: var(--field); overflow: hidden; transition: border-color .15s, box-shadow .15s; }
+.inputbox:focus-within { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(169,128,44,.12); }
+.inputbox .pre, .inputbox .post { padding: 0 14px; color: var(--muted); font-size: .9rem; white-space: nowrap; }
+.inputbox .pre { padding-right: 0; font-family: var(--f-num); font-size: 1.3rem; color: var(--gold); }
+input[type="number"] {
+  font-family: var(--f-body); font-size: 1.15rem; font-weight: 500; color: var(--ink); background: transparent; border: 0; padding: 12px 10px; width: 100%; min-width: 0; outline: none;
+  font-variant-numeric: tabular-nums;
+}
+.big input[type="number"] { font-family: var(--f-num); font-size: 2rem; font-weight: 600; padding: 8px 10px; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 420px) { .row2 { grid-template-columns: 1fr; } }
+
+/* Rate board */
+.rates { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.rate { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 4px 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.rate .karat { font-family: var(--f-brand); font-weight: 600; font-size: 1.05rem; letter-spacing: .1em; color: var(--gold-deep); grid-row: span 2; align-self: center; min-width: 52px; }
+.rate .v { font-family: var(--f-num); font-weight: 600; font-size: 1.7rem; line-height: 1.1; text-align: right; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.rate .s { font-size: .85rem; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+.rate .karat .hm { display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 6px; border: 1px solid var(--gold-light); background: var(--card); font-size: .75rem; font-weight: 600; letter-spacing: .04em; color: var(--gold-deep); vertical-align: middle; }
+.rate.hero { background: var(--gold-wash); margin-inline: -22px; padding-inline: 22px; }
+.rate.hero .v { color: var(--gold-deep); }
+.note { font-size: .82rem; color: var(--muted); margin: 0; }
+
+/* Fixed chips */
+.fixed { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 12px; background: var(--gold-wash); border: 1px solid var(--line); }
+.fixed .k { font-size: .75rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.fixed .v { font-family: var(--f-brand); font-weight: 600; letter-spacing: .08em; color: var(--gold-deep); }
+
+/* GST switch */
+.switch { display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; padding: 4px 0; }
+.switch .lbl { font-weight: 500; }
+.switch input { position: absolute; opacity: 0; pointer-events: none; }
+.track { width: 46px; height: 26px; border-radius: 13px; background: var(--line); position: relative; transition: background .2s; flex: none; }
+.track::after { content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.2); transition: transform .2s; }
+.switch input:checked + .track { background: var(--gold); }
+.switch input:checked + .track::after { transform: translateX(20px); }
+.switch input:focus-visible + .track { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* Bill */
+.bill { background: var(--field); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 8px; font-variant-numeric: tabular-nums; }
+.bill .ln { display: flex; justify-content: space-between; gap: 12px; font-size: .95rem; }
+.bill .ln span:first-child { color: var(--muted); min-width: 0; }
+.bill .ln span:last-child { font-weight: 500; white-space: nowrap; }
+.bill .ln.minus span:last-child { color: var(--ok); }
+.bill .total { margin-top: 8px; padding-top: 14px; border-top: 1px dashed var(--gold-light); display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.bill .total span:first-child { font-family: var(--f-brand); font-weight: 600; letter-spacing: .16em; text-transform: uppercase; font-size: .85rem; }
+.bill .total strong { font-family: var(--f-num); font-weight: 600; font-size: 2.6rem; line-height: 1; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+.actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn { font: inherit; font-weight: 600; letter-spacing: .06em; padding: 13px 20px; border-radius: 12px; border: 0; cursor: pointer; background: var(--grad); color: #fff; flex: 1 1 200px; box-shadow: 0 8px 18px -10px rgba(138,102,32,.7); }
+.btn.ghost { background: transparent; color: var(--gold-deep); border: 1px solid var(--gold-light); box-shadow: none; flex: 0 1 auto; }
+.btn:hover { filter: brightness(1.04); }
+button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.toast { font-size: .9rem; color: var(--ok); font-weight: 500; min-height: 1.4em; text-align: center; }
+textarea#copyFallback { width: 100%; font: inherit; font-size: .9rem; border: 1px solid var(--line); border-radius: 10px; padding: 10px; background: var(--field); color: var(--ink); }
+
+footer { text-align: center; font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+<style>
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="mj-logo.png" alt="Mahavir Jewellers — Gold and Silver Jewellery Showroom" width="470" height="270">
+    <div class="rule"><span></span></div>
+    <h1>Gold Rate Calculator</h1>
+    <div class="date" id="today"></div>
+  </header>
+
+  <div class="grid">
+    <!-- RATES -->
+    <section class="card" aria-labelledby="ratesH">
+      <h2 id="ratesH">Today's Rate</h2>
+
+      <div class="field big">
+        <label class="eyebrow" for="rate24">24K Gold <span class="hint">· ₹ per 10 grams</span></label>
+        <div class="inputbox"><span class="pre">₹</span><input type="number" id="rate24" inputmode="decimal" min="0" step="1" value="125000"><span class="post">/ 10g</span></div>
+      </div>
+
+      <div class="rates" aria-live="polite">
+        <div class="rate"><span class="karat">24K</span><span class="v" id="t24">—</span><span class="s" id="t24g">—</span></div>
+        <div class="rate hero"><span class="karat">22K <small class="hm">916</small></span><span class="v" id="t22">—</span><span class="s" id="t22g">—</span></div>
+      </div>    </section>
+
+    <!-- BILL -->
+    <section class="card" aria-labelledby="calcH">
+      <h2 id="calcH">Bill Calculator</h2>
+
+      <div class="fixed"><span class="k">Metal</span><span class="v">22K Gold</span></div>
+
+      <div class="row2">
+        <div class="field">
+          <label class="eyebrow" for="wt">Weight</label>
+          <div class="inputbox"><input type="number" id="wt" inputmode="decimal" min="0" step="0.001" value="4"><span class="post">grams</span></div>
+        </div>
+        <div class="field">
+          <label class="eyebrow" for="mk">Making Charge</label>
+          <div class="inputbox"><input type="number" id="mk" inputmode="decimal" min="0" step="0.01" value="12"><span class="post">%</span></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="eyebrow" for="disc">Making Discount <span class="hint">· ₹, leave 0 if none</span></label>
+        <div class="inputbox"><span class="pre">₹</span><input type="number" id="disc" inputmode="decimal" min="0" step="1" value="0"></div>
+      </div>
+
+      <label class="switch" for="gst"><span class="lbl">Add GST 3%</span><input type="checkbox" id="gst" checked><span class="track" aria-hidden="true"></span></label>
+
+      <div class="bill" aria-live="polite">
+        <div class="ln"><span id="bMetalLbl">Gold value</span><span id="bMetal">—</span></div>
+        <div class="ln"><span id="bMkLbl">Making</span><span id="bMk">—</span></div>
+        <div class="ln minus" id="bDiscRow"><span>Making discount</span><span id="bDisc">—</span></div>
+        <div class="ln"><span>Subtotal (before GST)</span><span id="bSub">—</span></div>
+        <div class="ln" id="bGstRow"><span>GST 3%</span><span id="bGst">—</span></div>
+        <div class="total"><span>Total Amount</span><strong id="bTotal">—</strong></div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn" id="copyBtn">Copy Bill for WhatsApp</button>
+        <button type="button" class="btn ghost" id="resetBtn">New Bill</button>
+      </div>
+      <div class="toast" id="toast" role="status"></div>
+      <textarea id="copyFallback" rows="9" hidden readonly></textarea>
+    </section>
+  </div>
+
+  <footer>Mahavir Jewellers · Gold and Silver Jewellery Showroom</footer>
+</div>
+
+<script>
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const num = (id) => { const v = parseFloat($(id).value); return isFinite(v) && v > 0 ? v : 0; };
+  const inr = (n, d = 0) => '₹' + n.toLocaleString('en-IN', { minimumFractionDigits: d, maximumFractionDigits: d });
+  const round = (n) => Math.round(n);
+
+  const PURITY_22 = 91.6;
+  const STORE = 'jewel-rates-v1';
+
+  const todayStr = new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  $('today').textContent = todayStr;
+
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORE) || 'null');
+    if (saved) {
+      if (saved.rate24 != null) $('rate24').value = saved.rate24;
+      if (saved.mk != null && saved.mkMode === 'pct') $('mk').value = saved.mk;
+    }
+  } catch (e) {}
+
+  function save() {
+    try { localStorage.setItem(STORE, JSON.stringify({ rate24: $('rate24').value, mk: $('mk').value, mkMode: 'pct' })); } catch (e) {}
+  }
+
+  let lastBill = '';
+
+  function render() {
+    const g24 = num('rate24') / 10;
+    const g22 = g24 * PURITY_22 / 100;
+    $('t24').textContent = inr(round(g24 * 10));
+    $('t24g').textContent = inr(g24, 2) + ' per gram';
+    $('t22').textContent = inr(round(g22 * 10));
+    $('t22g').textContent = inr(g22, 2) + ' per gram';
+
+    const wt = num('wt');
+    const metalVal = g22 * wt;
+    const mkPct = num('mk');
+    const making = metalVal * mkPct / 100;
+    const disc = Math.min(num('disc'), making);
+    const sub = metalVal + making - disc;
+    const gstOn = $('gst').checked;
+    const gst = gstOn ? sub * 0.03 : 0;
+    const total = sub + gst;
+
+    $('bMetalLbl').textContent = `22K Gold (${wt} g × ${inr(g22, 2)})`;
+    $('bMetal').textContent = inr(round(metalVal));
+    $('bMkLbl').textContent = `Making (${mkPct}%)`;
+    $('bMk').textContent = inr(round(making));
+    $('bDiscRow').hidden = disc <= 0;
+    $('bDisc').textContent = '− ' + inr(round(disc));
+    $('bSub').textContent = inr(round(sub));
+    $('bGstRow').hidden = !gstOn;
+    $('bGst').textContent = inr(round(gst));
+    $('bTotal').textContent = inr(round(total));
+
+    const lines = [
+      '*MAHAVIR JEWELLERS*',
+      todayStr,
+      '',
+      `*22K Gold — ${wt} grams*`,
+      `Rate: ${inr(g22, 2)} per gram`,
+      `Gold value: ${inr(round(metalVal))}`,
+      `Making (${mkPct}%): ${inr(round(making))}`,
+    ];
+    if (disc > 0) lines.push(`Making discount: −${inr(round(disc))}`);
+    if (gstOn) lines.push(`GST 3%: ${inr(round(gst))}`);
+    lines.push(`*Total Amount: ${inr(round(total))}*`);
+    lastBill = lines.join('\n');
+    save();
+  }
+
+  document.querySelectorAll('input[type="number"]').forEach((el) => el.addEventListener('input', render));
+  $('gst').addEventListener('change', render);
+
+  function toast(msg) { $('toast').textContent = msg; setTimeout(() => { $('toast').textContent = ''; }, 2500); }
+
+  $('copyBtn').addEventListener('click', () => {
+    const fb = $('copyFallback');
+    const fallback = () => { fb.value = lastBill; fb.hidden = false; fb.focus(); fb.select(); toast('The bill text below is selected. Copy it.'); };
+    try {
+      navigator.clipboard.writeText(lastBill).then(() => { fb.hidden = true; toast('Bill copied ✓'); }, fallback);
+    } catch (e) { fallback(); }
+  });
+
+  $('resetBtn').addEventListener('click', () => {
+    $('wt').value = ''; $('disc').value = '0'; $('copyFallback').hidden = true; render(); $('wt').focus();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
