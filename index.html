@@ -332,7 +332,7 @@ img { max-width: 100%; }
   const PRODUCTS = {
     agra: { name: 'Agra', labour: 250 },
     ring: { name: 'Ring', labour: 100 },
-    bangles: { name: 'Vagh Chudi', labour: 7, per: 'g' },  // labour per gram of weight
+    bangles: { name: 'Wagh Chudi', labour: 7, per: 'g' },  // labour per gram of weight
   };
   let prod = 'agra';
   Object.entries(PRODUCTS).forEach(([k, v]) => { const o = document.createElement('option'); o.value = k; o.textContent = v.name; $('s-prod').appendChild(o); });
