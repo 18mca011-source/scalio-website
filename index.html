@@ -100,7 +100,8 @@ input[type="number"] {
 .row3 > .field { min-width: 0; }
 .inputbox:has(input[readonly]) { background: #f6f3ec; }
 input[readonly] { cursor: default; }
-@media (max-width: 640px) { .row3 { grid-template-columns: 1fr 1fr; } .row3 > .field:nth-child(2) { grid-column: 1 / -1; order: 3; } }
+@media (max-width: 640px) { .row3 { grid-template-columns: 1fr 1fr; } .row3 > .field:nth-child(2) { grid-column: 1 / -1; order: 3; } .row3:has(#s-pcsField[hidden]) > .field:first-child { grid-column: 1 / -1; } }
+.row3:has(#s-pcsField[hidden]) { grid-template-columns: 1fr 1fr; }
 
 /* Rate board */
 .rates { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
@@ -265,7 +266,7 @@ img { max-width: 100%; }
           <label class="eyebrow" for="s-pg">Rate per gram</label>
           <div class="inputbox"><span class="pre">₹</span><input type="number" id="s-pg" value="180" readonly tabindex="-1"><span class="post">/ g</span></div>
         </div>
-        <div class="field">
+        <div class="field" id="s-pcsField">
           <label class="eyebrow" for="s-pcs">Pieces</label>
           <div class="inputbox"><input type="number" id="s-pcs" inputmode="numeric" min="1" step="1" value="1"><span class="post">pcs</span></div>
         </div>
@@ -331,6 +332,7 @@ img { max-width: 100%; }
   const PRODUCTS = {
     agra: { name: 'Agra', labour: 250 },
     ring: { name: 'Ring', labour: 100 },
+    bangles: { name: 'Bangles', labour: 7, per: 'g' },  // labour per gram of weight
   };
   let prod = 'agra';
   Object.entries(PRODUCTS).forEach(([k, v]) => { const o = document.createElement('option'); o.value = k; o.textContent = v.name; $('s-prod').appendChild(o); });
@@ -390,11 +392,14 @@ img { max-width: 100%; }
   function silverBill(sg) {
     const P = PRODUCTS[prod];
     $('s-prod').value = prod;
-    $('s-prodLab').textContent = 'Labour ' + inr(P.labour);
+    const perG = P.per === 'g';
+    $('s-prodLab').textContent = 'Labour ' + inr(P.labour) + (perG ? ' / g' : '');
+    $('s-pcsField').hidden = perG;
     const wt = num('s-wt');
     const pcs = Math.max(1, Math.round(num('s-pcs')) || 1);
     const metalVal = sg * wt;
-    const labour = P.labour * pcs;
+    const labour = perG ? P.labour * wt : P.labour * pcs;
+    const labTxt = perG ? `${wt} g × ${inr(P.labour)}` : `${pcs} pc × ${inr(P.labour)}`;
     const sub = metalVal + labour;
     const gstOn = $('s-gst').checked;
     const half = gstOn ? Math.round(Math.round(sub) * 0.015) : 0;
@@ -402,15 +407,15 @@ img { max-width: 100%; }
 
     $('s-bMetalLbl').textContent = `Silver (${wt} g × ${inr(sg, 2)})`;
     $('s-bMetal').textContent = inr(round(metalVal));
-    $('s-bLabLbl').textContent = `Labour – ${P.name} (${pcs} × ${inr(P.labour)})`;
-    $('s-bLab').textContent = inr(labour);
+    $('s-bLabLbl').textContent = `Labour – ${P.name} (${labTxt})`;
+    $('s-bLab').textContent = inr(round(labour));
     $('s-bSub').textContent = inr(round(sub));
     $('s-bGstRow').hidden = !gstOn;
     $('s-bCgst').textContent = inr(round(half));
     $('s-bSgst').textContent = inr(round(half));
     $('s-bTotal').textContent = inr(round(total));
 
-    const lines = ['*MAHAVIR JEWELLERS*', todayStr, '', `*Silver ${P.name} — ${wt} grams*`, `Rate: ${inr(sg, 2)} per gram`, `Silver value: ${inr(round(metalVal))}`, `Labour (${pcs} pc × ${inr(P.labour)}): ${inr(labour)}`];
+    const lines = ['*MAHAVIR JEWELLERS*', todayStr, '', `*Silver ${P.name} — ${wt} grams*`, `Rate: ${inr(sg, 2)} per gram`, `Silver value: ${inr(round(metalVal))}`, `Labour (${labTxt}): ${inr(round(labour))}`];
     if (gstOn) lines.push(`CGST 1.5%: ${inr(round(half))}`, `SGST 1.5%: ${inr(round(half))}`);
     lines.push(`*Total Amount: ${inr(round(total))}*`);
     bills.s = lines.join('\n');
