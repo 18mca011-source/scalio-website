@@ -90,7 +90,9 @@ input[type="number"] {
 .big input[type="number"] { font-family: var(--f-num); font-size: 2rem; font-weight: 600; padding: 8px 10px; }
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .row3 { display: grid; grid-template-columns: 1fr 1fr 0.7fr; gap: 12px; }
-@media (max-width: 420px) { .row2 { grid-template-columns: 1fr; } .row3 { grid-template-columns: 1fr 1fr; } .row3 > .field:last-child { grid-column: 1 / -1; } }
+@media (max-width: 420px) { .row2 { grid-template-columns: 1fr; } }
+.row3 > .field { min-width: 0; }
+@media (max-width: 640px) { .row3 { grid-template-columns: 1fr 1fr; } .row3 > .field:nth-child(2) { grid-column: 1 / -1; order: 3; } }
 
 /* Rate board */
 .rates { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
@@ -174,7 +176,7 @@ img { max-width: 100%; }
       </div>
       <div class="rates" aria-live="polite">
         <div class="rate"><span class="karat">24K <small class="hm">999</small></span><span class="v" id="g-r1">—</span><span class="s" id="g-r1s">—</span></div>
-        <div class="rate hero"><span class="karat">22K <small class="hm">916</small></span><span class="v" id="g-r2">—</span><span class="s" id="g-r2s">—</span></div>
+        <div class="rate hero"><span class="karat">22K <small class="hm">92</small></span><span class="v" id="g-r2">—</span><span class="s" id="g-r2s">—</span></div>
       </div>
     </section>
 
@@ -281,7 +283,7 @@ img { max-width: 100%; }
   const inr = (n, d = 0) => '₹' + n.toLocaleString('en-IN', { minimumFractionDigits: d, maximumFractionDigits: d });
   const round = (n) => Math.round(n);
 
-  const PURITY_22 = 91.6;
+  const PURITY_22 = 92;
   const STORE = 'jewel-rates-v1';
   const todayStr = new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   $('today').textContent = todayStr;
