@@ -92,6 +92,8 @@ input[type="number"] {
 .row3 { display: grid; grid-template-columns: 1fr 1fr 0.7fr; gap: 12px; }
 @media (max-width: 420px) { .row2 { grid-template-columns: 1fr; } }
 .row3 > .field { min-width: 0; }
+.inputbox:has(input[readonly]) { background: #f6f3ec; }
+input[readonly] { cursor: default; }
 @media (max-width: 640px) { .row3 { grid-template-columns: 1fr 1fr; } .row3 > .field:nth-child(2) { grid-column: 1 / -1; order: 3; } }
 
 /* Rate board */
@@ -246,7 +248,7 @@ img { max-width: 100%; }
         </div>
         <div class="field">
           <label class="eyebrow" for="s-pg">Rate per gram</label>
-          <div class="inputbox"><span class="pre">₹</span><input type="number" id="s-pg" inputmode="decimal" min="0" step="0.01" value="180"><span class="post">/ g</span></div>
+          <div class="inputbox"><span class="pre">₹</span><input type="number" id="s-pg" value="180" readonly tabindex="-1"><span class="post">/ g</span></div>
         </div>
         <div class="field">
           <label class="eyebrow" for="s-pcs">Pieces</label>
