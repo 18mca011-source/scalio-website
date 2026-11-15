@@ -89,7 +89,8 @@ input[type="number"] {
 }
 .big input[type="number"] { font-family: var(--f-num); font-size: 2rem; font-weight: 600; padding: 8px 10px; }
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-@media (max-width: 420px) { .row2 { grid-template-columns: 1fr; } }
+.row3 { display: grid; grid-template-columns: 1fr 1fr 0.7fr; gap: 12px; }
+@media (max-width: 420px) { .row2 { grid-template-columns: 1fr; } .row3 { grid-template-columns: 1fr 1fr; } .row3 > .field:last-child { grid-column: 1 / -1; } }
 
 /* Rate board */
 .rates { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
@@ -236,10 +237,14 @@ img { max-width: 100%; }
         <label class="eyebrow" for="s-prod">Product</label>
         <div class="inputbox selectbox"><select id="s-prod"></select><span class="post" id="s-prodLab">Labour ₹250</span></div>
       </div>
-      <div class="row2">
+      <div class="row3">
         <div class="field">
           <label class="eyebrow" for="s-wt">Weight</label>
           <div class="inputbox"><input type="number" id="s-wt" inputmode="decimal" min="0" step="0.001" value="30"><span class="post">grams</span></div>
+        </div>
+        <div class="field">
+          <label class="eyebrow" for="s-pg">Rate per gram</label>
+          <div class="inputbox"><span class="pre">₹</span><input type="number" id="s-pg" inputmode="decimal" min="0" step="0.01" value="180"><span class="post">/ g</span></div>
         </div>
         <div class="field">
           <label class="eyebrow" for="s-pcs">Pieces</label>
@@ -383,11 +388,14 @@ img { max-width: 100%; }
     $('s-r1').textContent = inr(sg, 2);
     $('s-r2').textContent = inr(round(sg * 10));
     $('s-r3').textContent = inr(round(sg * 1000));
-    silverBill(sg);
+    silverBill(num('s-pg'));
 
     save();
   }
 
+  const syncPg = () => { $('s-pg').value = String(Math.round(num('rateAgKg') / 1000 * 100) / 100); };
+  $('rateAgKg').addEventListener('input', syncPg);
+  syncPg();
   document.querySelectorAll('input').forEach((el) => el.addEventListener(el.type === 'checkbox' ? 'change' : 'input', render));
 
   ['g', 's'].forEach((p) => {
@@ -399,7 +407,7 @@ img { max-width: 100%; }
       catch (e) { fallback(); }
     });
     $(p + '-reset').addEventListener('click', () => {
-      $(p + '-wt').value = ''; if (p === 'g') $('g-disc').value = '0'; else $('s-pcs').value = '1'; $(p + '-fb').hidden = true; render(); $(p + '-wt').focus();
+      $(p + '-wt').value = ''; if (p === 'g') $('g-disc').value = '0'; else { $('s-pcs').value = '1'; syncPg(); } $(p + '-fb').hidden = true; render(); $(p + '-wt').focus();
     });
   });
 
