@@ -53,6 +53,12 @@ header img { width: 100%; max-width: 300px; height: auto; display: block; }
 .rule::before, .rule::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-light), transparent); }
 .rule span { width: 7px; height: 7px; transform: rotate(45deg); background: var(--grad); }
 .date { font-size: .85rem; color: var(--muted); letter-spacing: .06em; }
+.mkt { margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 10px; font-size: .82rem; color: var(--muted); }
+.mkt .chip { display: inline-flex; gap: 6px; align-items: baseline; padding: 5px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--field); }
+.mkt .chip b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.mkt .note { flex-basis: 100%; text-align: center; font-size: .72rem; letter-spacing: .02em; }
+.mkt .lab { flex-basis: 100%; text-align: center; font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; margin-top: 4px; }
+.mkt .chip.gst { border-color: color-mix(in srgb, var(--gold) 45%, var(--line)); }
 
 /* Tabs */
 .tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 100%; max-width: 420px; margin: 0 auto; padding: 5px; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
@@ -161,6 +167,15 @@ img { max-width: 100%; }
     <img src="mj-logo.png" alt="Mahavir Jewellers — Gold and Silver Jewellery Showroom" width="470" height="270">
     <div class="rule"><span></span></div>
     <div class="date" id="today"></div>
+    <div class="mkt" id="mkt" hidden aria-live="polite">
+      <span class="lab">Without GST</span>
+      <span class="chip">Gold 24K <b id="mkt-g">—</b> / 10 g</span>
+      <span class="chip">Silver <b id="mkt-s">—</b> / kg</span>
+      <span class="lab">With GST 3%</span>
+      <span class="chip gst">Gold 24K <b id="mkt-g3">—</b> / 10 g</span>
+      <span class="chip gst">Silver <b id="mkt-s3">—</b> / kg</span>
+      <span class="note" id="mkt-note"></span>
+    </div>
   </header>
 
   <div class="tabs" role="tablist" aria-label="Metal">
@@ -289,6 +304,28 @@ img { max-width: 100%; }
   const STORE = 'jewel-rates-v1';
   const todayStr = new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   $('today').textContent = todayStr;
+
+  // India market rate (IBJA, via the site's /api/rates) — shown under the date for reference, refreshed every 5 minutes
+  async function loadMarket() {
+    try {
+      const r = await fetch('/api/rates', { cache: 'no-store' });
+      if (!r.ok) return;
+      const d = await r.json();
+      const g = d.gold && d.gold.per10g, sv = d.silver && d.silver.perKg;
+      if (!(g > 0 && sv > 0)) return;
+      $('mkt-g').textContent = inr(Math.round(g));
+      $('mkt-s').textContent = inr(Math.round(sv));
+      $('mkt-g3').textContent = inr(Math.round(g * 1.03));
+      $('mkt-s3').textContent = inr(Math.round(sv * 1.03));
+      const [dd, mm, yy] = String(d.gold.date).split('/');
+      const when = new Date(+yy, +mm - 1, +dd).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+      $('mkt-note').textContent = 'India market rate (IBJA) · ' + when + ' ' + (d.gold.session || '');
+      $('mkt').hidden = false;
+    } catch (e) { /* not available here: keep hidden */ }
+  }
+  loadMarket();
+  setInterval(loadMarket, 5 * 60 * 1000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) loadMarket(); });
 
   // Silver products and their fixed labour per piece. Add a new line here to add a product.
   const PRODUCTS = {
