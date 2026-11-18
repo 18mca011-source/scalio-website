@@ -233,8 +233,9 @@ img { max-width: 100%; }
           <div class="inputbox"><input type="number" id="g-mk" inputmode="decimal" min="0" step="0.01" value="12"><span class="post">%</span></div>
         </div>
       </div>
-      <div class="field">
-        <label class="eyebrow" for="g-disc">Making Discount <span class="hint">· ₹, leave 0 if none</span></label>
+      <label class="switch" for="g-discOn"><span class="lbl">Making Discount</span><input type="checkbox" id="g-discOn"><span class="track" aria-hidden="true"></span></label>
+      <div class="field" id="g-discField" hidden>
+        <label class="eyebrow" for="g-disc">Discount Amount <span class="hint">· ₹</span></label>
         <div class="inputbox"><span class="pre">₹</span><input type="number" id="g-disc" inputmode="decimal" min="0" step="1" value="0"></div>
       </div>
       <label class="switch" for="g-gst"><span class="lbl">Add GST 3% <small style="color:var(--muted);font-weight:400">(CGST 1.5% + SGST 1.5%)</small></span><input type="checkbox" id="g-gst" checked><span class="track" aria-hidden="true"></span></label>
@@ -314,7 +315,6 @@ img { max-width: 100%; }
     </section>
   </div>
 
-  <footer>Mahavir Jewellers · Gold and Silver Jewellery Showroom</footer>
 </div>
 
 <script>
@@ -387,7 +387,9 @@ img { max-width: 100%; }
     const metalVal = perG * wt;
     const mkPct = num(p + '-mk');
     const making = metalVal * mkPct / 100;
-    const disc = Math.min(num(p + '-disc'), making);
+    const discOn = !$(p + '-discOn') || $(p + '-discOn').checked;
+    if ($(p + '-discField')) $(p + '-discField').hidden = !discOn;
+    const disc = discOn ? Math.min(num(p + '-disc'), making) : 0;
     const sub = metalVal + making - disc;
     const gstOn = $(p + '-gst').checked;
     const half = gstOn ? Math.round(Math.round(sub) * 0.015) : 0;
@@ -481,7 +483,7 @@ img { max-width: 100%; }
       catch (e) { fallback(); }
     });
     $(p + '-reset').addEventListener('click', () => {
-      $(p + '-wt').value = ''; if (p === 'g') $('g-disc').value = '0'; else { $('s-pcs').value = '1'; syncPg(); } $(p + '-fb').hidden = true; render(); $(p + '-wt').focus();
+      $(p + '-wt').value = ''; if (p === 'g') { $('g-disc').value = '0'; $('g-discOn').checked = false; } else { $('s-pcs').value = '1'; syncPg(); } $(p + '-fb').hidden = true; render(); $(p + '-wt').focus();
     });
   });
 
