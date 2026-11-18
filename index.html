@@ -121,7 +121,7 @@ input[readonly] { cursor: default; }
 .selectbox { position: relative; }
 @media (max-width: 480px) { .selectbox select { font-size: 1rem; } }
 .selectbox select { font: inherit; font-size: 1.15rem; font-weight: 500; color: var(--ink); background: transparent; border: 0; outline: none; padding: 12px 38px 12px 14px; width: 100%; text-overflow: ellipsis; min-width: 0; cursor: pointer; appearance: none; -webkit-appearance: none; }
-.selectbox::after { content: ""; position: absolute; right: 16px; top: 50%; width: 8px; height: 8px; border-right: 2px solid var(--gold); border-bottom: 2px solid var(--gold); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
+.selectbox::after { content: ""; position: absolute; right: 120px; top: 50%; width: 8px; height: 8px; border-right: 2px solid var(--gold); border-bottom: 2px solid var(--gold); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
 .selectbox .post { border-left: 1px solid var(--line); align-self: stretch; display: flex; align-items: center; min-width: 108px; justify-content: center; }
 
 /* GST switch */
@@ -255,8 +255,8 @@ img { max-width: 100%; }
     <section class="card">
       <h2>Silver Bill</h2>
       <div class="field">
-        <label class="eyebrow" for="s-prod">Product <span class="hint">· <span id="s-prodLab">Labour ₹8 / g</span></span></label>
-        <div class="inputbox selectbox"><select id="s-prod"></select></div>
+        <label class="eyebrow" for="s-prod">Product</label>
+        <div class="inputbox selectbox"><select id="s-prod"></select><span class="post" id="s-prodLab">Labour ₹8 / g</span></div>
       </div>
       <div class="row3">
         <div class="field">
