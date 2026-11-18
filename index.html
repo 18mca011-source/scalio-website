@@ -96,16 +96,16 @@ input[type="number"] {
 .big input[type="number"] { font-family: var(--f-num); font-size: 2rem; font-weight: 600; padding: 8px 10px; }
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .row3 { display: grid; grid-template-columns: 1fr 1fr 0.7fr; gap: 12px; }
-@media (max-width: 420px) { .row2 { grid-template-columns: 1fr; } }
 .row3 > .field { min-width: 0; }
 .inputbox:has(input[readonly]) { background: #f6f3ec; }
+@media (max-width: 640px) { .row2 { gap: 10px; } }
 @media (max-width: 400px) {
-  .row3 .eyebrow { letter-spacing: .08em; white-space: nowrap; }
-  .row3 input[type="number"] { font-size: 1.05rem; padding-left: 10px; padding-right: 2px; }
+  .row2 .eyebrow, .row3 .eyebrow { letter-spacing: .08em; white-space: nowrap; }
+  .row2 input[type="number"], .row3 input[type="number"] { font-size: 1.05rem; padding-left: 10px; padding-right: 2px; }
   .row3 .inputbox .pre { font-size: 1.05rem; padding-left: 10px; }
-  .row3 .inputbox .post { padding: 0 8px 0 2px; font-size: .8rem; }
-  .row3 input::-webkit-outer-spin-button, .row3 input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-  .row3 input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
+  .row2 .inputbox .post, .row3 .inputbox .post { padding: 0 8px 0 2px; font-size: .8rem; }
+  .row2 input::-webkit-outer-spin-button, .row2 input::-webkit-inner-spin-button, .row3 input::-webkit-outer-spin-button, .row3 input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .row2 input[type="number"], .row3 input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
   .row3 .inputbox .pre + input { padding-left: 6px; }
   .row3 .inputbox:has(#s-pg) .post { display: none; }
 }
@@ -226,7 +226,7 @@ img { max-width: 100%; }
       <div class="row2">
         <div class="field">
           <label class="eyebrow" for="g-wt">Weight</label>
-          <div class="inputbox"><input type="number" id="g-wt" inputmode="decimal" min="0" step="0.001" value="4"><span class="post">grams</span></div>
+          <div class="inputbox"><input type="number" id="g-wt" inputmode="decimal" min="0" step="0.001" value="4"><span class="post">g</span></div>
         </div>
         <div class="field">
           <label class="eyebrow" for="g-mk">Making Charge</label>
