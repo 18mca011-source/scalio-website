@@ -119,6 +119,8 @@ input[readonly] { cursor: default; }
 .fixed .v { font-family: var(--f-brand); font-weight: 600; letter-spacing: .08em; color: var(--gold-deep); }
 
 .selectbox { position: relative; }
+.pctrate { text-transform: none; letter-spacing: .02em; font-weight: 500; color: var(--muted); }
+.pctrate b { color: var(--gold-deep); font-weight: 600; font-variant-numeric: tabular-nums; }
 @media (max-width: 480px) { .selectbox select { font-size: 1rem; } }
 .selectbox select { font: inherit; font-size: 1.15rem; font-weight: 500; color: var(--ink); background: transparent; border: 0; outline: none; padding: 12px 38px 12px 14px; width: 100%; text-overflow: ellipsis; min-width: 0; cursor: pointer; appearance: none; -webkit-appearance: none; }
 .selectbox::after { content: ""; position: absolute; right: 120px; top: 50%; width: 8px; height: 8px; border-right: 2px solid var(--gold); border-bottom: 2px solid var(--gold); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
@@ -255,7 +257,7 @@ img { max-width: 100%; }
     <section class="card">
       <h2>Silver Bill</h2>
       <div class="field">
-        <label class="eyebrow" for="s-prod">Product</label>
+        <label class="eyebrow" for="s-prod">Product <span class="pctrate" id="s-pct" hidden>· 90% Rate <b id="s-pctV">—</b></span></label>
         <div class="inputbox selectbox"><select id="s-prod"></select><span class="post" id="s-prodLab">Labour ₹8 / g</span></div>
       </div>
       <div class="row3">
@@ -331,7 +333,7 @@ img { max-width: 100%; }
 
   // Silver products and their fixed labour per piece. Add a new line here to add a product.
   const PRODUCTS = {
-    agra: { name: 'Sakda (Agra, SSO, Assembled, Athda)', labour: 8, per: 'g' },
+    agra: { name: 'Sakda (Agra, SSO, Assembled, Athda)', labour: 8, per: 'g', pct: 90 },  // pct: shows that % of the silver rate
     ring: { name: 'Ring', labour: 100 },
     bangles: { name: 'Wagh Chudi', labour: 7, per: 'g' },  // labour per gram of weight
   };
@@ -396,6 +398,8 @@ img { max-width: 100%; }
     const perG = P.per === 'g';
     $('s-prodLab').textContent = 'Labour ' + inr(P.labour) + (perG ? ' / g' : '');
     $('s-pcsField').hidden = perG;
+    $('s-pct').hidden = !P.pct;
+    if (P.pct) $('s-pctV').textContent = inr(round(num('rateAgKg') * P.pct / 100)) + ' / kg';
     const wt = num('s-wt');
     const pcs = Math.max(1, Math.round(num('s-pcs')) || 1);
     const metalVal = sg * wt;
@@ -435,6 +439,9 @@ img { max-width: 100%; }
     $('s-r1').textContent = inr(sg, 2);
     $('s-r2').textContent = inr(round(sg * 10));
     $('s-r3').textContent = inr(round(sg * 1000));
+    // Rate per gram: full rate, or the product's % of it (Sakda = 90%)
+    const pct = PRODUCTS[prod].pct || 100;
+    $('s-pg').value = String(Math.round(num('rateAgKg') / 1000 * pct / 100 * 100) / 100);
     silverBill(num('s-pg'));
 
     save();
