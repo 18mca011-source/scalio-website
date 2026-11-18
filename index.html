@@ -112,6 +112,12 @@ input[readonly] { cursor: default; }
 .rate .s { font-size: .85rem; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
 .rate.hero { background: var(--gold-wash); margin-inline: -22px; padding-inline: 22px; }
 .rate.hero .v { color: var(--gold-deep); }
+.eyebrow .hm { display: inline-block; margin-left: 4px; padding: 0 6px; border-radius: 5px; border: 1px solid var(--gold-light); background: var(--card); font-size: .72rem; font-weight: 600; letter-spacing: .04em; color: var(--gold-deep); text-transform: none; vertical-align: 1px; }
+.rates.cols3 { flex-direction: row; border-bottom: 1px solid var(--line); }
+.rates.cols3 .col { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 16px 4px; text-align: center; }
+.rates.cols3 .col + .col { border-left: 1px solid var(--line); }
+.rates.cols3 .karat { font-family: var(--f-brand); font-weight: 600; font-size: .95rem; letter-spacing: .1em; color: var(--gold-deep); }
+.rates.cols3 .v { font-family: var(--f-num); font-weight: 600; font-size: clamp(1rem, 4.2vw, 1.35rem); line-height: 1.15; font-variant-numeric: tabular-nums; color: var(--ink); white-space: nowrap; }
 
 /* Fixed chips */
 .fixed { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 12px; background: var(--gold-wash); border: 1px solid var(--line); }
@@ -245,13 +251,13 @@ img { max-width: 100%; }
     <section class="card">
       <h2>Today's Silver Rate</h2>
       <div class="field big">
-        <label class="eyebrow" for="rateAgKg">Silver <span class="hint">· ₹ per kg</span></label>
+        <label class="eyebrow" for="rateAgKg">Silver <small class="hm">999</small> <span class="hint">· ₹ per kg</span></label>
         <div class="inputbox"><span class="pre">₹</span><input type="number" id="rateAgKg" inputmode="decimal" min="0" step="1" value="180000"><span class="post">/ kg</span></div>
       </div>
-      <div class="rates" aria-live="polite">
-        <div class="rate"><span class="karat">1 kg</span><span class="v" id="s-r3">—</span><span class="s">per kg</span></div>
-        <div class="rate"><span class="karat">10 g</span><span class="v" id="s-r2">—</span><span class="s">per 10 grams</span></div>
-        <div class="rate hero"><span class="karat">1 g</span><span class="v" id="s-r1">—</span><span class="s">per gram</span></div>
+      <div class="rates cols3" aria-live="polite">
+        <div class="col"><span class="karat">1 kg</span><span class="v" id="s-r3">—</span></div>
+        <div class="col"><span class="karat">10 g</span><span class="v" id="s-r2">—</span></div>
+        <div class="col"><span class="karat">1 g</span><span class="v" id="s-r1">—</span></div>
       </div>
     </section>
 
@@ -271,7 +277,7 @@ img { max-width: 100%; }
           <label class="eyebrow" for="s-pg">Rate per gram</label>
           <div class="inputbox"><span class="pre">₹</span><input type="number" id="s-pg" value="180" readonly tabindex="-1"><span class="post">/ g</span></div>
         </div>
-        <div class="field" id="s-pcsField">
+        <div class="field" id="s-pcsField" hidden>
           <label class="eyebrow" for="s-pcs">Pieces</label>
           <div class="inputbox"><input type="number" id="s-pcs" inputmode="numeric" min="1" step="1" value="1"><span class="post">pcs</span></div>
         </div>
@@ -399,14 +405,14 @@ img { max-width: 100%; }
     $('s-prod').value = prod;
     const perG = P.per === 'g';
     $('s-prodLab').textContent = 'Labour ' + inr(P.labour) + (perG ? ' / g' : '');
-    $('s-pcsField').hidden = perG;
+    $('s-pcsField').hidden = true;  // pieces not used: Ring labour is a fixed amount
     $('s-pct').hidden = !P.pct;
     if (P.pct) $('s-pctV').textContent = inr(round(num('rateAgKg') * P.pct / 100)) + ' / kg';
     const wt = num('s-wt');
-    const pcs = Math.max(1, Math.round(num('s-pcs')) || 1);
+    const pcs = 1;
     const metalVal = sg * wt;
     const labour = perG ? P.labour * wt : P.labour * pcs;
-    const labTxt = perG ? `${wt} g × ${inr(P.labour)}` : `${pcs} pc × ${inr(P.labour)}`;
+    const labTxt = perG ? `${wt} g × ${inr(P.labour)}` : 'fixed';
     const sub = metalVal + labour;
     const gstOn = $('s-gst').checked;
     const half = gstOn ? Math.round(Math.round(sub) * 0.015) : 0;
