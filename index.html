@@ -100,7 +100,7 @@ input[type="number"] {
 .row3 > .field { min-width: 0; }
 .inputbox:has(input[readonly]) { background: #f6f3ec; }
 input[readonly] { cursor: default; }
-@media (max-width: 640px) { .row3 { grid-template-columns: 1fr 1fr; } .row3 > .field:nth-child(2) { grid-column: 1 / -1; order: 3; } .row3:has(#s-pcsField[hidden]) > .field:first-child { grid-column: 1 / -1; } }
+@media (max-width: 640px) { .row3 { grid-template-columns: 1fr 1fr; gap: 10px; } .row3 .inputbox .pre, .row3 .inputbox .post { padding: 0 10px; } }
 .row3:has(#s-pcsField[hidden]) { grid-template-columns: 1fr 1fr; }
 
 /* Rate board */
@@ -271,7 +271,7 @@ img { max-width: 100%; }
       <div class="row3">
         <div class="field">
           <label class="eyebrow" for="s-wt">Weight</label>
-          <div class="inputbox"><input type="number" id="s-wt" inputmode="decimal" min="0" step="0.001" value="30"><span class="post">grams</span></div>
+          <div class="inputbox"><input type="number" id="s-wt" inputmode="decimal" min="0" step="0.001" value="30"><span class="post">g</span></div>
         </div>
         <div class="field">
           <label class="eyebrow" for="s-pg">Rate per gram</label>
