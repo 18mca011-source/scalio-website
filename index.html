@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="mj-logo.png">
-<title>Mahavir Jewellers Calculator</title>
+<title>Mahavir Jewellers Gold Calculator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap">
 <style>
-/* Layout: centred showroom header with the MJ logo, Gold / Silver tabs under it; each tab holds a rate card and a bill card, side by side on wide screens, stacked on phones. White ground; the accent is gold on the Gold tab and silver on the Silver tab. */
+/* Layout: centred showroom header with the MJ logo; below it a rate card and a bill card, side by side on wide screens, stacked on phones. White ground, gold as the only accent, Trajan-like caps echoing the logo. */
 :root {
   --bg: #ffffff;
   --card: #ffffff;
@@ -28,15 +28,6 @@
   --f-body: "Jost", "Helvetica Neue", system-ui, sans-serif;
   color-scheme: light;
 }
-.panel[data-metal="silver"] {
-  --gold: #7d8794;
-  --gold-deep: #56606c;
-  --gold-light: #cfd5dc;
-  --gold-wash: #f3f5f7;
-  --field: #fafbfc;
-  --line: #e4e7eb;
-  --grad: linear-gradient(135deg, #8b95a2 0%, #c9d0d8 50%, #6f7a87 100%);
-}
 * { box-sizing: border-box; }
 body {
   background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.5;
@@ -44,7 +35,7 @@ body {
   padding-right: max(16px, env(safe-area-inset-right, 0px));
   padding-block: 12px 40px;
 }
-.wrap { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+.wrap { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
 
 /* Header */
 header { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
@@ -52,23 +43,8 @@ header img { width: 100%; max-width: 300px; height: auto; display: block; }
 .rule { display: flex; align-items: center; gap: 12px; width: 100%; max-width: 420px; }
 .rule::before, .rule::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-light), transparent); }
 .rule span { width: 7px; height: 7px; transform: rotate(45deg); background: var(--grad); }
+header h1 { margin: 0; font-family: var(--f-brand); font-weight: 500; font-size: clamp(1rem, 2.6vw, 1.2rem); letter-spacing: .28em; text-transform: uppercase; color: var(--gold-deep); }
 .date { font-size: .85rem; color: var(--muted); letter-spacing: .06em; }
-.mkt { margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 10px; font-size: .82rem; color: var(--muted); }
-.mkt .chip { display: inline-flex; gap: 6px; align-items: baseline; padding: 5px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--field); }
-.mkt .chip b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
-.mkt .note { flex-basis: 100%; text-align: center; font-size: .72rem; letter-spacing: .02em; }
-.mkt .lab { flex-basis: 100%; text-align: center; font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; margin-top: 4px; }
-.mkt .chip.gst { border-color: color-mix(in srgb, var(--gold) 45%, var(--line)); }
-
-/* Tabs */
-.tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 100%; max-width: 420px; margin: 0 auto; padding: 5px; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
-.tab { font: inherit; font-weight: 600; font-size: 1.05rem; letter-spacing: .08em; text-transform: uppercase; padding: 12px 10px; border: 0; border-radius: 12px; cursor: pointer; background: transparent; color: var(--muted); display: flex; align-items: center; justify-content: center; gap: 10px; transition: background .2s, color .2s; }
-.tab .dot { width: 12px; height: 12px; border-radius: 50%; }
-.tab[data-tab="gold"] .dot { background: linear-gradient(135deg, #b8892b, #e6cf8f); }
-.tab[data-tab="silver"] .dot { background: linear-gradient(135deg, #8b95a2, #dde2e8); }
-.tab[aria-selected="true"][data-tab="gold"] { background: linear-gradient(135deg, #b8892b 0%, #d9b964 50%, #a9802c 100%); color: #fff; box-shadow: 0 8px 18px -10px rgba(138,102,32,.7); }
-.tab[aria-selected="true"][data-tab="silver"] { background: linear-gradient(135deg, #8b95a2 0%, #b9c1ca 50%, #6f7a87 100%); color: #fff; box-shadow: 0 8px 18px -10px rgba(80,90,105,.7); }
-.tab[aria-selected="true"] .dot { background: #fff; }
 
 .grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
 @media (min-width: 860px) { .grid { grid-template-columns: 1fr 1.15fr; align-items: start; } }
@@ -76,7 +52,7 @@ header img { width: 100%; max-width: 300px; height: auto; display: block; }
 .card {
   background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 26px 22px;
   display: flex; flex-direction: column; gap: 18px; min-width: 0;
-  box-shadow: 0 1px 0 rgba(0,0,0,.03), 0 18px 40px -24px rgba(90,80,60,.28);
+  box-shadow: 0 1px 0 rgba(169,128,44,.06), 0 18px 40px -24px rgba(120,90,30,.25);
   position: relative;
 }
 .card::before { content: ""; position: absolute; inset: 0 22px auto; height: 2px; border-radius: 0 0 2px 2px; background: var(--grad); opacity: .8; }
@@ -86,7 +62,7 @@ header img { width: 100%; max-width: 300px; height: auto; display: block; }
 .eyebrow .hint { font-weight: 400; letter-spacing: .04em; text-transform: none; }
 .field { display: flex; flex-direction: column; min-width: 0; }
 .inputbox { display: flex; align-items: center; border: 1px solid var(--line); border-radius: 12px; background: var(--field); overflow: hidden; transition: border-color .15s, box-shadow .15s; }
-.inputbox:focus-within { border-color: var(--gold); box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold) 18%, transparent); }
+.inputbox:focus-within { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(169,128,44,.12); }
 .inputbox .pre, .inputbox .post { padding: 0 14px; color: var(--muted); font-size: .9rem; white-space: nowrap; }
 .inputbox .pre { padding-right: 0; font-family: var(--f-num); font-size: 1.3rem; color: var(--gold); }
 input[type="number"] {
@@ -95,33 +71,23 @@ input[type="number"] {
 }
 .big input[type="number"] { font-family: var(--f-num); font-size: 2rem; font-weight: 600; padding: 8px 10px; }
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.row3 { display: grid; grid-template-columns: 1fr 1fr 0.7fr; gap: 12px; }
 @media (max-width: 420px) { .row2 { grid-template-columns: 1fr; } }
-.row3 > .field { min-width: 0; }
-.inputbox:has(input[readonly]) { background: #f6f3ec; }
-input[readonly] { cursor: default; }
-@media (max-width: 640px) { .row3 { grid-template-columns: 1fr 1fr; } .row3 > .field:nth-child(2) { grid-column: 1 / -1; order: 3; } .row3:has(#s-pcsField[hidden]) > .field:first-child { grid-column: 1 / -1; } }
-.row3:has(#s-pcsField[hidden]) { grid-template-columns: 1fr 1fr; }
 
 /* Rate board */
 .rates { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
 .rate { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 4px 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
 .rate .karat { font-family: var(--f-brand); font-weight: 600; font-size: 1.05rem; letter-spacing: .1em; color: var(--gold-deep); grid-row: span 2; align-self: center; min-width: 52px; }
-.rate .karat .hm { display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 6px; border: 1px solid var(--gold-light); background: var(--card); font-size: .75rem; font-weight: 600; letter-spacing: .04em; color: var(--gold-deep); vertical-align: middle; }
 .rate .v { font-family: var(--f-num); font-weight: 600; font-size: 1.7rem; line-height: 1.1; text-align: right; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 .rate .s { font-size: .85rem; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+.rate .karat .hm { display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 6px; border: 1px solid var(--gold-light); background: var(--card); font-size: .75rem; font-weight: 600; letter-spacing: .04em; color: var(--gold-deep); vertical-align: middle; }
 .rate.hero { background: var(--gold-wash); margin-inline: -22px; padding-inline: 22px; }
 .rate.hero .v { color: var(--gold-deep); }
+.note { font-size: .82rem; color: var(--muted); margin: 0; }
 
 /* Fixed chips */
 .fixed { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 12px; background: var(--gold-wash); border: 1px solid var(--line); }
 .fixed .k { font-size: .75rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
 .fixed .v { font-family: var(--f-brand); font-weight: 600; letter-spacing: .08em; color: var(--gold-deep); }
-
-.selectbox { position: relative; }
-.selectbox select { font: inherit; font-size: 1.15rem; font-weight: 500; color: var(--ink); background: transparent; border: 0; outline: none; padding: 12px 34px 12px 14px; width: 100%; min-width: 0; cursor: pointer; appearance: none; -webkit-appearance: none; }
-.selectbox::after { content: ""; position: absolute; right: 120px; top: 50%; width: 8px; height: 8px; border-right: 2px solid var(--gold); border-bottom: 2px solid var(--gold); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
-.selectbox .post { border-left: 1px solid var(--line); align-self: stretch; display: flex; align-items: center; min-width: 108px; justify-content: center; }
 
 /* GST switch */
 .switch { display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; padding: 4px 0; }
@@ -139,18 +105,17 @@ input[readonly] { cursor: default; }
 .bill .ln span:first-child { color: var(--muted); min-width: 0; }
 .bill .ln span:last-child { font-weight: 500; white-space: nowrap; }
 .bill .ln.minus span:last-child { color: var(--ok); }
-.bill .gstrows { display: flex; flex-direction: column; gap: 8px; }
 .bill .total { margin-top: 8px; padding-top: 14px; border-top: 1px dashed var(--gold-light); display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
 .bill .total span:first-child { font-family: var(--f-brand); font-weight: 600; letter-spacing: .16em; text-transform: uppercase; font-size: .85rem; }
-.bill .total strong { font-family: var(--f-num); font-weight: 600; font-size: 2.4rem; line-height: 1; color: var(--gold-deep); }
+.bill .total strong { font-family: var(--f-num); font-weight: 600; font-size: 2.6rem; line-height: 1; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
 .actions { display: flex; gap: 10px; flex-wrap: wrap; }
-.btn { font: inherit; font-weight: 600; letter-spacing: .06em; padding: 13px 20px; border-radius: 12px; border: 0; cursor: pointer; background: var(--grad); color: #fff; flex: 1 1 200px; box-shadow: 0 8px 18px -10px rgba(60,50,30,.6); }
+.btn { font: inherit; font-weight: 600; letter-spacing: .06em; padding: 13px 20px; border-radius: 12px; border: 0; cursor: pointer; background: var(--grad); color: #fff; flex: 1 1 200px; box-shadow: 0 8px 18px -10px rgba(138,102,32,.7); }
 .btn.ghost { background: transparent; color: var(--gold-deep); border: 1px solid var(--gold-light); box-shadow: none; flex: 0 1 auto; }
 .btn:hover { filter: brightness(1.04); }
 button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .toast { font-size: .9rem; color: var(--ok); font-weight: 500; min-height: 1.4em; text-align: center; }
-textarea.copyFallback { width: 100%; font: inherit; font-size: .9rem; border: 1px solid var(--line); border-radius: 10px; padding: 10px; background: var(--field); color: var(--ink); }
+textarea#copyFallback { width: 100%; font: inherit; font-size: .9rem; border: 1px solid var(--line); border-radius: 10px; padding: 10px; background: var(--field); color: var(--ink); }
 
 footer { text-align: center; font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
@@ -167,127 +132,64 @@ img { max-width: 100%; }
   <header>
     <img src="mj-logo.png" alt="Mahavir Jewellers — Gold and Silver Jewellery Showroom" width="470" height="270">
     <div class="rule"><span></span></div>
+    <h1>Gold Rate Calculator</h1>
     <div class="date" id="today"></div>
-    <div class="mkt" id="mkt" hidden aria-live="polite">
-      <span class="lab">Without GST</span>
-      <span class="chip">Gold 24K <b id="mkt-g">—</b> / 10 g</span>
-      <span class="chip">Silver <b id="mkt-s">—</b> / kg</span>
-      <span class="lab">With GST 3%</span>
-      <span class="chip gst">Gold 24K <b id="mkt-g3">—</b> / 10 g</span>
-      <span class="chip gst">Silver <b id="mkt-s3">—</b> / kg</span>
-      <span class="note" id="mkt-note"></span>
-    </div>
   </header>
 
-  <div class="tabs" role="tablist" aria-label="Metal">
-    <button type="button" class="tab" role="tab" id="tab-gold" data-tab="gold" aria-controls="gold" aria-selected="true"><span class="dot"></span>Gold</button>
-    <button type="button" class="tab" role="tab" id="tab-silver" data-tab="silver" aria-controls="silver" aria-selected="false"><span class="dot"></span>Silver</button>
-  </div>
+  <div class="grid">
+    <!-- RATES -->
+    <section class="card" aria-labelledby="ratesH">
+      <h2 id="ratesH">Today's Rate</h2>
 
-  <!-- GOLD -->
-  <div class="panel grid" id="gold" data-metal="gold" role="tabpanel" aria-labelledby="tab-gold">
-    <section class="card">
-      <h2>Today's Gold Rate</h2>
       <div class="field big">
         <label class="eyebrow" for="rate24">24K Gold <span class="hint">· ₹ per 10 grams</span></label>
         <div class="inputbox"><span class="pre">₹</span><input type="number" id="rate24" inputmode="decimal" min="0" step="1" value="125000"><span class="post">/ 10g</span></div>
       </div>
-      <div class="rates" aria-live="polite">
-        <div class="rate"><span class="karat">24K <small class="hm">99% Purity</small></span><span class="v" id="g-r1">—</span><span class="s" id="g-r1s">—</span></div>
-        <div class="rate hero"><span class="karat">22K <small class="hm">92% Purity</small></span><span class="v" id="g-r2">—</span><span class="s" id="g-r2s">—</span></div>
-      </div>
-    </section>
 
-    <section class="card">
-      <h2>Gold Bill</h2>
+      <div class="rates" aria-live="polite">
+        <div class="rate"><span class="karat">24K</span><span class="v" id="t24">—</span><span class="s" id="t24g">—</span></div>
+        <div class="rate hero"><span class="karat">22K <small class="hm">916</small></span><span class="v" id="t22">—</span><span class="s" id="t22g">—</span></div>
+      </div>    </section>
+
+    <!-- BILL -->
+    <section class="card" aria-labelledby="calcH">
+      <h2 id="calcH">Bill Calculator</h2>
+
       <div class="fixed"><span class="k">Metal</span><span class="v">22K Gold</span></div>
+
       <div class="row2">
         <div class="field">
-          <label class="eyebrow" for="g-wt">Weight</label>
-          <div class="inputbox"><input type="number" id="g-wt" inputmode="decimal" min="0" step="0.001" value="4"><span class="post">grams</span></div>
+          <label class="eyebrow" for="wt">Weight</label>
+          <div class="inputbox"><input type="number" id="wt" inputmode="decimal" min="0" step="0.001" value="4"><span class="post">grams</span></div>
         </div>
         <div class="field">
-          <label class="eyebrow" for="g-mk">Making Charge</label>
-          <div class="inputbox"><input type="number" id="g-mk" inputmode="decimal" min="0" step="0.01" value="12"><span class="post">%</span></div>
+          <label class="eyebrow" for="mk">Making Charge</label>
+          <div class="inputbox"><input type="number" id="mk" inputmode="decimal" min="0" step="0.01" value="12"><span class="post">%</span></div>
         </div>
       </div>
-      <div class="field">
-        <label class="eyebrow" for="g-disc">Making Discount <span class="hint">· ₹, leave 0 if none</span></label>
-        <div class="inputbox"><span class="pre">₹</span><input type="number" id="g-disc" inputmode="decimal" min="0" step="1" value="0"></div>
-      </div>
-      <label class="switch" for="g-gst"><span class="lbl">Add GST 3% <small style="color:var(--muted);font-weight:400">(CGST 1.5% + SGST 1.5%)</small></span><input type="checkbox" id="g-gst" checked><span class="track" aria-hidden="true"></span></label>
-      <div class="bill" aria-live="polite">
-        <div class="ln"><span id="g-bMetalLbl">Gold value</span><span id="g-bMetal">—</span></div>
-        <div class="ln"><span id="g-bMkLbl">Making</span><span id="g-bMk">—</span></div>
-        <div class="ln minus" id="g-bDiscRow"><span>Making discount</span><span id="g-bDisc">—</span></div>
-        <div class="ln"><span>Subtotal (before GST)</span><span id="g-bSub">—</span></div>
-        <div class="gstrows" id="g-bGstRow">
-          <div class="ln"><span>CGST 1.5%</span><span id="g-bCgst">—</span></div>
-          <div class="ln"><span>SGST 1.5%</span><span id="g-bSgst">—</span></div>
-        </div>
-        <div class="total"><span>Total Amount</span><strong id="g-bTotal">—</strong></div>
-      </div>
-      <div class="actions">
-        <button type="button" class="btn" id="g-copy">Copy Bill for WhatsApp</button>
-        <button type="button" class="btn ghost" id="g-reset">New Bill</button>
-      </div>
-      <div class="toast" id="g-toast" role="status"></div>
-      <textarea class="copyFallback" id="g-fb" rows="9" hidden readonly></textarea>
-    </section>
-  </div>
 
-  <!-- SILVER -->
-  <div class="panel grid" id="silver" data-metal="silver" role="tabpanel" aria-labelledby="tab-silver" hidden>
-    <section class="card">
-      <h2>Today's Silver Rate</h2>
-      <div class="field big">
-        <label class="eyebrow" for="rateAgKg">Silver <span class="hint">· ₹ per kg</span></label>
-        <div class="inputbox"><span class="pre">₹</span><input type="number" id="rateAgKg" inputmode="decimal" min="0" step="1" value="180000"><span class="post">/ kg</span></div>
-      </div>
-      <div class="rates" aria-live="polite">
-        <div class="rate"><span class="karat">1 kg</span><span class="v" id="s-r3">—</span><span class="s">per kg</span></div>
-        <div class="rate"><span class="karat">10 g</span><span class="v" id="s-r2">—</span><span class="s">per 10 grams</span></div>
-        <div class="rate hero"><span class="karat">1 g</span><span class="v" id="s-r1">—</span><span class="s">per gram</span></div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Silver Bill</h2>
       <div class="field">
-        <label class="eyebrow" for="s-prod">Product</label>
-        <div class="inputbox selectbox"><select id="s-prod"></select><span class="post" id="s-prodLab">Labour ₹250</span></div>
+        <label class="eyebrow" for="disc">Making Discount <span class="hint">· ₹, leave 0 if none</span></label>
+        <div class="inputbox"><span class="pre">₹</span><input type="number" id="disc" inputmode="decimal" min="0" step="1" value="0"></div>
       </div>
-      <div class="row3">
-        <div class="field">
-          <label class="eyebrow" for="s-wt">Weight</label>
-          <div class="inputbox"><input type="number" id="s-wt" inputmode="decimal" min="0" step="0.001" value="30"><span class="post">grams</span></div>
-        </div>
-        <div class="field">
-          <label class="eyebrow" for="s-pg">Rate per gram</label>
-          <div class="inputbox"><span class="pre">₹</span><input type="number" id="s-pg" value="180" readonly tabindex="-1"><span class="post">/ g</span></div>
-        </div>
-        <div class="field" id="s-pcsField">
-          <label class="eyebrow" for="s-pcs">Pieces</label>
-          <div class="inputbox"><input type="number" id="s-pcs" inputmode="numeric" min="1" step="1" value="1"><span class="post">pcs</span></div>
-        </div>
-      </div>
-      <label class="switch" for="s-gst"><span class="lbl">Add GST 3% <small style="color:var(--muted);font-weight:400">(CGST 1.5% + SGST 1.5%)</small></span><input type="checkbox" id="s-gst" checked><span class="track" aria-hidden="true"></span></label>
+
+      <label class="switch" for="gst"><span class="lbl">Add GST 3%</span><input type="checkbox" id="gst" checked><span class="track" aria-hidden="true"></span></label>
+
       <div class="bill" aria-live="polite">
-        <div class="ln"><span id="s-bMetalLbl">Silver value</span><span id="s-bMetal">—</span></div>
-        <div class="ln"><span id="s-bLabLbl">Labour</span><span id="s-bLab">—</span></div>
-        <div class="ln"><span>Subtotal (before GST)</span><span id="s-bSub">—</span></div>
-        <div class="gstrows" id="s-bGstRow">
-          <div class="ln"><span>CGST 1.5%</span><span id="s-bCgst">—</span></div>
-          <div class="ln"><span>SGST 1.5%</span><span id="s-bSgst">—</span></div>
-        </div>
-        <div class="total"><span>Total Amount</span><strong id="s-bTotal">—</strong></div>
+        <div class="ln"><span id="bMetalLbl">Gold value</span><span id="bMetal">—</span></div>
+        <div class="ln"><span id="bMkLbl">Making</span><span id="bMk">—</span></div>
+        <div class="ln minus" id="bDiscRow"><span>Making discount</span><span id="bDisc">—</span></div>
+        <div class="ln"><span>Subtotal (before GST)</span><span id="bSub">—</span></div>
+        <div class="ln" id="bGstRow"><span>GST 3%</span><span id="bGst">—</span></div>
+        <div class="total"><span>Total Amount</span><strong id="bTotal">—</strong></div>
       </div>
+
       <div class="actions">
-        <button type="button" class="btn" id="s-copy">Copy Bill for WhatsApp</button>
-        <button type="button" class="btn ghost" id="s-reset">New Bill</button>
+        <button type="button" class="btn" id="copyBtn">Copy Bill for WhatsApp</button>
+        <button type="button" class="btn ghost" id="resetBtn">New Bill</button>
       </div>
-      <div class="toast" id="s-toast" role="status"></div>
-      <textarea class="copyFallback" id="s-fb" rows="9" hidden readonly></textarea>
+      <div class="toast" id="toast" role="status"></div>
+      <textarea id="copyFallback" rows="9" hidden readonly></textarea>
     </section>
   </div>
 
@@ -301,178 +203,87 @@ img { max-width: 100%; }
   const inr = (n, d = 0) => '₹' + n.toLocaleString('en-IN', { minimumFractionDigits: d, maximumFractionDigits: d });
   const round = (n) => Math.round(n);
 
-  const PURITY_22 = 92;
+  const PURITY_22 = 91.6;
   const STORE = 'jewel-rates-v1';
+
   const todayStr = new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
   $('today').textContent = todayStr;
 
-  // India market rate (IBJA, via the site's /api/rates) — shown under the date for reference, refreshed every 5 minutes
-  async function loadMarket() {
-    try {
-      const r = await fetch('/api/rates', { cache: 'no-store' });
-      if (!r.ok) return;
-      const d = await r.json();
-      const g = d.gold && d.gold.per10g, sv = d.silver && d.silver.perKg;
-      if (!(g > 0 && sv > 0)) return;
-      $('mkt-g').textContent = inr(Math.round(g));
-      $('mkt-s').textContent = inr(Math.round(sv));
-      $('mkt-g3').textContent = inr(Math.round(g * 1.03));
-      $('mkt-s3').textContent = inr(Math.round(sv * 1.03));
-      const [dd, mm, yy] = String(d.gold.date).split('/');
-      const when = new Date(+yy, +mm - 1, +dd).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
-      $('mkt-note').textContent = 'India market rate (IBJA) · ' + when + ' ' + (d.gold.session || '');
-      $('mkt').hidden = false;
-    } catch (e) { /* not available here: keep hidden */ }
-  }
-  loadMarket();
-  setInterval(loadMarket, 5 * 60 * 1000);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) loadMarket(); });
-
-  // Silver products and their fixed labour per piece. Add a new line here to add a product.
-  const PRODUCTS = {
-    agra: { name: 'Agra', labour: 250 },
-    ring: { name: 'Ring', labour: 100 },
-    bangles: { name: 'Wagh Chudi', labour: 7, per: 'g' },  // labour per gram of weight
-  };
-  let prod = 'agra';
-  Object.entries(PRODUCTS).forEach(([k, v]) => { const o = document.createElement('option'); o.value = k; o.textContent = v.name; $('s-prod').appendChild(o); });
-
-  // Restore saved values (older saves used rate24 / mk with mkMode 'pct' for gold)
   try {
-    const s = JSON.parse(localStorage.getItem(STORE) || 'null');
-    if (s) {
-      if (s.rate24 != null) $('rate24').value = s.rate24;
-      if (s.gMk != null) $('g-mk').value = s.gMk;
-      else if (s.mk != null && s.mkMode === 'pct') $('g-mk').value = s.mk;
-      if (s.rateAgKg != null) $('rateAgKg').value = s.rateAgKg;
-      if (s.prod && PRODUCTS[s.prod]) prod = s.prod;
+    const saved = JSON.parse(localStorage.getItem(STORE) || 'null');
+    if (saved) {
+      if (saved.rate24 != null) $('rate24').value = saved.rate24;
+      if (saved.mk != null && saved.mkMode === 'pct') $('mk').value = saved.mk;
     }
   } catch (e) {}
+
   function save() {
-    try {
-      localStorage.setItem(STORE, JSON.stringify({
-        rate24: $('rate24').value, gMk: $('g-mk').value, mkMode: 'pct',
-        rateAgKg: $('rateAgKg').value, prod,
-      }));
-    } catch (e) {}
+    try { localStorage.setItem(STORE, JSON.stringify({ rate24: $('rate24').value, mk: $('mk').value, mkMode: 'pct' })); } catch (e) {}
   }
 
-  const bills = { g: '', s: '' };
-
-  function bill(p, name, perG, metalLbl) {
-    const wt = num(p + '-wt');
-    const metalVal = perG * wt;
-    const mkPct = num(p + '-mk');
-    const making = metalVal * mkPct / 100;
-    const disc = Math.min(num(p + '-disc'), making);
-    const sub = metalVal + making - disc;
-    const gstOn = $(p + '-gst').checked;
-    const half = gstOn ? Math.round(Math.round(sub) * 0.015) : 0;
-    const total = Math.round(sub) + half * 2;
-
-    $(p + '-bMetalLbl').textContent = `${name} (${wt} g × ${inr(perG, 2)})`;
-    $(p + '-bMetal').textContent = inr(round(metalVal));
-    $(p + '-bMkLbl').textContent = `Making (${mkPct}%)`;
-    $(p + '-bMk').textContent = inr(round(making));
-    $(p + '-bDiscRow').hidden = disc <= 0;
-    $(p + '-bDisc').textContent = '− ' + inr(round(disc));
-    $(p + '-bSub').textContent = inr(round(sub));
-    $(p + '-bGstRow').hidden = !gstOn;
-    $(p + '-bCgst').textContent = inr(round(half));
-    $(p + '-bSgst').textContent = inr(round(half));
-    $(p + '-bTotal').textContent = inr(round(total));
-
-    const lines = ['*MAHAVIR JEWELLERS*', todayStr, '', `*${name} — ${wt} grams*`, `Rate: ${inr(perG, 2)} per gram`, `${metalLbl}: ${inr(round(metalVal))}`, `Making (${mkPct}%): ${inr(round(making))}`];
-    if (disc > 0) lines.push(`Making discount: −${inr(round(disc))}`);
-    if (gstOn) lines.push(`CGST 1.5%: ${inr(round(half))}`, `SGST 1.5%: ${inr(round(half))}`);
-    lines.push(`*Total Amount: ${inr(round(total))}*`);
-    bills[p] = lines.join('\n');
-  }
-
-  function silverBill(sg) {
-    const P = PRODUCTS[prod];
-    $('s-prod').value = prod;
-    const perG = P.per === 'g';
-    $('s-prodLab').textContent = 'Labour ' + inr(P.labour) + (perG ? ' / g' : '');
-    $('s-pcsField').hidden = perG;
-    const wt = num('s-wt');
-    const pcs = Math.max(1, Math.round(num('s-pcs')) || 1);
-    const metalVal = sg * wt;
-    const labour = perG ? P.labour * wt : P.labour * pcs;
-    const labTxt = perG ? `${wt} g × ${inr(P.labour)}` : `${pcs} pc × ${inr(P.labour)}`;
-    const sub = metalVal + labour;
-    const gstOn = $('s-gst').checked;
-    const half = gstOn ? Math.round(Math.round(sub) * 0.015) : 0;
-    const total = Math.round(sub) + half * 2;
-
-    $('s-bMetalLbl').textContent = `Silver (${wt} g × ${inr(sg, 2)})`;
-    $('s-bMetal').textContent = inr(round(metalVal));
-    $('s-bLabLbl').textContent = `Labour – ${P.name} (${labTxt})`;
-    $('s-bLab').textContent = inr(round(labour));
-    $('s-bSub').textContent = inr(round(sub));
-    $('s-bGstRow').hidden = !gstOn;
-    $('s-bCgst').textContent = inr(round(half));
-    $('s-bSgst').textContent = inr(round(half));
-    $('s-bTotal').textContent = inr(round(total));
-
-    const lines = ['*MAHAVIR JEWELLERS*', todayStr, '', `*Silver ${P.name} — ${wt} grams*`, `Rate: ${inr(sg, 2)} per gram`, `Silver value: ${inr(round(metalVal))}`, `Labour (${labTxt}): ${inr(round(labour))}`];
-    if (gstOn) lines.push(`CGST 1.5%: ${inr(round(half))}`, `SGST 1.5%: ${inr(round(half))}`);
-    lines.push(`*Total Amount: ${inr(round(total))}*`);
-    bills.s = lines.join('\n');
-  }
+  let lastBill = '';
 
   function render() {
-    // Gold
     const g24 = num('rate24') / 10;
     const g22 = g24 * PURITY_22 / 100;
-    $('g-r1').textContent = inr(round(g24 * 10)); $('g-r1s').textContent = inr(g24, 2) + ' per gram';
-    $('g-r2').textContent = inr(round(g22 * 10)); $('g-r2s').textContent = inr(g22, 2) + ' per gram';
-    bill('g', '22K Gold', g22, 'Gold value');
+    $('t24').textContent = inr(round(g24 * 10));
+    $('t24g').textContent = inr(g24, 2) + ' per gram';
+    $('t22').textContent = inr(round(g22 * 10));
+    $('t22g').textContent = inr(g22, 2) + ' per gram';
 
-    // Silver
-    const sg = num('rateAgKg') / 1000;
-    $('s-r1').textContent = inr(sg, 2);
-    $('s-r2').textContent = inr(round(sg * 10));
-    $('s-r3').textContent = inr(round(sg * 1000));
-    silverBill(num('s-pg'));
+    const wt = num('wt');
+    const metalVal = g22 * wt;
+    const mkPct = num('mk');
+    const making = metalVal * mkPct / 100;
+    const disc = Math.min(num('disc'), making);
+    const sub = metalVal + making - disc;
+    const gstOn = $('gst').checked;
+    const gst = gstOn ? sub * 0.03 : 0;
+    const total = sub + gst;
 
+    $('bMetalLbl').textContent = `22K Gold (${wt} g × ${inr(g22, 2)})`;
+    $('bMetal').textContent = inr(round(metalVal));
+    $('bMkLbl').textContent = `Making (${mkPct}%)`;
+    $('bMk').textContent = inr(round(making));
+    $('bDiscRow').hidden = disc <= 0;
+    $('bDisc').textContent = '− ' + inr(round(disc));
+    $('bSub').textContent = inr(round(sub));
+    $('bGstRow').hidden = !gstOn;
+    $('bGst').textContent = inr(round(gst));
+    $('bTotal').textContent = inr(round(total));
+
+    const lines = [
+      '*MAHAVIR JEWELLERS*',
+      todayStr,
+      '',
+      `*22K Gold — ${wt} grams*`,
+      `Rate: ${inr(g22, 2)} per gram`,
+      `Gold value: ${inr(round(metalVal))}`,
+      `Making (${mkPct}%): ${inr(round(making))}`,
+    ];
+    if (disc > 0) lines.push(`Making discount: −${inr(round(disc))}`);
+    if (gstOn) lines.push(`GST 3%: ${inr(round(gst))}`);
+    lines.push(`*Total Amount: ${inr(round(total))}*`);
+    lastBill = lines.join('\n');
     save();
   }
 
-  const syncPg = () => { $('s-pg').value = String(Math.round(num('rateAgKg') / 1000 * 100) / 100); };
-  $('rateAgKg').addEventListener('input', syncPg);
-  syncPg();
-  document.querySelectorAll('input').forEach((el) => el.addEventListener(el.type === 'checkbox' ? 'change' : 'input', render));
+  document.querySelectorAll('input[type="number"]').forEach((el) => el.addEventListener('input', render));
+  $('gst').addEventListener('change', render);
 
-  ['g', 's'].forEach((p) => {
-    const toast = (msg) => { $(p + '-toast').textContent = msg; setTimeout(() => { $(p + '-toast').textContent = ''; }, 2500); };
-    $(p + '-copy').addEventListener('click', () => {
-      const fb = $(p + '-fb');
-      const fallback = () => { fb.value = bills[p]; fb.hidden = false; fb.focus(); fb.select(); toast('The bill text below is selected. Copy it.'); };
-      try { navigator.clipboard.writeText(bills[p]).then(() => { fb.hidden = true; toast('Bill copied ✓'); }, fallback); }
-      catch (e) { fallback(); }
-    });
-    $(p + '-reset').addEventListener('click', () => {
-      $(p + '-wt').value = ''; if (p === 'g') $('g-disc').value = '0'; else { $('s-pcs').value = '1'; syncPg(); } $(p + '-fb').hidden = true; render(); $(p + '-wt').focus();
-    });
+  function toast(msg) { $('toast').textContent = msg; setTimeout(() => { $('toast').textContent = ''; }, 2500); }
+
+  $('copyBtn').addEventListener('click', () => {
+    const fb = $('copyFallback');
+    const fallback = () => { fb.value = lastBill; fb.hidden = false; fb.focus(); fb.select(); toast('The bill text below is selected. Copy it.'); };
+    try {
+      navigator.clipboard.writeText(lastBill).then(() => { fb.hidden = true; toast('Bill copied ✓'); }, fallback);
+    } catch (e) { fallback(); }
   });
 
-  $('s-prod').addEventListener('change', () => { prod = $('s-prod').value; render(); });
-
-  // Tabs (#gold / #silver in the link opens that tab)
-  const tabs = document.querySelectorAll('.tab');
-  function show(name) {
-    if (name !== 'silver') name = 'gold';
-    tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.tab === name)));
-    $('gold').hidden = name !== 'gold';
-    $('silver').hidden = name !== 'silver';
-  }
-  tabs.forEach((t) => t.addEventListener('click', () => {
-    show(t.dataset.tab);
-    try { history.replaceState(null, '', '#' + t.dataset.tab); } catch (e) {}
-  }));
-  window.addEventListener('hashchange', () => show(location.hash.slice(1)));
-  show(location.hash.slice(1));
+  $('resetBtn').addEventListener('click', () => {
+    $('wt').value = ''; $('disc').value = '0'; $('copyFallback').hidden = true; render(); $('wt').focus();
+  });
 
   render();
 })();
