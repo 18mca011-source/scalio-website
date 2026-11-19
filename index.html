@@ -71,7 +71,7 @@ header img { width: 100%; max-width: 300px; height: auto; display: block; }
 .tab[aria-selected="true"] .dot { background: #fff; }
 .tab[data-tab="exchange"] .dot { background: linear-gradient(135deg, #8a6620, #d9b964); }
 .tab[aria-selected="true"][data-tab="exchange"] { background: linear-gradient(135deg, #8a6620 0%, #c9a24e 50%, #7a5a1c 100%); color: #fff; box-shadow: 0 8px 18px -10px rgba(122,90,28,.7); }
-@media (max-width: 480px) { .tab { font-size: .85rem; letter-spacing: .04em; gap: 6px; padding: 12px 4px; } }
+@media (max-width: 480px) { .tab { font-size: .85rem; letter-spacing: .04em; gap: 6px; padding: 10px 4px; line-height: 1.15; text-align: center; } .tab[data-tab="exchange"] { font-size: .78rem; } }
 .steps .ln b { font-weight: 600; color: var(--ink); }
 .steps .ln.sub { color: var(--muted); font-size: .9rem; }
 
@@ -209,7 +209,7 @@ img { max-width: 100%; }
   <div class="tabs" role="tablist" aria-label="Metal">
     <button type="button" class="tab" role="tab" id="tab-gold" data-tab="gold" aria-controls="gold" aria-selected="true"><span class="dot"></span>Gold</button>
     <button type="button" class="tab" role="tab" id="tab-silver" data-tab="silver" aria-controls="silver" aria-selected="false"><span class="dot"></span>Silver</button>
-    <button type="button" class="tab" role="tab" id="tab-exchange" data-tab="exchange" aria-controls="exchange" aria-selected="false"><span class="dot"></span>Exchange</button>
+    <button type="button" class="tab" role="tab" id="tab-exchange" data-tab="exchange" aria-controls="exchange" aria-selected="false"><span class="dot"></span>Gold Exchange</button>
   </div>
 
   <!-- GOLD -->
