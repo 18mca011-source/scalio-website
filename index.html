@@ -305,7 +305,7 @@ img { max-width: 100%; }
         <div class="ln"><span>Market rate (24K)</span><span id="x-bMkt">—</span></div>
         <div class="ln minus" id="x-bLessRow"><span id="x-bLessLbl">Less</span><span id="x-bLess">—</span></div>
         <div class="ln"><span>Rate after less</span><span id="x-bRate">—</span></div>
-        <div class="ln sub"><span id="x-bCalc">—</span><span></span></div>
+        <div class="ln"><span id="x-bCalc">—</span><b id="x-bCalcV">—</b></div>
         <div class="total"><span>Old Gold Value</span><strong id="x-bTotal">—</strong></div>
       </div>
     </section>
@@ -372,7 +372,7 @@ img { max-width: 100%; }
         <div class="ln"><span>Market rate</span><span id="y-bMkt">—</span></div>
         <div class="ln minus" id="y-bLessRow"><span id="y-bLessLbl">Less</span><span id="y-bLess">—</span></div>
         <div class="ln"><span>Rate after less</span><span id="y-bRate">—</span></div>
-        <div class="ln sub"><span id="y-bCalc">—</span><span></span></div>
+        <div class="ln"><span id="y-bCalc">—</span><b id="y-bCalcV">—</b></div>
         <div class="total"><span>Old Silver Value</span><strong id="y-bTotal">—</strong></div>
       </div>
       <div class="actions">
@@ -528,6 +528,7 @@ img { max-width: 100%; }
     $('y-bRate').textContent = inr(round(rate)) + ' / kg';
     $('y-bCalc').textContent = g3(fine) + ' g × ' + inr(rate / 1000, 2) + ' per gram';
     $('y-bTotal').textContent = inr(value);
+    $('y-bCalcV').textContent = inr(value);
     const lines = ['*MAHAVIR JEWELLERS*', todayStr, '', '*Old Silver Exchange*', `Weight: ${g3(wt)} g`, `Touch: ${g3(touch)}% → Fine silver ${g3(fine)} g`, `Market rate: ${inr(round(mkt))} / kg`];
     if (less > 0) lines.push(`Less ${g3(less)}%: ${inr(round(rate))} / kg`);
     lines.push(`*Old Silver Value: ${inr(value)}*`);
@@ -554,6 +555,7 @@ img { max-width: 100%; }
     $('x-bRate').textContent = inr(round(rate)) + ' / 10g';
     $('x-bCalc').textContent = g3(fine) + ' g × ' + inr(rate / 10, 2) + ' per gram';
     $('x-bTotal').textContent = inr(round(value));
+    $('x-bCalcV').textContent = inr(round(value));
     const oldVal = round(value);
 
     // New jewellery (22K = market rate × 92%), then minus old gold value
