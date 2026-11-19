@@ -271,6 +271,18 @@ img { max-width: 100%; }
   <!-- GOLD EXCHANGE (old gold) -->
   <div class="panel grid" id="exchange" data-metal="gold" role="tabpanel" aria-labelledby="tab-exchange" hidden>
     <section class="card">
+      <h2>Today's Gold Rate</h2>
+      <div class="field big">
+        <label class="eyebrow" for="x-rate">24K Gold <span class="hint">· ₹ per 10 grams</span></label>
+        <div class="inputbox"><span class="pre">₹</span><input type="number" id="x-rate" inputmode="decimal" min="0" step="1" value="125000"><span class="post">/ 10g</span></div>
+      </div>
+      <div class="rates cols3" aria-live="polite">
+        <div class="col"><span class="karat">24K <small class="hm">99% Purity</small></span><span class="v" id="x-r1">—</span><span class="s" id="x-r1s">—</span></div>
+        <div class="col"><span class="karat">22K <small class="hm">92% Purity</small></span><span class="v" id="x-r2">—</span><span class="s" id="x-r2s">—</span></div>
+      </div>
+    </section>
+
+    <section class="card">
       <h2>Old Gold Exchange</h2>
       <div class="row2">
         <div class="field">
@@ -283,21 +295,9 @@ img { max-width: 100%; }
         </div>
       </div>
       <div class="field">
-        <label class="eyebrow" for="x-rate">Market Rate <small class="hm">24K</small> <span class="hint">· ₹ per 10 grams</span></label>
-        <div class="inputbox"><span class="pre">₹</span><input type="number" id="x-rate" inputmode="decimal" min="0" step="1" value="125000"><span class="post">/ 10g</span></div>
-      </div>
-      <div class="rates cols3" aria-live="polite" style="margin-bottom:16px">
-        <div class="col"><span class="karat">24K <small class="hm">99% Purity</small></span><span class="v" id="x-r1">—</span><span class="s" id="x-r1s">—</span></div>
-        <div class="col"><span class="karat">22K <small class="hm">92% Purity</small></span><span class="v" id="x-r2">—</span><span class="s" id="x-r2s">—</span></div>
-      </div>
-      <div class="field">
         <label class="eyebrow" for="x-less">Less from Market Rate</label>
         <div class="inputbox"><input type="number" id="x-less" inputmode="decimal" min="0" max="100" step="0.01" value="1.5"><span class="post">%</span></div>
       </div>
-    </section>
-
-    <section class="card">
-      <h2>Exchange Value</h2>
       <div class="bill steps" aria-live="polite">
         <div class="ln"><span>Weight</span><span id="x-bWt">—</span></div>
         <div class="ln"><span id="x-bTouchLbl">× Touch</span><span id="x-bFine">—</span></div>
