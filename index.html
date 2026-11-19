@@ -231,6 +231,7 @@ img { max-width: 100%; }
 
     <section class="card">
       <h2>Gold Bill</h2>
+      <div class="pctrate"><span>22K Rate</span><b id="g-22box">—</b></div>
       <div class="fixed"><span class="k">Metal</span><span class="v">22K Gold</span></div>
       <div class="row2">
         <div class="field">
@@ -661,7 +662,7 @@ img { max-width: 100%; }
     const g24 = num('rate24') / 10;
     const g22 = g24 * PURITY_22 / 100;
     $('g-r1').textContent = inr(round(g24 * 10)); $('g-r1s').textContent = inr(g24, 2) + ' per gram';
-    $('g-r2').textContent = inr(round(g22 * 10)); $('g-r2s').textContent = inr(g22, 2) + ' per gram';
+    $('g-r2').textContent = inr(round(g22 * 10)); $('g-22box').textContent = inr(round(g22 * 10)) + ' / 10g'; $('g-r2s').textContent = inr(g22, 2) + ' per gram';
     bill('g', '22K Gold', g22, 'Gold value');
 
     // Silver
