@@ -286,6 +286,10 @@ img { max-width: 100%; }
         <label class="eyebrow" for="x-rate">Market Rate <small class="hm">24K</small> <span class="hint">· ₹ per 10 grams</span></label>
         <div class="inputbox"><span class="pre">₹</span><input type="number" id="x-rate" inputmode="decimal" min="0" step="1" value="125000"><span class="post">/ 10g</span></div>
       </div>
+      <div class="rates cols3" aria-live="polite" style="margin-bottom:16px">
+        <div class="col"><span class="karat">24K <small class="hm">99% Purity</small></span><span class="v" id="x-r1">—</span><span class="s" id="x-r1s">—</span></div>
+        <div class="col"><span class="karat">22K <small class="hm">92% Purity</small></span><span class="v" id="x-r2">—</span><span class="s" id="x-r2s">—</span></div>
+      </div>
       <div class="field">
         <label class="eyebrow" for="x-less">Less from Market Rate</label>
         <div class="inputbox"><input type="number" id="x-less" inputmode="decimal" min="0" max="100" step="0.01" value="1.5"><span class="post">%</span></div>
@@ -533,6 +537,8 @@ img { max-width: 100%; }
   // Old gold exchange: weight × touch% = fine gold; fine gold × (24K rate less %) / 10
   function exchange() {
     const wt = num('x-wt'), touch = num('x-touch'), mkt = num('x-rate'), less = num('x-less');
+    $('x-r1').textContent = inr(round(mkt)); $('x-r1s').textContent = inr(mkt / 10, 2) + ' per gram';
+    $('x-r2').textContent = inr(round(mkt * PURITY_22 / 100)); $('x-r2s').textContent = inr(mkt / 10 * PURITY_22 / 100, 2) + ' per gram';
     const fine = Math.round(wt * touch / 100 * 1000) / 1000;
     const lessAmt = mkt * less / 100;
     const rate = mkt - lessAmt;
