@@ -105,6 +105,16 @@ input[type="number"] {
 .row3 { display: grid; grid-template-columns: 1fr 1fr 0.7fr; gap: 12px; }
 .row3 > .field { min-width: 0; }
 .inputbox:has(input[readonly]) { background: #f6f3ec; }
+.trio { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+.trio .eyebrow { white-space: nowrap; }
+@media (max-width: 480px) {
+  .trio { gap: 8px; }
+  .trio .eyebrow { letter-spacing: .08em; }
+  .trio input[type="number"] { font-size: 1.05rem; padding-left: 10px; padding-right: 2px; -moz-appearance: textfield; appearance: textfield; }
+  .trio input::-webkit-outer-spin-button, .trio input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .trio .inputbox .post { padding: 0 8px 0 2px; font-size: .8rem; }
+}
+@media (max-width: 360px) { .trio .inputbox .post { padding: 0 6px 0 0; } .trio input[type="number"] { padding-left: 8px; } }
 @media (max-width: 640px) { .row2 { gap: 10px; } }
 @media (max-width: 400px) {
   .row2 .eyebrow, .row3 .eyebrow { letter-spacing: .08em; white-space: nowrap; }
@@ -285,7 +295,7 @@ img { max-width: 100%; }
 
     <section class="card">
       <h2>Old Gold Exchange</h2>
-      <div class="row2">
+      <div class="trio">
         <div class="field">
           <label class="eyebrow" for="x-wt">Weight</label>
           <div class="inputbox"><input type="number" id="x-wt" inputmode="decimal" min="0" step="0.001" value="30"><span class="post">g</span></div>
@@ -294,10 +304,10 @@ img { max-width: 100%; }
           <label class="eyebrow" for="x-touch">Touch</label>
           <div class="inputbox"><input type="number" id="x-touch" inputmode="decimal" min="0" max="100" step="0.01" value="80"><span class="post">%</span></div>
         </div>
-      </div>
-      <div class="field">
-        <label class="eyebrow" for="x-less">Less from Market Rate</label>
-        <div class="inputbox"><input type="number" id="x-less" inputmode="decimal" min="0" max="100" step="0.01" value="1.5"><span class="post">%</span></div>
+        <div class="field">
+          <label class="eyebrow" for="x-less">Less</label>
+          <div class="inputbox"><input type="number" id="x-less" inputmode="decimal" min="0" max="100" step="0.01" value="1.5"><span class="post">%</span></div>
+        </div>
       </div>
       <div class="bill steps" aria-live="polite">
         <div class="ln"><span>Weight</span><span id="x-bWt">—</span></div>
@@ -350,7 +360,7 @@ img { max-width: 100%; }
   <div class="panel grid" id="sexchange" data-metal="silver" role="tabpanel" aria-labelledby="tab-sexchange" hidden>
     <section class="card">
       <h2>Old Silver Exchange</h2>
-      <div class="row2">
+      <div class="trio">
         <div class="field">
           <label class="eyebrow" for="y-wt">Weight</label>
           <div class="inputbox"><input type="number" id="y-wt" inputmode="decimal" min="0" step="0.001" value="100"><span class="post">g</span></div>
@@ -359,14 +369,14 @@ img { max-width: 100%; }
           <label class="eyebrow" for="y-touch">Touch</label>
           <div class="inputbox"><input type="number" id="y-touch" inputmode="decimal" min="0" max="100" step="0.01" value="80"><span class="post">%</span></div>
         </div>
+        <div class="field">
+          <label class="eyebrow" for="y-less">Less</label>
+          <div class="inputbox"><input type="number" id="y-less" inputmode="decimal" min="0" max="100" step="0.01" value="1.5"><span class="post">%</span></div>
+        </div>
       </div>
       <div class="field">
         <label class="eyebrow" for="y-rate">Market Rate <small class="hm">999</small> <span class="hint">· ₹ per kg</span></label>
         <div class="inputbox"><span class="pre">₹</span><input type="number" id="y-rate" inputmode="decimal" min="0" step="1" value="180000"><span class="post">/ kg</span></div>
-      </div>
-      <div class="field">
-        <label class="eyebrow" for="y-less">Less from Market Rate</label>
-        <div class="inputbox"><input type="number" id="y-less" inputmode="decimal" min="0" max="100" step="0.01" value="1.5"><span class="post">%</span></div>
       </div>
       <div class="bill steps" aria-live="polite">
         <div class="ln"><span id="y-bTouchLbl">Weight × Touch</span><span id="y-bFine">—</span></div>
