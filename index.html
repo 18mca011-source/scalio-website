@@ -212,8 +212,8 @@ footer { text-align: center; font-size: .75rem; letter-spacing: .2em; text-trans
 @media (max-width: 520px) { .home-grid { grid-template-columns: 1fr; } .tile { flex-direction: row; align-items: center; gap: 14px; padding: 18px; } .tile .txt { display: flex; flex-direction: column; } }
 
 /* Stock */
-.stabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; max-width: 560px; width: 100%; margin: 0 auto; }
-.stab { font: inherit; font-weight: 600; font-size: .9rem; letter-spacing: .06em; text-transform: uppercase; padding: 11px 6px; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: var(--muted); cursor: pointer; }
+.stabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; max-width: 640px; width: 100%; margin: 0 auto; }
+.stab { font: inherit; font-weight: 600; font-size: .82rem; letter-spacing: .04em; text-transform: uppercase; padding: 11px 6px; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: var(--muted); cursor: pointer; }
 .stab[aria-selected="true"] { background: var(--grad); color: #fff; border-color: transparent; box-shadow: 0 8px 18px -10px rgba(138,102,32,.7); }
 .spanel { display: flex; flex-direction: column; gap: 18px; max-width: 760px; width: 100%; margin: 0 auto; }
 .notice { border: 1px solid var(--line); background: var(--gold-wash); border-radius: 14px; padding: 16px; font-size: .95rem; }
@@ -270,6 +270,17 @@ footer { text-align: center; font-size: .75rem; letter-spacing: .2em; text-trans
 .btable td:not(:first-child), .btable th:not(:first-child) { text-align: right; }
 @media (max-width: 420px) { .inrow.three { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .inrow.three .sbtn { grid-column: 1 / -1; } .sform { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .sform .sbtn { grid-column: 1 / -1; } }
 @media print { header, .topbar .back, .stabs, .rfilter, .quick, .noprint { display: none !important; } }
+@media (max-width: 480px) { .stabs { grid-template-columns: repeat(2, minmax(0, 1fr)); } .stab { font-size: .85rem; padding: 10px 4px; } }
+.seg2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding: 4px; border: 1px solid var(--line); border-radius: 14px; background: var(--field); }
+.seg2.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.seg2 button { font: inherit; font-weight: 600; font-size: .95rem; letter-spacing: .04em; padding: 11px 4px; border: 0; border-radius: 10px; background: transparent; color: var(--muted); cursor: pointer; }
+.seg2 button[aria-pressed="true"] { background: var(--grad); color: #fff; box-shadow: 0 6px 14px -8px rgba(138,102,32,.7); }
+#en-metal button[data-v="silver"][aria-pressed="true"] { background: linear-gradient(135deg, #8b95a2 0%, #b9c1ca 50%, #6f7a87 100%); }
+.bigsel { width: 100%; font: inherit; font-size: 1.1rem; font-weight: 500; padding: 13px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--field); color: var(--ink); }
+.bigsel:disabled { color: var(--muted); }
+.res.big { font-size: 1rem; padding: 14px 16px; line-height: 1.5; }
+.res.big b { font-size: 1.15rem; }
+#en-save:disabled { opacity: .5; cursor: not-allowed; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 <style>
@@ -558,25 +569,51 @@ img { max-width: 100%; }
   <section class="view" id="v-stock" hidden>
     <div class="topbar"><button type="button" class="back" data-go="home">← Home</button><h1>Stock</h1></div>
     <div class="stabs" role="tablist" aria-label="Stock">
-      <button type="button" class="stab" role="tab" data-st="boxes" aria-selected="true">Boxes</button>
+      <button type="button" class="stab" role="tab" data-st="entry" aria-selected="true">Entry</button>
       <button type="button" class="stab" role="tab" data-st="report" aria-selected="false">Report</button>
       <button type="button" class="stab" role="tab" data-st="dash" aria-selected="false">Dashboard</button>
+      <button type="button" class="stab" role="tab" data-st="boxes" aria-selected="false">Boxes</button>
     </div>
     <div class="notice err" id="st-msg" hidden></div>
 
-    <div class="spanel" id="st-boxes">
+    <div class="spanel" id="st-entry">
       <section class="card">
-        <h2>Boxes</h2>
-        <p class="sub-h" id="st-count">Loading…</p>
-        <div id="st-list" style="display:flex;flex-direction:column;gap:12px"></div>
-      </section>
-      <section class="card">
-        <h2>Add a Box</h2>
-        <div class="sform">
-          <input type="text" id="st-newName" placeholder="Box name, e.g. Gold Chain Box" maxlength="60">
-          <select id="st-newMetal"><option value="gold">Gold</option><option value="silver">Silver</option></select>
-          <button type="button" class="sbtn" id="st-add">Add Box</button>
+        <h2>Stock Entry</h2>
+        <div>
+          <p class="sub-h">Metal</p>
+          <div class="seg2" id="en-metal">
+            <button type="button" data-v="gold" aria-pressed="true">Gold</button>
+            <button type="button" data-v="silver" aria-pressed="false">Silver</button>
+          </div>
         </div>
+        <div>
+          <p class="sub-h">Entry</p>
+          <div class="seg2 three" id="en-type">
+            <button type="button" data-v="out" aria-pressed="true">Take Out</button>
+            <button type="button" data-v="sale" aria-pressed="false">Sold</button>
+            <button type="button" data-v="in" aria-pressed="false">Return</button>
+          </div>
+        </div>
+        <div class="field">
+          <label class="eyebrow" for="en-box">Box</label>
+          <select id="en-box" class="bigsel"></select>
+        </div>
+        <div class="stats" id="en-info" hidden></div>
+        <div class="field">
+          <label class="eyebrow" for="en-wt" id="en-wtLbl">Box weight</label>
+          <div class="inputbox"><input type="number" id="en-wt" inputmode="decimal" min="0" step="0.001" placeholder="0.000"><span class="post">g</span></div>
+        </div>
+        <div class="field" id="en-noteF" hidden>
+          <label class="eyebrow" for="en-note">Note <span class="hint">· optional</span></label>
+          <div class="inputbox"><input type="text" id="en-note" maxlength="80" placeholder="e.g. Chain 18 inch" style="font:inherit;font-size:1rem;border:0;background:transparent;padding:12px 10px;width:100%;outline:none"></div>
+        </div>
+        <button type="button" class="btn" id="en-save">Take Out</button>
+        <div class="res" id="en-res" hidden></div>
+      </section>
+
+      <section class="card">
+        <h2>Out Right Now</h2>
+        <div class="rlist" id="en-out"></div>
       </section>
     </div>
 
@@ -619,6 +656,23 @@ img { max-width: 100%; }
       <section class="card">
         <h2>This Month by Box</h2>
         <div style="overflow-x:auto"><table class="btable" id="db-table"></table></div>
+      </section>
+    </div>
+
+    <div class="spanel" id="st-boxes" hidden>
+      <section class="card">
+        <h2>Add a Box</h2>
+        <p class="sub-h">Add each product box once. After that, just pick it in Entry.</p>
+        <div class="sform">
+          <input type="text" id="st-newName" placeholder="Box name, e.g. Gold Chain Box" maxlength="60">
+          <select id="st-newMetal"><option value="gold">Gold</option><option value="silver">Silver</option></select>
+          <button type="button" class="sbtn" id="st-add">Add Box</button>
+        </div>
+      </section>
+      <section class="card">
+        <h2>All Boxes</h2>
+        <p class="sub-h" id="st-count">Loading…</p>
+        <div class="rlist" id="st-list"></div>
       </section>
     </div>
   </section>
@@ -896,8 +950,8 @@ img { max-width: 100%; }
 
   $('s-prod').addEventListener('change', () => { prod = $('s-prod').value; render(); });
 
-  // ---------- STOCK: boxes go out of the store room and come back; sold weight is written in between ----------
-  const ST = { boxes: [], trips: [], ok: false, busy: false, tab: 'boxes' };
+  // ---------- STOCK: boxes are added once; then Entry = pick metal → Take Out / Sold / Return → pick box → weight ----------
+  const ST = { boxes: [], trips: [], ok: false, busy: false, metal: 'gold', type: 'out' };
   const g3 = (n) => (Number(n) || 0).toLocaleString('en-IN', { minimumFractionDigits: 3, maximumFractionDigits: 3 }) + ' g';
   const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const when = (iso) => new Date(iso).toLocaleString('en-IN', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' });
@@ -906,21 +960,22 @@ img { max-width: 100%; }
   const sumSold = (t) => t.sales.reduce((s, x) => s + x.weight, 0);
   const diffText = (d) => Math.abs(d) < 0.0005 ? 'OK ✓' : d < 0 ? g3(-d) + ' missing' : g3(d) + ' extra';
   const diffCls = (d) => Math.abs(d) < 0.0005 ? 'ok' : d < 0 ? 'miss' : 'extra';
+  const openTrip = (boxId) => ST.trips.find((t) => t.boxId === boxId && !t.inAt);
 
   function stMsg(text) { $('st-msg').hidden = !text; $('st-msg').innerHTML = text || ''; }
 
-  async function stLoad(fromPoll) {
+  async function stLoad() {
     try {
       const r = await fetch('/api/stock', { cache: 'no-store' });
       const d = await r.json().catch(() => ({}));
-      if (r.status === 503) { ST.ok = false; stMsg('<b>Stock storage is not connected yet.</b> Connect the free Upstash Redis storage in Vercel (Storage tab) for this project, then refresh.'); stRender(); return; }
+      if (r.status === 503) { ST.ok = false; stMsg('<b>Stock storage is not connected yet.</b>'); stRender(); return; }
       if (!r.ok) throw new Error(d.error || 'load');
-      ST.boxes = d.boxes || []; ST.trips = d.trips || []; ST.ok = true; stMsg(''); stRender(fromPoll);
+      ST.boxes = d.boxes || []; ST.trips = d.trips || []; ST.ok = true; stMsg(''); stRender();
     } catch (e) { stMsg('Could not load stock. Check the internet and refresh.'); }
   }
 
   async function stDo(action, data, btn) {
-    if (ST.busy) return;
+    if (ST.busy) return false;
     ST.busy = true; if (btn) btn.disabled = true;
     try {
       const r = await fetch('/api/stock', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ action }, data)) });
@@ -931,44 +986,77 @@ img { max-width: 100%; }
     finally { ST.busy = false; if (btn) btn.disabled = false; }
   }
 
-  function boxCard(b) {
-    const open = ST.trips.find((t) => t.boxId === b.id && !t.inAt);
-    const last = ST.trips.filter((t) => t.boxId === b.id && t.inAt).sort((x, y) => y.inAt.localeCompare(x.inAt))[0];
-    const head = `<div class="sbox-h"><b>${esc(b.name)}</b><span class="pill ${b.metal}">${b.metal === 'silver' ? 'Silver' : 'Gold'}</span>` +
-      (open ? `<span class="pill out">Out · ${timeOnly(open.outAt)}</span>` : `<span class="pill">In store room</span>`) + `</div>`;
-    if (!open) {
-      return `<div class="sbox" data-box="${b.id}">${head}
-        ${last ? `<div class="res ${diffCls(last.diff)}">Last return ${when(last.inAt)}: ${diffText(last.diff)}</div>` : ''}
-        <label class="sub-h" for="w-${b.id}">Take out of store room · box weight now</label>
-        <div class="inrow"><input type="number" inputmode="decimal" step="0.001" min="0" id="w-${b.id}" placeholder="Weight in grams"><button type="button" class="sbtn" data-act="out" data-id="${b.id}">Take Out</button></div>
-        <div><button type="button" class="lnk" data-act="del" data-id="${b.id}">Delete box</button></div>
-      </div>`;
-    }
-    const sold = sumSold(open), expect = open.outWeight - sold;
-    const sales = open.sales.length ? open.sales.map((s) => `<div class="sale"><span class="w">${g3(s.weight)}</span><span class="n">${esc(s.note || 'Sold')} · ${timeOnly(s.at)}</span><button type="button" class="x" title="Remove" aria-label="Remove sold entry" data-act="rmsale" data-trip="${open.id}" data-sale="${s.id}">×</button></div>`).join('') : '<div class="empty">No sold entries yet</div>';
-    return `<div class="sbox out" data-box="${b.id}">${head}
-      <div class="stats"><div class="stat"><small>Out weight</small><strong>${g3(open.outWeight)}</strong></div><div class="stat"><small>Sold</small><strong>${g3(sold)}</strong></div><div class="stat"><small>Should return</small><strong>${g3(expect)}</strong></div></div>
-      <p class="sub-h">Sold from this box (diary)</p>
-      <div class="sales">${sales}</div>
-      <div class="inrow three"><input type="number" inputmode="decimal" step="0.001" min="0" id="sw-${open.id}" placeholder="Sold weight g"><input type="text" id="sn-${open.id}" placeholder="Note (optional)" maxlength="80"><button type="button" class="sbtn dark" data-act="sale" data-trip="${open.id}">Add Sold</button></div>
-      <label class="sub-h" for="rw-${open.id}">Back to store room · box weight now</label>
-      <div class="inrow"><input type="number" inputmode="decimal" step="0.001" min="0" id="rw-${open.id}" placeholder="Weight in grams"><button type="button" class="sbtn" data-act="in" data-trip="${open.id}">Return</button></div>
-      <div><button type="button" class="lnk" data-act="cancel" data-trip="${open.id}">Cancel take-out (entered by mistake)</button></div>
-    </div>`;
+  // ---- Entry ----
+  const TYPE = {
+    out: { btn: 'Take Out', lbl: 'Box weight now (taking out)', empty: 'No box in the store room for this metal' },
+    sale: { btn: 'Add Sold', lbl: 'Sold weight', empty: 'No box is out for this metal' },
+    in: { btn: 'Return', lbl: 'Box weight now (returning)', empty: 'No box is out for this metal' },
+  };
+  function enBoxes() {
+    return ST.boxes.filter((b) => b.metal === ST.metal && (ST.type === 'out' ? !openTrip(b.id) : !!openTrip(b.id)))
+      .sort((a, b) => a.name.localeCompare(b.name));
   }
+  function enRender() {
+    document.querySelectorAll('#en-metal button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === ST.metal)));
+    document.querySelectorAll('#en-type button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === ST.type)));
+    const list = enBoxes(), sel = $('en-box'), keep = sel.value;
+    sel.innerHTML = list.length ? list.map((b) => `<option value="${b.id}">${esc(b.name)}</option>`).join('') : `<option value="">${ST.ok ? TYPE[ST.type].empty : 'Loading…'}</option>`;
+    if (list.some((b) => b.id === keep)) sel.value = keep;
+    sel.disabled = !list.length;
+    $('en-wtLbl').textContent = TYPE[ST.type].lbl;
+    $('en-noteF').hidden = ST.type !== 'sale';
+    $('en-save').textContent = TYPE[ST.type].btn;
+    $('en-save').disabled = !list.length;
+    const t = sel.value && openTrip(sel.value);
+    $('en-info').hidden = !t;
+    if (t) { const sold = sumSold(t); $('en-info').innerHTML = `<div class="stat"><small>Out weight</small><strong>${g3(t.outWeight)}</strong></div><div class="stat"><small>Sold</small><strong>${g3(sold)}</strong></div><div class="stat"><small>Should return</small><strong>${g3(t.outWeight - sold)}</strong></div>`; }
+    // Boxes out right now (this metal), with their sold entries
+    const outs = ST.trips.filter((x) => !x.inAt && x.metal === ST.metal);
+    $('en-out').innerHTML = outs.length ? outs.map((x) => {
+      const sales = x.sales.map((s) => `<div class="sale"><span class="w">${g3(s.weight)}</span><span class="n">${esc(s.note || 'Sold')} · ${timeOnly(s.at)}</span><button type="button" class="x" aria-label="Remove sold entry" data-act="rmsale" data-trip="${x.id}" data-sale="${s.id}">×</button></div>`).join('');
+      return `<div class="ritem"><span class="t">${esc(x.boxName)}</span><span class="d">${g3(x.outWeight - sumSold(x))}</span><span class="m">Out ${timeOnly(x.outAt)} · ${g3(x.outWeight)} − sold ${g3(sumSold(x))} = should return</span>${sales ? `<div class="sales" style="grid-column:1/-1">${sales}</div>` : ''}<span class="m"><button type="button" class="lnk" data-act="cancel" data-trip="${x.id}">Cancel take-out (entered by mistake)</button></span></div>`;
+    }).join('') : `<div class="empty">No ${ST.metal} box is out</div>`;
+  }
+  document.querySelectorAll('#en-metal button').forEach((b) => b.addEventListener('click', () => { ST.metal = b.dataset.v; $('en-res').hidden = true; enRender(); }));
+  document.querySelectorAll('#en-type button').forEach((b) => b.addEventListener('click', () => { ST.type = b.dataset.v; $('en-res').hidden = true; enRender(); }));
+  $('en-box').addEventListener('change', () => { $('en-res').hidden = true; enRender(); });
+  $('en-save').addEventListener('click', async (e) => {
+    const boxId = $('en-box').value, w = $('en-wt').value;
+    if (!boxId) return;
+    if (w === '' || !(parseFloat(w) >= 0) || (ST.type !== 'in' && !(parseFloat(w) > 0))) return alert('Enter the weight in grams');
+    const t = openTrip(boxId), btn = e.currentTarget;
+    let ok = false;
+    if (ST.type === 'out') ok = await stDo('takeOut', { boxId, weight: w }, btn);
+    if (ST.type === 'sale') ok = await stDo('addSale', { tripId: t.id, weight: w, note: $('en-note').value }, btn);
+    if (ST.type === 'in') ok = await stDo('returnIn', { tripId: t.id, weight: w }, btn);
+    if (!ok) return;
+    $('en-wt').value = ''; $('en-note').value = '';
+    const res = $('en-res'); res.hidden = false;
+    if (ST.type === 'in') { const r = ST.trips.find((x) => x.id === t.id); res.className = 'res big ' + diffCls(r.diff); res.innerHTML = `<b>${esc(r.boxName)}: ${diffText(r.diff)}</b><br>Out ${g3(r.outWeight)} − Sold ${g3(r.sold)} = Should ${g3(r.expected)} · Returned ${g3(r.inWeight)}`; }
+    else { res.className = 'res ok'; res.textContent = ST.type === 'out' ? 'Taken out ✓' : 'Sold entry saved ✓'; }
+  });
+  $('en-out').addEventListener('click', async (e) => {
+    const b = e.target.closest('[data-act]'); if (!b) return;
+    if (b.dataset.act === 'rmsale' && confirm('Remove this sold entry?')) await stDo('removeSale', { tripId: b.dataset.trip, saleId: b.dataset.sale }, b);
+    if (b.dataset.act === 'cancel' && confirm('Cancel this take-out? Its sold entries will be removed too.')) await stDo('cancelTrip', { tripId: b.dataset.trip }, b);
+  });
 
-  function stRenderBoxes(keepTyping) {
+  // ---- Boxes (add once) ----
+  function stRenderBoxes() {
     const out = ST.trips.filter((t) => !t.inAt).length;
     $('st-count').textContent = ST.ok ? `${ST.boxes.length} box${ST.boxes.length === 1 ? '' : 'es'} · ${out} out now` : '';
     const sorted = ST.boxes.slice().sort((a, b) => a.metal.localeCompare(b.metal) || a.name.localeCompare(b.name));
-    // A background refresh must not wipe numbers someone is typing
-    const typed = {}; const focusId = document.activeElement && document.activeElement.id;
-    if (keepTyping) $('st-list').querySelectorAll('input').forEach((i) => { if (i.value) typed[i.id] = i.value; });
-    $('st-list').innerHTML = sorted.length ? sorted.map(boxCard).join('') : (ST.ok ? '<div class="empty">No boxes yet. Add your first box below.</div>' : '');
-    if (keepTyping) { Object.entries(typed).forEach(([k, v]) => { const el = $(k); if (el) el.value = v; }); if (focusId && $(focusId)) $(focusId).focus(); }
+    $('st-list').innerHTML = sorted.length ? sorted.map((b) => { const o = openTrip(b.id); return `<div class="ritem"><span class="t">${esc(b.name)} <span class="pill ${b.metal}">${b.metal === 'silver' ? 'Silver' : 'Gold'}</span></span><span class="d">${o ? '<span class="pill out">Out</span>' : '<span class="pill">In store</span>'}</span>${o ? '' : `<span class="m"><button type="button" class="lnk" data-act="del" data-id="${b.id}">Delete box</button></span>`}</div>`; }).join('') : (ST.ok ? '<div class="empty">No boxes yet. Add your first box above.</div>' : '');
   }
+  $('st-list').addEventListener('click', async (e) => {
+    const b = e.target.closest('[data-act="del"]'); if (b && confirm('Delete this box? Its past reports stay.')) await stDo('deleteBox', { id: b.dataset.id }, b);
+  });
+  $('st-add').addEventListener('click', async (e) => {
+    const name = $('st-newName').value.trim(); if (!name) return alert('Enter a box name');
+    if (await stDo('addBox', { name, metal: $('st-newMetal').value }, e.currentTarget)) $('st-newName').value = '';
+  });
 
-  // Report
+  // ---- Report ----
   function rpRange(kind) {
     const t = new Date(), to = dayKey(t); let from = to;
     if (kind === '7') from = dayKey(new Date(t.getTime() - 6 * 864e5));
@@ -987,8 +1075,9 @@ img { max-width: 100%; }
     return o;
   }
   function stRenderReport() {
-    const opts = '<option value="">All boxes</option>' + ST.boxes.map((b) => `<option value="${b.id}">${esc(b.name)}</option>`).join('');
-    const keep = $('rp-box').value; $('rp-box').innerHTML = opts; $('rp-box').value = keep;
+    const keep = $('rp-box').value;
+    $('rp-box').innerHTML = '<option value="">All boxes</option>' + ST.boxes.map((b) => `<option value="${b.id}">${esc(b.name)}</option>`).join('');
+    $('rp-box').value = keep;
     const rows = rpRows(), t = totals(rows);
     $('rp-kpis').innerHTML = `<div class="kpi"><small>Returns</small><strong>${t.n}</strong></div><div class="kpi"><small>Sold</small><strong>${g3(t.sold)}</strong></div><div class="kpi"><small>Missing</small><strong class="${t.miss > 0.0005 ? 'd-miss' : ''}">${g3(t.miss)}</strong></div><div class="kpi"><small>Extra</small><strong class="${t.extra > 0.0005 ? 'd-extra' : ''}">${g3(t.extra)}</strong></div>`;
     $('rp-list').innerHTML = rows.length ? rows.map((r) => `<div class="ritem"><span class="t">${esc(r.boxName)}</span><span class="d d-${diffCls(r.diff)}">${diffText(r.diff)}</span><span class="m">${when(r.outAt)} → ${when(r.inAt)} · Out ${g3(r.outWeight)} − Sold ${g3(r.sold)} = Should ${g3(r.expected)} · Returned ${g3(r.inWeight)}</span></div>`).join('') : '<div class="empty">No returns in this period</div>';
@@ -997,7 +1086,7 @@ img { max-width: 100%; }
       '', `Returns: ${t.n}`, `Total sold: ${g3(t.sold)}`, `*Total missing: ${g3(t.miss)}*`, `Total extra: ${g3(t.extra)}`].join('\n');
   }
 
-  // Dashboard
+  // ---- Dashboard ----
   function stRenderDash() {
     const today = dayKey(new Date()), month = today.slice(0, 7);
     const done = ST.trips.filter((t) => t.inAt), open = ST.trips.filter((t) => !t.inAt);
@@ -1007,36 +1096,20 @@ img { max-width: 100%; }
       `<div class="kpi"><small>Sold today</small><strong>${g3(soldToday('gold'))}</strong><em>Gold · Silver ${g3(soldToday('silver'))}</em></div>` +
       `<div class="kpi"><small>Missing today</small><strong class="${tToday.miss > 0.0005 ? 'd-miss' : 'd-ok'}">${g3(tToday.miss)}</strong></div>` +
       `<div class="kpi"><small>Missing this month</small><strong class="${tMonth.miss > 0.0005 ? 'd-miss' : 'd-ok'}">${g3(tMonth.miss)}</strong><em>${tMonth.bad} mismatch${tMonth.bad === 1 ? '' : 'es'}</em></div>`;
-    $('db-out').innerHTML = open.length ? open.map((t) => `<div class="ritem"><span class="t">${esc(t.boxName)}</span><span class="d">${g3(t.outWeight - sumSold(t))}</span><span class="m">Out since ${when(t.outAt)} · Out ${g3(t.outWeight)} · Sold ${g3(sumSold(t))} · should return</span></div>`).join('') : '<div class="empty">All boxes are in the store room</div>';
+    $('db-out').innerHTML = open.length ? open.map((t) => `<div class="ritem"><span class="t">${esc(t.boxName)} <span class="pill ${t.metal}">${t.metal === 'silver' ? 'Silver' : 'Gold'}</span></span><span class="d">${g3(t.outWeight - sumSold(t))}</span><span class="m">Out since ${when(t.outAt)} · Out ${g3(t.outWeight)} · Sold ${g3(sumSold(t))} · should return</span></div>`).join('') : '<div class="empty">All boxes are in the store room</div>';
     const diffs = done.filter((t) => Math.abs(t.diff) >= 0.0005).sort((a, b) => b.inAt.localeCompare(a.inAt)).slice(0, 10);
     $('db-diff').innerHTML = diffs.length ? diffs.map((t) => `<div class="ritem"><span class="t">${esc(t.boxName)}</span><span class="d d-${diffCls(t.diff)}">${diffText(t.diff)}</span><span class="m">Returned ${when(t.inAt)}</span></div>`).join('') : '<div class="empty">No differences so far ✓</div>';
-    const rows = ST.boxes.map((b) => { const ts = done.filter((t) => t.boxId === b.id && dayKey(t.inAt).slice(0, 7) === month); const o = totals(ts); return `<tr><td>${esc(b.name)}</td><td>${o.n}</td><td>${g3(o.sold)}</td><td class="${o.miss > 0.0005 ? 'd-miss' : ''}">${g3(o.miss)}</td></tr>`; });
+    const rows = ST.boxes.map((b) => { const o = totals(done.filter((t) => t.boxId === b.id && dayKey(t.inAt).slice(0, 7) === month)); return `<tr><td>${esc(b.name)}</td><td>${o.n}</td><td>${g3(o.sold)}</td><td class="${o.miss > 0.0005 ? 'd-miss' : ''}">${g3(o.miss)}</td></tr>`; });
     $('db-table').innerHTML = '<tr><th>Box</th><th>Returns</th><th>Sold</th><th>Missing</th></tr>' + (rows.join('') || '<tr><td colspan="4" class="empty">No boxes yet</td></tr>');
   }
 
-  function stRender(keepTyping) { stRenderBoxes(keepTyping); stRenderReport(); stRenderDash(); }
+  function stRender() { enRender(); stRenderBoxes(); stRenderReport(); stRenderDash(); }
 
   function stTab(name) {
-    ST.tab = name;
     document.querySelectorAll('.stab').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.st === name)));
-    $('st-boxes').hidden = name !== 'boxes'; $('st-report').hidden = name !== 'report'; $('st-dash').hidden = name !== 'dash';
+    ['entry', 'report', 'dash', 'boxes'].forEach((n) => { $('st-' + n).hidden = n !== name; });
   }
   document.querySelectorAll('.stab').forEach((b) => b.addEventListener('click', () => stTab(b.dataset.st)));
-
-  $('st-list').addEventListener('click', async (e) => {
-    const b = e.target.closest('[data-act]'); if (!b) return;
-    const a = b.dataset.act;
-    if (a === 'out') { const w = $('w-' + b.dataset.id).value; if (!(parseFloat(w) > 0)) return alert('Enter the box weight in grams'); await stDo('takeOut', { boxId: b.dataset.id, weight: w }, b); }
-    if (a === 'sale') { const t = b.dataset.trip, w = $('sw-' + t).value; if (!(parseFloat(w) > 0)) return alert('Enter the sold weight in grams'); await stDo('addSale', { tripId: t, weight: w, note: $('sn-' + t).value }, b); }
-    if (a === 'rmsale') { if (confirm('Remove this sold entry?')) await stDo('removeSale', { tripId: b.dataset.trip, saleId: b.dataset.sale }, b); }
-    if (a === 'in') { const t = b.dataset.trip, w = $('rw-' + t).value; if (w === '' || !(parseFloat(w) >= 0)) return alert('Enter the box weight in grams'); if (await stDo('returnIn', { tripId: t, weight: w }, b)) { const tr = ST.trips.find((x) => x.id === t); if (tr) alert(tr.boxName + ': ' + diffText(tr.diff) + '\nShould be ' + g3(tr.expected) + ', returned ' + g3(tr.inWeight)); } }
-    if (a === 'cancel') { if (confirm('Cancel this take-out? Its sold entries will be removed too.')) await stDo('cancelTrip', { tripId: b.dataset.trip }, b); }
-    if (a === 'del') { if (confirm('Delete this box? Its past reports stay.')) await stDo('deleteBox', { id: b.dataset.id }, b); }
-  });
-  $('st-add').addEventListener('click', async (e) => {
-    const name = $('st-newName').value.trim(); if (!name) return alert('Enter a box name');
-    if (await stDo('addBox', { name, metal: $('st-newMetal').value }, e.currentTarget)) $('st-newName').value = '';
-  });
   document.querySelectorAll('[data-range]').forEach((b) => b.addEventListener('click', () => rpRange(b.dataset.range)));
   ['rp-from', 'rp-to', 'rp-box', 'rp-metal'].forEach((i) => $(i).addEventListener('change', stRenderReport));
   $('rp-print').addEventListener('click', () => window.print());
@@ -1046,7 +1119,9 @@ img { max-width: 100%; }
     try { navigator.clipboard.writeText(bills.rp).then(() => { fb.hidden = true; toast('Report copied ✓'); }, fallback); } catch (err) { fallback(); }
   });
   rpRange('today');
-  setInterval(() => { if (!$('v-stock').hidden && !ST.busy && !document.hidden) stLoad(true); }, 30000);
+  enRender();
+  // Refresh from other phones every 30 s (only re-draws; typed numbers stay because inputs are not rebuilt)
+  setInterval(() => { if (!$('v-stock').hidden && !ST.busy && !document.hidden) stLoad(); }, 30000);
 
   // Views: #home (default) → Home; #gold #silver #exchange #sexchange → Calculator tabs; #stock → Stock
   const tabs = document.querySelectorAll('.tab');
