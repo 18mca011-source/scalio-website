@@ -197,6 +197,79 @@ button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 textarea.copyFallback { width: 100%; font: inherit; font-size: .9rem; border: 1px solid var(--line); border-radius: 10px; padding: 10px; background: var(--field); color: var(--ink); }
 
 footer { text-align: center; font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+/* Views: Home / Calculator / Stock */
+.view { display: flex; flex-direction: column; gap: 24px; }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.topbar h1 { margin: 0; font-family: var(--f-brand); font-weight: 600; font-size: 1.05rem; letter-spacing: .22em; text-transform: uppercase; }
+.back { font: inherit; font-weight: 600; font-size: .9rem; letter-spacing: .06em; color: var(--gold-deep); background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 9px 14px; cursor: pointer; }
+.home-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; max-width: 720px; width: 100%; margin: 0 auto; }
+.tile { font: inherit; text-align: left; cursor: pointer; border: 1px solid var(--line); border-radius: 20px; background: #fff; padding: 26px 22px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 1px 0 rgba(0,0,0,.03), 0 18px 40px -24px rgba(90,80,60,.28); transition: transform .15s, border-color .15s; color: var(--ink); }
+.tile:hover { border-color: var(--gold-light); transform: translateY(-2px); }
+.tile .ic { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: var(--grad); color: #fff; }
+.tile .ic svg { width: 24px; height: 24px; }
+.tile b { font-family: var(--f-brand); font-weight: 600; font-size: 1.15rem; letter-spacing: .1em; text-transform: uppercase; }
+.tile span { color: var(--muted); font-size: .92rem; }
+@media (max-width: 520px) { .home-grid { grid-template-columns: 1fr; } .tile { flex-direction: row; align-items: center; gap: 14px; padding: 18px; } .tile .txt { display: flex; flex-direction: column; } }
+
+/* Stock */
+.stabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; max-width: 560px; width: 100%; margin: 0 auto; }
+.stab { font: inherit; font-weight: 600; font-size: .9rem; letter-spacing: .06em; text-transform: uppercase; padding: 11px 6px; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: var(--muted); cursor: pointer; }
+.stab[aria-selected="true"] { background: var(--grad); color: #fff; border-color: transparent; box-shadow: 0 8px 18px -10px rgba(138,102,32,.7); }
+.spanel { display: flex; flex-direction: column; gap: 18px; max-width: 760px; width: 100%; margin: 0 auto; }
+.notice { border: 1px solid var(--line); background: var(--gold-wash); border-radius: 14px; padding: 16px; font-size: .95rem; }
+.notice.err { background: #fdf1f0; border-color: #f1c9c5; color: #8c2a20; }
+.sbox { border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px; background: #fff; }
+.sbox.out { border-color: var(--gold-light); background: var(--gold-wash); }
+.sbox-h { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.sbox-h b { font-size: 1.1rem; font-weight: 600; margin-right: auto; }
+.pill { font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); background: #fff; white-space: nowrap; }
+.pill.gold { color: #8a6620; border-color: #e6cf8f; }
+.pill.silver { color: #56606c; border-color: #cfd5dc; }
+.pill.out { background: #8a6620; color: #fff; border-color: transparent; }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.stat { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 10px; text-align: center; min-width: 0; }
+.stat small { display: block; font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.stat strong { font-size: clamp(.82rem, 3.6vw, 1.05rem); font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.inrow { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: stretch; }
+.inrow.three { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr) auto; }
+.inrow input[type="text"], .inrow input[type="number"], .inrow select, .sform input, .sform select, .rfilter input, .rfilter select { width: 100%; min-width: 0; font: inherit; font-size: 1rem; padding: 11px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--field); color: var(--ink); outline: none; }
+.inrow input:focus, .sform input:focus, .rfilter input:focus { border-color: var(--gold); }
+.sbtn { font: inherit; font-weight: 600; font-size: .9rem; letter-spacing: .04em; padding: 11px 16px; border-radius: 12px; border: 0; background: var(--grad); color: #fff; cursor: pointer; white-space: nowrap; }
+.sbtn.dark { background: #3b352b; }
+.sbtn.light { background: #fff; color: var(--gold-deep); border: 1px solid var(--gold-light); }
+.sbtn:disabled { opacity: .5; cursor: wait; }
+.lnk { font: inherit; font-size: .82rem; color: var(--muted); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+.sales { display: flex; flex-direction: column; gap: 6px; }
+.sale { display: flex; align-items: center; gap: 10px; font-size: .92rem; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
+.sale .w { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sale .n { color: var(--muted); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sale .x { font: inherit; border: 0; background: none; color: #b3261e; font-size: 1.1rem; cursor: pointer; padding: 0 4px; }
+.res { font-size: .9rem; padding: 8px 12px; border-radius: 10px; }
+.res.ok, .d-ok { color: #2f6b45; } .res.ok { background: #eef6f0; }
+.res.miss, .d-miss { color: #b3261e; } .res.miss { background: #fdf1f0; }
+.res.extra, .d-extra { color: #9a6a00; } .res.extra { background: #fff7e6; }
+.sform { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) auto; gap: 8px; }
+.sub-h { font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.rfilter { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.quick { display: flex; gap: 8px; flex-wrap: wrap; }
+.kpis { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+@media (min-width: 640px) { .kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); } .rfilter { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.kpi { border: 1px solid var(--line); border-radius: 14px; padding: 14px; background: #fff; min-width: 0; }
+.kpi small { display: block; font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.kpi strong { display: block; font-size: 1.4rem; font-weight: 600; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.kpi em { font-style: normal; font-size: .8rem; color: var(--muted); }
+.rlist { display: flex; flex-direction: column; gap: 8px; }
+.ritem { border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: #fff; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; font-size: .9rem; font-variant-numeric: tabular-nums; }
+.ritem .t { font-weight: 600; }
+.ritem .m { color: var(--muted); font-size: .82rem; grid-column: 1 / -1; }
+.ritem .d { font-weight: 600; text-align: right; white-space: nowrap; }
+.empty { color: var(--muted); font-size: .92rem; text-align: center; padding: 10px; }
+.btable { width: 100%; border-collapse: collapse; font-size: .9rem; font-variant-numeric: tabular-nums; }
+.btable th { text-align: left; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding: 6px 4px; border-bottom: 1px solid var(--line); }
+.btable td { padding: 8px 4px; border-bottom: 1px solid var(--line); }
+.btable td:not(:first-child), .btable th:not(:first-child) { text-align: right; }
+@media (max-width: 420px) { .inrow.three { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .inrow.three .sbtn { grid-column: 1 / -1; } .sform { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .sform .sbtn { grid-column: 1 / -1; } }
+@media print { header, .topbar .back, .stabs, .rfilter, .quick, .noprint { display: none !important; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 <style>
@@ -223,6 +296,23 @@ img { max-width: 100%; }
     </div>
   </header>
 
+  <!-- HOME: shown after the password -->
+  <section class="view" id="v-home">
+    <div class="home-grid">
+      <button type="button" class="tile" data-go="gold">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h8"/></svg></span>
+        <span class="txt"><b>MJ Calculator</b><span>Gold, Silver bills and exchange</span></span>
+      </button>
+      <button type="button" class="tile" data-go="stock">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></span>
+        <span class="txt"><b>Stock</b><span>Boxes out / in, missing weight, reports</span></span>
+      </button>
+    </div>
+  </section>
+
+  <!-- CALCULATOR -->
+  <section class="view" id="v-calc" hidden>
+    <div class="topbar"><button type="button" class="back" data-go="home">← Home</button><h1>MJ Calculator</h1></div>
   <div class="tabs" role="tablist" aria-label="Metal">
     <button type="button" class="tab" role="tab" id="tab-gold" data-tab="gold" aria-controls="gold" aria-selected="true"><span class="dot"></span>Gold</button>
     <button type="button" class="tab" role="tab" id="tab-silver" data-tab="silver" aria-controls="silver" aria-selected="false"><span class="dot"></span>Silver</button>
@@ -462,6 +552,76 @@ img { max-width: 100%; }
     </section>
   </div>
 
+  </section>
+
+  <!-- STOCK -->
+  <section class="view" id="v-stock" hidden>
+    <div class="topbar"><button type="button" class="back" data-go="home">← Home</button><h1>Stock</h1></div>
+    <div class="stabs" role="tablist" aria-label="Stock">
+      <button type="button" class="stab" role="tab" data-st="boxes" aria-selected="true">Boxes</button>
+      <button type="button" class="stab" role="tab" data-st="report" aria-selected="false">Report</button>
+      <button type="button" class="stab" role="tab" data-st="dash" aria-selected="false">Dashboard</button>
+    </div>
+    <div class="notice err" id="st-msg" hidden></div>
+
+    <div class="spanel" id="st-boxes">
+      <section class="card">
+        <h2>Boxes</h2>
+        <p class="sub-h" id="st-count">Loading…</p>
+        <div id="st-list" style="display:flex;flex-direction:column;gap:12px"></div>
+      </section>
+      <section class="card">
+        <h2>Add a Box</h2>
+        <div class="sform">
+          <input type="text" id="st-newName" placeholder="Box name, e.g. Gold Chain Box" maxlength="60">
+          <select id="st-newMetal"><option value="gold">Gold</option><option value="silver">Silver</option></select>
+          <button type="button" class="sbtn" id="st-add">Add Box</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="spanel" id="st-report" hidden>
+      <section class="card">
+        <h2>Stock Report</h2>
+        <div class="quick noprint">
+          <button type="button" class="sbtn light" data-range="today">Today</button>
+          <button type="button" class="sbtn light" data-range="7">Last 7 days</button>
+          <button type="button" class="sbtn light" data-range="month">This month</button>
+          <button type="button" class="sbtn light" data-range="all">All</button>
+        </div>
+        <div class="rfilter">
+          <input type="date" id="rp-from" aria-label="From date">
+          <input type="date" id="rp-to" aria-label="To date">
+          <select id="rp-box" aria-label="Box"><option value="">All boxes</option></select>
+          <select id="rp-metal" aria-label="Metal"><option value="">Gold + Silver</option><option value="gold">Gold</option><option value="silver">Silver</option></select>
+        </div>
+        <div class="kpis" id="rp-kpis"></div>
+        <div class="rlist" id="rp-list"></div>
+        <div class="actions noprint">
+          <button type="button" class="btn" id="rp-copy">Copy Report for WhatsApp</button>
+          <button type="button" class="btn ghost" id="rp-print">Print</button>
+        </div>
+        <div class="toast" id="rp-toast" role="status"></div>
+        <textarea class="copyFallback" id="rp-fb" rows="10" hidden readonly></textarea>
+      </section>
+    </div>
+
+    <div class="spanel" id="st-dash" hidden>
+      <div class="kpis" id="db-kpis"></div>
+      <section class="card">
+        <h2>Out Right Now</h2>
+        <div class="rlist" id="db-out"></div>
+      </section>
+      <section class="card">
+        <h2>Recent Differences</h2>
+        <div class="rlist" id="db-diff"></div>
+      </section>
+      <section class="card">
+        <h2>This Month by Box</h2>
+        <div style="overflow-x:auto"><table class="btable" id="db-table"></table></div>
+      </section>
+    </div>
+  </section>
 </div>
 
 <script>
@@ -736,24 +896,185 @@ img { max-width: 100%; }
 
   $('s-prod').addEventListener('change', () => { prod = $('s-prod').value; render(); });
 
-  // Tabs (#gold / #silver / #exchange in the link opens that tab)
+  // ---------- STOCK: boxes go out of the store room and come back; sold weight is written in between ----------
+  const ST = { boxes: [], trips: [], ok: false, busy: false, tab: 'boxes' };
+  const g3 = (n) => (Number(n) || 0).toLocaleString('en-IN', { minimumFractionDigits: 3, maximumFractionDigits: 3 }) + ' g';
+  const esc = (t) => String(t).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const when = (iso) => new Date(iso).toLocaleString('en-IN', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' });
+  const timeOnly = (iso) => new Date(iso).toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit' });
+  const dayKey = (d) => { const x = new Date(d); return x.getFullYear() + '-' + String(x.getMonth() + 1).padStart(2, '0') + '-' + String(x.getDate()).padStart(2, '0'); };
+  const sumSold = (t) => t.sales.reduce((s, x) => s + x.weight, 0);
+  const diffText = (d) => Math.abs(d) < 0.0005 ? 'OK ✓' : d < 0 ? g3(-d) + ' missing' : g3(d) + ' extra';
+  const diffCls = (d) => Math.abs(d) < 0.0005 ? 'ok' : d < 0 ? 'miss' : 'extra';
+
+  function stMsg(text) { $('st-msg').hidden = !text; $('st-msg').innerHTML = text || ''; }
+
+  async function stLoad(fromPoll) {
+    try {
+      const r = await fetch('/api/stock', { cache: 'no-store' });
+      const d = await r.json().catch(() => ({}));
+      if (r.status === 503) { ST.ok = false; stMsg('<b>Stock storage is not connected yet.</b> Connect the free Upstash Redis storage in Vercel (Storage tab) for this project, then refresh.'); stRender(); return; }
+      if (!r.ok) throw new Error(d.error || 'load');
+      ST.boxes = d.boxes || []; ST.trips = d.trips || []; ST.ok = true; stMsg(''); stRender(fromPoll);
+    } catch (e) { stMsg('Could not load stock. Check the internet and refresh.'); }
+  }
+
+  async function stDo(action, data, btn) {
+    if (ST.busy) return;
+    ST.busy = true; if (btn) btn.disabled = true;
+    try {
+      const r = await fetch('/api/stock', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ action }, data)) });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) { alert(d.error === 'storage-not-connected' ? 'Stock storage is not connected yet.' : (d.error || 'Could not save, try again')); return false; }
+      ST.boxes = d.boxes || []; ST.trips = d.trips || []; ST.ok = true; stMsg(''); stRender(); return true;
+    } catch (e) { alert('Could not save. Check the internet and try again.'); return false; }
+    finally { ST.busy = false; if (btn) btn.disabled = false; }
+  }
+
+  function boxCard(b) {
+    const open = ST.trips.find((t) => t.boxId === b.id && !t.inAt);
+    const last = ST.trips.filter((t) => t.boxId === b.id && t.inAt).sort((x, y) => y.inAt.localeCompare(x.inAt))[0];
+    const head = `<div class="sbox-h"><b>${esc(b.name)}</b><span class="pill ${b.metal}">${b.metal === 'silver' ? 'Silver' : 'Gold'}</span>` +
+      (open ? `<span class="pill out">Out · ${timeOnly(open.outAt)}</span>` : `<span class="pill">In store room</span>`) + `</div>`;
+    if (!open) {
+      return `<div class="sbox" data-box="${b.id}">${head}
+        ${last ? `<div class="res ${diffCls(last.diff)}">Last return ${when(last.inAt)}: ${diffText(last.diff)}</div>` : ''}
+        <label class="sub-h" for="w-${b.id}">Take out of store room · box weight now</label>
+        <div class="inrow"><input type="number" inputmode="decimal" step="0.001" min="0" id="w-${b.id}" placeholder="Weight in grams"><button type="button" class="sbtn" data-act="out" data-id="${b.id}">Take Out</button></div>
+        <div><button type="button" class="lnk" data-act="del" data-id="${b.id}">Delete box</button></div>
+      </div>`;
+    }
+    const sold = sumSold(open), expect = open.outWeight - sold;
+    const sales = open.sales.length ? open.sales.map((s) => `<div class="sale"><span class="w">${g3(s.weight)}</span><span class="n">${esc(s.note || 'Sold')} · ${timeOnly(s.at)}</span><button type="button" class="x" title="Remove" aria-label="Remove sold entry" data-act="rmsale" data-trip="${open.id}" data-sale="${s.id}">×</button></div>`).join('') : '<div class="empty">No sold entries yet</div>';
+    return `<div class="sbox out" data-box="${b.id}">${head}
+      <div class="stats"><div class="stat"><small>Out weight</small><strong>${g3(open.outWeight)}</strong></div><div class="stat"><small>Sold</small><strong>${g3(sold)}</strong></div><div class="stat"><small>Should return</small><strong>${g3(expect)}</strong></div></div>
+      <p class="sub-h">Sold from this box (diary)</p>
+      <div class="sales">${sales}</div>
+      <div class="inrow three"><input type="number" inputmode="decimal" step="0.001" min="0" id="sw-${open.id}" placeholder="Sold weight g"><input type="text" id="sn-${open.id}" placeholder="Note (optional)" maxlength="80"><button type="button" class="sbtn dark" data-act="sale" data-trip="${open.id}">Add Sold</button></div>
+      <label class="sub-h" for="rw-${open.id}">Back to store room · box weight now</label>
+      <div class="inrow"><input type="number" inputmode="decimal" step="0.001" min="0" id="rw-${open.id}" placeholder="Weight in grams"><button type="button" class="sbtn" data-act="in" data-trip="${open.id}">Return</button></div>
+      <div><button type="button" class="lnk" data-act="cancel" data-trip="${open.id}">Cancel take-out (entered by mistake)</button></div>
+    </div>`;
+  }
+
+  function stRenderBoxes(keepTyping) {
+    const out = ST.trips.filter((t) => !t.inAt).length;
+    $('st-count').textContent = ST.ok ? `${ST.boxes.length} box${ST.boxes.length === 1 ? '' : 'es'} · ${out} out now` : '';
+    const sorted = ST.boxes.slice().sort((a, b) => a.metal.localeCompare(b.metal) || a.name.localeCompare(b.name));
+    // A background refresh must not wipe numbers someone is typing
+    const typed = {}; const focusId = document.activeElement && document.activeElement.id;
+    if (keepTyping) $('st-list').querySelectorAll('input').forEach((i) => { if (i.value) typed[i.id] = i.value; });
+    $('st-list').innerHTML = sorted.length ? sorted.map(boxCard).join('') : (ST.ok ? '<div class="empty">No boxes yet. Add your first box below.</div>' : '');
+    if (keepTyping) { Object.entries(typed).forEach(([k, v]) => { const el = $(k); if (el) el.value = v; }); if (focusId && $(focusId)) $(focusId).focus(); }
+  }
+
+  // Report
+  function rpRange(kind) {
+    const t = new Date(), to = dayKey(t); let from = to;
+    if (kind === '7') from = dayKey(new Date(t.getTime() - 6 * 864e5));
+    if (kind === 'month') from = dayKey(new Date(t.getFullYear(), t.getMonth(), 1));
+    if (kind === 'all') from = '2000-01-01';
+    $('rp-from').value = from; $('rp-to').value = to; stRenderReport();
+  }
+  function rpRows() {
+    const from = $('rp-from').value || '2000-01-01', to = $('rp-to').value || '2999-12-31', bx = $('rp-box').value, mt = $('rp-metal').value;
+    return ST.trips.filter((t) => t.inAt && dayKey(t.inAt) >= from && dayKey(t.inAt) <= to && (!bx || t.boxId === bx) && (!mt || t.metal === mt))
+      .sort((a, b) => b.inAt.localeCompare(a.inAt));
+  }
+  function totals(rows) {
+    const o = { n: rows.length, sold: 0, miss: 0, extra: 0, bad: 0 };
+    rows.forEach((t) => { o.sold += t.sold; if (t.diff < -0.0005) { o.miss += -t.diff; o.bad++; } if (t.diff > 0.0005) { o.extra += t.diff; o.bad++; } });
+    return o;
+  }
+  function stRenderReport() {
+    const opts = '<option value="">All boxes</option>' + ST.boxes.map((b) => `<option value="${b.id}">${esc(b.name)}</option>`).join('');
+    const keep = $('rp-box').value; $('rp-box').innerHTML = opts; $('rp-box').value = keep;
+    const rows = rpRows(), t = totals(rows);
+    $('rp-kpis').innerHTML = `<div class="kpi"><small>Returns</small><strong>${t.n}</strong></div><div class="kpi"><small>Sold</small><strong>${g3(t.sold)}</strong></div><div class="kpi"><small>Missing</small><strong class="${t.miss > 0.0005 ? 'd-miss' : ''}">${g3(t.miss)}</strong></div><div class="kpi"><small>Extra</small><strong class="${t.extra > 0.0005 ? 'd-extra' : ''}">${g3(t.extra)}</strong></div>`;
+    $('rp-list').innerHTML = rows.length ? rows.map((r) => `<div class="ritem"><span class="t">${esc(r.boxName)}</span><span class="d d-${diffCls(r.diff)}">${diffText(r.diff)}</span><span class="m">${when(r.outAt)} → ${when(r.inAt)} · Out ${g3(r.outWeight)} − Sold ${g3(r.sold)} = Should ${g3(r.expected)} · Returned ${g3(r.inWeight)}</span></div>`).join('') : '<div class="empty">No returns in this period</div>';
+    bills.rp = ['*MAHAVIR JEWELLERS — STOCK REPORT*', `${$('rp-from').value || 'Start'} to ${$('rp-to').value || 'Today'}`, '',
+      ...rows.map((r) => `${r.boxName}: Out ${g3(r.outWeight)}, Sold ${g3(r.sold)}, Returned ${g3(r.inWeight)} → ${diffText(r.diff)}`),
+      '', `Returns: ${t.n}`, `Total sold: ${g3(t.sold)}`, `*Total missing: ${g3(t.miss)}*`, `Total extra: ${g3(t.extra)}`].join('\n');
+  }
+
+  // Dashboard
+  function stRenderDash() {
+    const today = dayKey(new Date()), month = today.slice(0, 7);
+    const done = ST.trips.filter((t) => t.inAt), open = ST.trips.filter((t) => !t.inAt);
+    const tToday = totals(done.filter((t) => dayKey(t.inAt) === today)), tMonth = totals(done.filter((t) => dayKey(t.inAt).slice(0, 7) === month));
+    const soldToday = (m) => ST.trips.reduce((s, t) => s + (t.metal === m ? t.sales.filter((x) => dayKey(x.at) === today).reduce((a, x) => a + x.weight, 0) : 0), 0);
+    $('db-kpis').innerHTML = `<div class="kpi"><small>Boxes out now</small><strong>${open.length} <em>of ${ST.boxes.length}</em></strong></div>` +
+      `<div class="kpi"><small>Sold today</small><strong>${g3(soldToday('gold'))}</strong><em>Gold · Silver ${g3(soldToday('silver'))}</em></div>` +
+      `<div class="kpi"><small>Missing today</small><strong class="${tToday.miss > 0.0005 ? 'd-miss' : 'd-ok'}">${g3(tToday.miss)}</strong></div>` +
+      `<div class="kpi"><small>Missing this month</small><strong class="${tMonth.miss > 0.0005 ? 'd-miss' : 'd-ok'}">${g3(tMonth.miss)}</strong><em>${tMonth.bad} mismatch${tMonth.bad === 1 ? '' : 'es'}</em></div>`;
+    $('db-out').innerHTML = open.length ? open.map((t) => `<div class="ritem"><span class="t">${esc(t.boxName)}</span><span class="d">${g3(t.outWeight - sumSold(t))}</span><span class="m">Out since ${when(t.outAt)} · Out ${g3(t.outWeight)} · Sold ${g3(sumSold(t))} · should return</span></div>`).join('') : '<div class="empty">All boxes are in the store room</div>';
+    const diffs = done.filter((t) => Math.abs(t.diff) >= 0.0005).sort((a, b) => b.inAt.localeCompare(a.inAt)).slice(0, 10);
+    $('db-diff').innerHTML = diffs.length ? diffs.map((t) => `<div class="ritem"><span class="t">${esc(t.boxName)}</span><span class="d d-${diffCls(t.diff)}">${diffText(t.diff)}</span><span class="m">Returned ${when(t.inAt)}</span></div>`).join('') : '<div class="empty">No differences so far ✓</div>';
+    const rows = ST.boxes.map((b) => { const ts = done.filter((t) => t.boxId === b.id && dayKey(t.inAt).slice(0, 7) === month); const o = totals(ts); return `<tr><td>${esc(b.name)}</td><td>${o.n}</td><td>${g3(o.sold)}</td><td class="${o.miss > 0.0005 ? 'd-miss' : ''}">${g3(o.miss)}</td></tr>`; });
+    $('db-table').innerHTML = '<tr><th>Box</th><th>Returns</th><th>Sold</th><th>Missing</th></tr>' + (rows.join('') || '<tr><td colspan="4" class="empty">No boxes yet</td></tr>');
+  }
+
+  function stRender(keepTyping) { stRenderBoxes(keepTyping); stRenderReport(); stRenderDash(); }
+
+  function stTab(name) {
+    ST.tab = name;
+    document.querySelectorAll('.stab').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.st === name)));
+    $('st-boxes').hidden = name !== 'boxes'; $('st-report').hidden = name !== 'report'; $('st-dash').hidden = name !== 'dash';
+  }
+  document.querySelectorAll('.stab').forEach((b) => b.addEventListener('click', () => stTab(b.dataset.st)));
+
+  $('st-list').addEventListener('click', async (e) => {
+    const b = e.target.closest('[data-act]'); if (!b) return;
+    const a = b.dataset.act;
+    if (a === 'out') { const w = $('w-' + b.dataset.id).value; if (!(parseFloat(w) > 0)) return alert('Enter the box weight in grams'); await stDo('takeOut', { boxId: b.dataset.id, weight: w }, b); }
+    if (a === 'sale') { const t = b.dataset.trip, w = $('sw-' + t).value; if (!(parseFloat(w) > 0)) return alert('Enter the sold weight in grams'); await stDo('addSale', { tripId: t, weight: w, note: $('sn-' + t).value }, b); }
+    if (a === 'rmsale') { if (confirm('Remove this sold entry?')) await stDo('removeSale', { tripId: b.dataset.trip, saleId: b.dataset.sale }, b); }
+    if (a === 'in') { const t = b.dataset.trip, w = $('rw-' + t).value; if (w === '' || !(parseFloat(w) >= 0)) return alert('Enter the box weight in grams'); if (await stDo('returnIn', { tripId: t, weight: w }, b)) { const tr = ST.trips.find((x) => x.id === t); if (tr) alert(tr.boxName + ': ' + diffText(tr.diff) + '\nShould be ' + g3(tr.expected) + ', returned ' + g3(tr.inWeight)); } }
+    if (a === 'cancel') { if (confirm('Cancel this take-out? Its sold entries will be removed too.')) await stDo('cancelTrip', { tripId: b.dataset.trip }, b); }
+    if (a === 'del') { if (confirm('Delete this box? Its past reports stay.')) await stDo('deleteBox', { id: b.dataset.id }, b); }
+  });
+  $('st-add').addEventListener('click', async (e) => {
+    const name = $('st-newName').value.trim(); if (!name) return alert('Enter a box name');
+    if (await stDo('addBox', { name, metal: $('st-newMetal').value }, e.currentTarget)) $('st-newName').value = '';
+  });
+  document.querySelectorAll('[data-range]').forEach((b) => b.addEventListener('click', () => rpRange(b.dataset.range)));
+  ['rp-from', 'rp-to', 'rp-box', 'rp-metal'].forEach((i) => $(i).addEventListener('change', stRenderReport));
+  $('rp-print').addEventListener('click', () => window.print());
+  $('rp-copy').addEventListener('click', () => {
+    const fb = $('rp-fb'), toast = (m) => { $('rp-toast').textContent = m; setTimeout(() => { $('rp-toast').textContent = ''; }, 2500); };
+    const fallback = () => { fb.value = bills.rp; fb.hidden = false; fb.focus(); fb.select(); toast('The report text below is selected. Copy it.'); };
+    try { navigator.clipboard.writeText(bills.rp).then(() => { fb.hidden = true; toast('Report copied ✓'); }, fallback); } catch (err) { fallback(); }
+  });
+  rpRange('today');
+  setInterval(() => { if (!$('v-stock').hidden && !ST.busy && !document.hidden) stLoad(true); }, 30000);
+
+  // Views: #home (default) → Home; #gold #silver #exchange #sexchange → Calculator tabs; #stock → Stock
   const tabs = document.querySelectorAll('.tab');
-  function show(name) {
-    if (!['silver', 'exchange', 'sexchange'].includes(name)) name = 'gold';
+  const CALC = ['gold', 'silver', 'exchange', 'sexchange'];
+  function showCalc(name) {
+    if (!CALC.includes(name)) name = 'gold';
     tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.tab === name)));
-    $('gold').hidden = name !== 'gold';
-    $('silver').hidden = name !== 'silver';
-    $('exchange').hidden = name !== 'exchange';
-    $('sexchange').hidden = name !== 'sexchange';
+    CALC.forEach((c) => { $(c).hidden = c !== name; });
+  }
+  let lastView = '';
+  function route() {
+    const h = location.hash.slice(1);
+    const view = CALC.includes(h) ? 'calc' : h === 'stock' ? 'stock' : 'home';
+    $('v-home').hidden = view !== 'home'; $('v-calc').hidden = view !== 'calc'; $('v-stock').hidden = view !== 'stock';
+    if (view === 'calc') showCalc(h);
+    if (view === 'stock') stLoad();
+    if (view !== lastView && lastView) window.scrollTo(0, 0);
+    lastView = view;
   }
   tabs.forEach((t) => t.addEventListener('click', () => {
-    show(t.dataset.tab);
+    showCalc(t.dataset.tab);
     try { history.replaceState(null, '', '#' + t.dataset.tab); } catch (e) {}
   }));
-  window.addEventListener('hashchange', () => show(location.hash.slice(1)));
-  show(location.hash.slice(1));
+  document.querySelectorAll('[data-go]').forEach((b) => b.addEventListener('click', () => { location.hash = b.dataset.go; }));
+  window.addEventListener('hashchange', route);
 
   render();
+  route();
 })();
 </script>
 </body>
