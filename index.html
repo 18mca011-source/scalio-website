@@ -212,7 +212,7 @@ footer { text-align: center; font-size: .75rem; letter-spacing: .2em; text-trans
 @media (max-width: 520px) { .home-grid { grid-template-columns: 1fr; } .tile { flex-direction: row; align-items: center; gap: 14px; padding: 18px; } .tile .txt { display: flex; flex-direction: column; } }
 
 /* Stock */
-.stabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; max-width: 640px; width: 100%; margin: 0 auto; }
+.stabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; max-width: 560px; width: 100%; margin: 0 auto; }
 .stab { font: inherit; font-weight: 600; font-size: .82rem; letter-spacing: .04em; text-transform: uppercase; padding: 11px 6px; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: var(--muted); cursor: pointer; }
 .stab[aria-selected="true"] { background: var(--grad); color: #fff; border-color: transparent; box-shadow: 0 8px 18px -10px rgba(138,102,32,.7); }
 .spanel { display: flex; flex-direction: column; gap: 18px; max-width: 760px; width: 100%; margin: 0 auto; }
@@ -270,7 +270,7 @@ footer { text-align: center; font-size: .75rem; letter-spacing: .2em; text-trans
 .btable td:not(:first-child), .btable th:not(:first-child) { text-align: right; }
 @media (max-width: 420px) { .inrow.three { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .inrow.three .sbtn { grid-column: 1 / -1; } .sform { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .sform .sbtn { grid-column: 1 / -1; } }
 @media print { header, .topbar .back, .stabs, .rfilter, .quick, .noprint { display: none !important; } }
-@media (max-width: 480px) { .stabs { grid-template-columns: repeat(2, minmax(0, 1fr)); } .stab { font-size: .85rem; padding: 10px 4px; } }
+@media (max-width: 480px) { .stabs { grid-template-columns: repeat(3, minmax(0, 1fr)); } .stab { font-size: .85rem; padding: 10px 4px; } }
 .seg2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding: 4px; border: 1px solid var(--line); border-radius: 14px; background: var(--field); }
 .seg2.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .seg2 button { font: inherit; font-weight: 600; font-size: .95rem; letter-spacing: .04em; padding: 11px 4px; border: 0; border-radius: 10px; background: transparent; color: var(--muted); cursor: pointer; }
@@ -280,8 +280,53 @@ footer { text-align: center; font-size: .75rem; letter-spacing: .2em; text-trans
 .bigsel:disabled { color: var(--muted); }
 .res.big { font-size: 1rem; padding: 14px 16px; line-height: 1.5; }
 .res.big b { font-size: 1.15rem; }
-#en-save { flex: none; }
-#en-save:disabled { opacity: .5; cursor: not-allowed; }
+.st-save { flex: none; }
+.st-save:disabled { opacity: .5; cursor: not-allowed; }
+/* Print Bill dialog, invoice print, common dashboard */
+.home-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 980px; }
+@media (max-width: 760px) { .home-grid { grid-template-columns: 1fr; } .tile { flex-direction: row; align-items: center; gap: 14px; padding: 18px; } .tile .txt { display: flex; flex-direction: column; } }
+dialog.pb { border: 0; border-radius: 20px; padding: 0; width: min(440px, calc(100vw - 32px)); box-shadow: 0 30px 80px -20px rgba(0,0,0,.4); }
+dialog.pb::backdrop { background: rgba(29,26,21,.45); }
+.pb form { padding: 22px; display: flex; flex-direction: column; gap: 14px; }
+.pb h3 { margin: 0; font-weight: 600; font-size: 1rem; letter-spacing: .2em; text-transform: uppercase; }
+.pb input, .pb textarea { width: 100%; font: inherit; font-size: 1rem; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--field); color: var(--ink); outline: none; }
+.pb input:focus, .pb textarea:focus { border-color: var(--gold); }
+.pb textarea { resize: vertical; min-height: 64px; }
+.pb .row { display: flex; gap: 10px; }
+.pb .row .btn { flex: 1 1 0; }
+.pb .amt { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 14px; border-radius: 12px; background: var(--gold-wash); border: 1px solid var(--line); }
+.pb .amt b { font-size: 1.3rem; color: var(--gold-deep); }
+.btn.print-btn { flex: 1 1 100%; }
+#inv-print { display: none; }
+.inv { max-width: 720px; margin: 0 auto; color: #1d1a15; font-family: var(--f-body); }
+.inv-h { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; border-bottom: 2px solid #a9802c; padding-bottom: 14px; }
+.inv-h img { width: 190px; height: auto; }
+.inv-h .meta { text-align: right; font-size: .95rem; line-height: 1.6; }
+.inv-h .meta b { display: block; font-size: 1.4rem; letter-spacing: .2em; text-transform: uppercase; }
+.inv-to { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0; font-size: .95rem; }
+.inv-to small, .inv-sec h4 { display: block; font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #7a705f; margin: 0 0 4px; }
+.inv-to b { font-size: 1.1rem; }
+.inv-sec { margin-top: 14px; }
+.inv-sec table { width: 100%; border-collapse: collapse; font-size: .95rem; font-variant-numeric: tabular-nums; }
+.inv-sec td { padding: 7px 4px; border-bottom: 1px solid #ece4d2; }
+.inv-sec td:last-child { text-align: right; white-space: nowrap; }
+.inv-sec tr.tot td { font-weight: 600; border-bottom: 2px solid #1d1a15; }
+.inv-grand { margin-top: 18px; display: flex; justify-content: space-between; align-items: baseline; padding: 14px 16px; border: 2px solid #a9802c; border-radius: 10px; }
+.inv-grand span { font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.inv-grand b { font-size: 1.6rem; }
+.inv-sign { display: flex; justify-content: space-between; margin-top: 60px; font-size: .9rem; color: #7a705f; }
+.inv-sign div { border-top: 1px solid #7a705f; padding-top: 6px; min-width: 180px; text-align: center; }
+@media print {
+  body.print-inv { padding: 0 !important; }
+  body.print-inv .wrap, body.print-inv dialog { display: none !important; }
+  body.print-inv #inv-print { display: block !important; }
+  @page { margin: 14mm; }
+}
+.inv-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: #fff; font-size: .9rem; }
+.inv-row .t { font-weight: 600; }
+.inv-row .a { font-weight: 600; text-align: right; white-space: nowrap; }
+.inv-row .m { color: var(--muted); font-size: .82rem; }
+.inv-row .lnk { justify-self: end; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 <style>
@@ -318,6 +363,10 @@ img { max-width: 100%; }
       <button type="button" class="tile" data-go="stock">
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></span>
         <span class="txt"><b>Stock</b><span>Boxes out / in, missing weight, reports</span></span>
+      </button>
+      <button type="button" class="tile" data-go="dash">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span>
+        <span class="txt"><b>Dashboard</b><span>Bills printed and stock at a glance</span></span>
       </button>
     </div>
   </section>
@@ -379,6 +428,7 @@ img { max-width: 100%; }
       </div>
       <div class="actions">
         <button type="button" class="btn" id="g-copy">Copy Bill for WhatsApp</button>
+        <button type="button" class="btn ghost print-btn" data-print="g">Print Bill</button>
         <button type="button" class="btn ghost" id="g-reset">New Bill</button>
       </div>
       <div class="toast" id="g-toast" role="status"></div>
@@ -456,6 +506,7 @@ img { max-width: 100%; }
       </div>
       <div class="actions">
         <button type="button" class="btn" id="x-copy">Copy for WhatsApp</button>
+        <button type="button" class="btn ghost print-btn" data-print="x">Print Bill</button>
         <button type="button" class="btn ghost" id="x-reset">New</button>
       </div>
       <div class="toast" id="x-toast" role="status"></div>
@@ -495,6 +546,7 @@ img { max-width: 100%; }
       </div>
       <div class="actions">
         <button type="button" class="btn" id="y-copy">Copy for WhatsApp</button>
+        <button type="button" class="btn ghost print-btn" data-print="y">Print Bill</button>
         <button type="button" class="btn ghost" id="y-reset">New</button>
       </div>
       <div class="toast" id="y-toast" role="status"></div>
@@ -557,6 +609,7 @@ img { max-width: 100%; }
       </div>
       <div class="actions">
         <button type="button" class="btn" id="s-copy">Copy Bill for WhatsApp</button>
+        <button type="button" class="btn ghost print-btn" data-print="s">Print Bill</button>
         <button type="button" class="btn ghost" id="s-reset">New Bill</button>
       </div>
       <div class="toast" id="s-toast" role="status"></div>
@@ -572,43 +625,38 @@ img { max-width: 100%; }
     <div class="stabs" role="tablist" aria-label="Stock">
       <button type="button" class="stab" role="tab" data-st="entry" aria-selected="true">Entry</button>
       <button type="button" class="stab" role="tab" data-st="report" aria-selected="false">Report</button>
-      <button type="button" class="stab" role="tab" data-st="dash" aria-selected="false">Dashboard</button>
       <button type="button" class="stab" role="tab" data-st="boxes" aria-selected="false">Boxes</button>
     </div>
     <div class="notice err" id="st-msg" hidden></div>
 
     <div class="spanel" id="st-entry">
       <section class="card">
-        <h2>Stock Entry</h2>
-        <div>
-          <p class="sub-h">Metal</p>
-          <div class="seg2" id="en-metal">
-            <button type="button" data-v="gold" aria-pressed="true">Gold</button>
-            <button type="button" data-v="silver" aria-pressed="false">Silver</button>
-          </div>
-        </div>
-        <div>
-          <p class="sub-h">Entry</p>
-          <div class="seg2" id="en-type">
-            <button type="button" data-v="out" aria-pressed="true">Take Out</button>
-            <button type="button" data-v="in" aria-pressed="false">Return</button>
-          </div>
+        <h2>Taking Out from Store Room</h2>
+        <div class="field">
+          <label class="eyebrow" for="eo-box">Box</label>
+          <select id="eo-box" class="bigsel"></select>
         </div>
         <div class="field">
-          <label class="eyebrow" for="en-box">Box</label>
-          <select id="en-box" class="bigsel"></select>
+          <label class="eyebrow" for="eo-wt">Stock weight</label>
+          <div class="inputbox"><input type="number" id="eo-wt" inputmode="decimal" min="0" step="0.001" placeholder="0.000"><span class="post">g</span></div>
         </div>
-        <div class="stats" id="en-info" hidden style="grid-template-columns:repeat(2,minmax(0,1fr))"></div>
+        <button type="button" class="btn st-save" id="eo-save">Save · Take Out</button>
+        <div class="res" id="eo-res" hidden></div>
+      </section>
+
+      <section class="card">
+        <h2>Sending Back to Store Room</h2>
         <div class="field">
-          <label class="eyebrow" for="en-wt" id="en-wtLbl">Box weight</label>
-          <div class="inputbox"><input type="number" id="en-wt" inputmode="decimal" min="0" step="0.001" placeholder="0.000"><span class="post">g</span></div>
+          <label class="eyebrow" for="ei-box">Box</label>
+          <select id="ei-box" class="bigsel"></select>
         </div>
-        <div class="field" id="en-noteF" hidden>
-          <label class="eyebrow" for="en-note">Note <span class="hint">· optional</span></label>
-          <div class="inputbox"><input type="text" id="en-note" maxlength="80" placeholder="e.g. Chain 18 inch" style="font:inherit;font-size:1rem;border:0;background:transparent;padding:12px 10px;width:100%;outline:none"></div>
+        <div class="stats" id="ei-info" hidden style="grid-template-columns:repeat(2,minmax(0,1fr))"></div>
+        <div class="field">
+          <label class="eyebrow" for="ei-wt">Stock weight</label>
+          <div class="inputbox"><input type="number" id="ei-wt" inputmode="decimal" min="0" step="0.001" placeholder="0.000"><span class="post">g</span></div>
         </div>
-        <button type="button" class="btn" id="en-save">Take Out</button>
-        <div class="res" id="en-res" hidden></div>
+        <button type="button" class="btn st-save" id="ei-save">Save · Send Back</button>
+        <div class="res" id="ei-res" hidden></div>
       </section>
 
       <section class="card">
@@ -643,22 +691,6 @@ img { max-width: 100%; }
       </section>
     </div>
 
-    <div class="spanel" id="st-dash" hidden>
-      <div class="kpis" id="db-kpis"></div>
-      <section class="card">
-        <h2>Out Right Now</h2>
-        <div class="rlist" id="db-out"></div>
-      </section>
-      <section class="card">
-        <h2>Recent Differences</h2>
-        <div class="rlist" id="db-diff"></div>
-      </section>
-      <section class="card">
-        <h2>This Month by Box</h2>
-        <div style="overflow-x:auto"><table class="btable" id="db-table"></table></div>
-      </section>
-    </div>
-
     <div class="spanel" id="st-boxes" hidden>
       <section class="card">
         <h2>Add a Box</h2>
@@ -676,7 +708,62 @@ img { max-width: 100%; }
       </section>
     </div>
   </section>
+  <!-- DASHBOARD (common: bills + stock) -->
+  <section class="view" id="v-dash" hidden>
+    <div class="topbar"><button type="button" class="back" data-go="home">← Home</button><h1>Dashboard</h1></div>
+    <div class="notice err" id="dv-msg" hidden></div>
+    <div class="spanel">
+      <p class="sub-h">Bills</p>
+      <div class="kpis" id="dv-kpis"></div>
+      <section class="card">
+        <h2>This Month by Type</h2>
+        <div style="overflow-x:auto"><table class="btable" id="dv-types"></table></div>
+      </section>
+      <section class="card">
+        <h2>Recent Bills</h2>
+        <div class="rlist" id="dv-list"></div>
+      </section>
+      <p class="sub-h">Stock</p>
+      <div class="kpis" id="db-kpis"></div>
+      <section class="card">
+        <h2>Boxes Out Right Now</h2>
+        <div class="rlist" id="db-out"></div>
+      </section>
+      <section class="card">
+        <h2>Recent Differences</h2>
+        <div class="rlist" id="db-diff"></div>
+      </section>
+      <section class="card">
+        <h2>This Month by Box</h2>
+        <div style="overflow-x:auto"><table class="btable" id="db-table"></table></div>
+      </section>
+    </div>
+  </section>
 </div>
+
+<dialog class="pb" id="pb-dlg">
+  <form method="dialog" id="pb-form">
+    <h3 id="pb-title">Print Bill</h3>
+    <div class="field">
+      <label class="eyebrow" for="pb-client">Client Name</label>
+      <input type="text" id="pb-client" maxlength="80" autocomplete="off" required>
+    </div>
+    <div class="field">
+      <label class="eyebrow" for="pb-address">Address</label>
+      <textarea id="pb-address" maxlength="200" rows="2"></textarea>
+    </div>
+    <div class="field">
+      <label class="eyebrow" for="pb-product">Product Name</label>
+      <input type="text" id="pb-product" maxlength="100" autocomplete="off">
+    </div>
+    <div class="amt"><span id="pb-amtLbl">Total Amount</span><b id="pb-amt">—</b></div>
+    <div class="row">
+      <button type="button" class="btn ghost" id="pb-cancel">Cancel</button>
+      <button type="submit" class="btn" id="pb-go" value="go">Save &amp; Print</button>
+    </div>
+  </form>
+</dialog>
+<div id="inv-print"></div>
 
 <script>
 (function () {
@@ -986,59 +1073,48 @@ img { max-width: 100%; }
     finally { ST.busy = false; if (btn) btn.disabled = false; }
   }
 
-  // ---- Entry ----
-  const TYPE = {
-    out: { btn: 'Take Out', lbl: 'Box weight now (taking out)', empty: 'No box in the store room for this metal' },
-    sale: { btn: 'Add Sold', lbl: 'Sold weight', empty: 'No box is out for this metal' },
-    in: { btn: 'Return', lbl: 'Box weight now (returning)', empty: 'No box is out for this metal' },
-  };
-  function enBoxes() {
-    return ST.boxes.filter((b) => b.metal === ST.metal && (ST.type === 'out' ? !openTrip(b.id) : !!openTrip(b.id)))
-      .sort((a, b) => a.name.localeCompare(b.name));
-  }
-  function enRender() {
-    document.querySelectorAll('#en-metal button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === ST.metal)));
-    document.querySelectorAll('#en-type button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === ST.type)));
-    const list = enBoxes(), sel = $('en-box'), keep = sel.value;
-    sel.innerHTML = list.length ? list.map((b) => `<option value="${b.id}">${esc(b.name)}</option>`).join('') : `<option value="">${ST.ok ? TYPE[ST.type].empty : 'Loading…'}</option>`;
+  // ---- Entry: two simple forms (taking out / sending back) ----
+  const boxLabel = (b) => `${b.name} · ${b.metal === 'silver' ? 'Silver' : 'Gold'}`;
+  function fillSelect(sel, list, emptyText) {
+    const keep = sel.value;
+    sel.innerHTML = list.length ? list.map((b) => `<option value="${b.id}">${esc(boxLabel(b))}</option>`).join('') : `<option value="">${ST.ok ? emptyText : 'Loading…'}</option>`;
     if (list.some((b) => b.id === keep)) sel.value = keep;
     sel.disabled = !list.length;
-    $('en-wtLbl').textContent = TYPE[ST.type].lbl;
-    $('en-noteF').hidden = ST.type !== 'sale';
-    $('en-save').textContent = TYPE[ST.type].btn;
-    $('en-save').disabled = !list.length;
-    const t = sel.value && openTrip(sel.value);
-    $('en-info').hidden = !t;
-    if (t) { $('en-info').innerHTML = `<div class="stat"><small>Out weight</small><strong>${g3(t.outWeight)}</strong></div><div class="stat"><small>Taken out</small><strong>${timeOnly(t.outAt)}</strong></div>`; }
-    // Boxes out right now (this metal), with their sold entries
-    const outs = ST.trips.filter((x) => !x.inAt && x.metal === ST.metal);
-    $('en-out').innerHTML = outs.length ? outs.map((x) => {
-      const sales = x.sales.map((s) => `<div class="sale"><span class="w">${g3(s.weight)}</span><span class="n">${esc(s.note || 'Sold')} · ${timeOnly(s.at)}</span><button type="button" class="x" aria-label="Remove sold entry" data-act="rmsale" data-trip="${x.id}" data-sale="${s.id}">×</button></div>`).join('');
-      return `<div class="ritem"><span class="t">${esc(x.boxName)}</span><span class="d">${g3(x.outWeight)}</span><span class="m">Taken out ${timeOnly(x.outAt)}</span>${sales ? `<div class="sales" style="grid-column:1/-1">${sales}</div>` : ''}<span class="m"><button type="button" class="lnk" data-act="cancel" data-trip="${x.id}">Cancel take-out (entered by mistake)</button></span></div>`;
-    }).join('') : `<div class="empty">No ${ST.metal} box is out</div>`;
   }
-  document.querySelectorAll('#en-metal button').forEach((b) => b.addEventListener('click', () => { ST.metal = b.dataset.v; $('en-res').hidden = true; enRender(); }));
-  document.querySelectorAll('#en-type button').forEach((b) => b.addEventListener('click', () => { ST.type = b.dataset.v; $('en-res').hidden = true; enRender(); }));
-  $('en-box').addEventListener('change', () => { $('en-res').hidden = true; enRender(); });
-  $('en-save').addEventListener('click', async (e) => {
-    const boxId = $('en-box').value, w = $('en-wt').value;
-    if (!boxId) return;
-    if (w === '' || !(parseFloat(w) >= 0) || (ST.type !== 'in' && !(parseFloat(w) > 0))) return alert('Enter the weight in grams');
-    const t = openTrip(boxId), btn = e.currentTarget;
-    let ok = false;
-    if (ST.type === 'out') ok = await stDo('takeOut', { boxId, weight: w }, btn);
-    if (ST.type === 'sale') ok = await stDo('addSale', { tripId: t.id, weight: w, note: $('en-note').value }, btn);
-    if (ST.type === 'in') ok = await stDo('returnIn', { tripId: t.id, weight: w }, btn);
-    if (!ok) return;
-    $('en-wt').value = ''; $('en-note').value = '';
-    const res = $('en-res'); res.hidden = false;
-    if (ST.type === 'in') { const r = ST.trips.find((x) => x.id === t.id); res.className = 'res big ' + diffCls(r.diff); res.innerHTML = `<b>${esc(r.boxName)}: ${diffText(r.diff)}</b><br>Out ${g3(r.outWeight)}${r.sold > 0 ? ` − Sold ${g3(r.sold)}` : ''} · Returned ${g3(r.inWeight)}`; }
-    else { res.className = 'res ok'; res.textContent = ST.type === 'out' ? 'Taken out ✓' : 'Sold entry saved ✓'; }
+  function enRender() {
+    const byName = (a, b) => a.metal.localeCompare(b.metal) || a.name.localeCompare(b.name);
+    const inStore = ST.boxes.filter((b) => !openTrip(b.id)).sort(byName), out = ST.boxes.filter((b) => openTrip(b.id)).sort(byName);
+    fillSelect($('eo-box'), inStore, ST.boxes.length ? 'All boxes are out' : 'Add boxes in the Boxes tab first');
+    fillSelect($('ei-box'), out, 'No box is out right now');
+    $('eo-save').disabled = !inStore.length; $('ei-save').disabled = !out.length;
+    const t = $('ei-box').value && openTrip($('ei-box').value);
+    $('ei-info').hidden = !t;
+    if (t) $('ei-info').innerHTML = `<div class="stat"><small>Taken out weight</small><strong>${g3(t.outWeight)}</strong></div><div class="stat"><small>Taken out at</small><strong>${timeOnly(t.outAt)}</strong></div>`;
+    const opens = ST.trips.filter((x) => !x.inAt);
+    $('en-out').innerHTML = opens.length ? opens.map((x) => `<div class="ritem"><span class="t">${esc(x.boxName)} <span class="pill ${x.metal}">${x.metal === 'silver' ? 'Silver' : 'Gold'}</span></span><span class="d">${g3(x.outWeight)}</span><span class="m">Taken out ${timeOnly(x.outAt)} · <button type="button" class="lnk" data-act="cancel" data-trip="${x.id}">Cancel (entered by mistake)</button></span></div>`).join('') : '<div class="empty">All boxes are in the store room</div>';
+  }
+  $('ei-box').addEventListener('change', () => { $('ei-res').hidden = true; enRender(); });
+  $('eo-box').addEventListener('change', () => { $('eo-res').hidden = true; });
+  $('eo-save').addEventListener('click', async (e) => {
+    const boxId = $('eo-box').value, w = $('eo-wt').value;
+    if (!boxId) return; if (!(parseFloat(w) > 0)) return alert('Enter the stock weight in grams');
+    const name = $('eo-box').selectedOptions[0].text;
+    if (await stDo('takeOut', { boxId, weight: w }, e.currentTarget)) { $('eo-wt').value = ''; const r = $('eo-res'); r.hidden = false; r.className = 'res ok'; r.textContent = `${name} taken out at ${g3(w)} ✓`; }
+  });
+  $('ei-save').addEventListener('click', async (e) => {
+    const boxId = $('ei-box').value, w = $('ei-wt').value;
+    if (!boxId) return; if (w === '' || !(parseFloat(w) >= 0)) return alert('Enter the stock weight in grams');
+    const t = openTrip(boxId);
+    if (await stDo('returnIn', { tripId: t.id, weight: w }, e.currentTarget)) {
+      $('ei-wt').value = '';
+      const r = ST.trips.find((x) => x.id === t.id), res = $('ei-res');
+      res.hidden = false; res.className = 'res big ' + diffCls(r.diff);
+      res.innerHTML = `<b>${esc(r.boxName)}: ${diffText(r.diff)}</b><br>Taken out ${g3(r.outWeight)} · Sent back ${g3(r.inWeight)}`;
+    }
   });
   $('en-out').addEventListener('click', async (e) => {
-    const b = e.target.closest('[data-act]'); if (!b) return;
-    if (b.dataset.act === 'rmsale' && confirm('Remove this sold entry?')) await stDo('removeSale', { tripId: b.dataset.trip, saleId: b.dataset.sale }, b);
-    if (b.dataset.act === 'cancel' && confirm('Cancel this take-out? Its sold entries will be removed too.')) await stDo('cancelTrip', { tripId: b.dataset.trip }, b);
+    const b = e.target.closest('[data-act="cancel"]');
+    if (b && confirm('Cancel this take-out?')) await stDo('cancelTrip', { tripId: b.dataset.trip }, b);
   });
 
   // ---- Boxes (add once) ----
@@ -1107,7 +1183,7 @@ img { max-width: 100%; }
 
   function stTab(name) {
     document.querySelectorAll('.stab').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.st === name)));
-    ['entry', 'report', 'dash', 'boxes'].forEach((n) => { $('st-' + n).hidden = n !== name; });
+    ['entry', 'report', 'boxes'].forEach((n) => { $('st-' + n).hidden = n !== name; });
   }
   document.querySelectorAll('.stab').forEach((b) => b.addEventListener('click', () => stTab(b.dataset.st)));
   document.querySelectorAll('[data-range]').forEach((b) => b.addEventListener('click', () => rpRange(b.dataset.range)));
@@ -1123,6 +1199,108 @@ img { max-width: 100%; }
   // Refresh from other phones every 30 s (only re-draws; typed numbers stay because inputs are not rebuilt)
   setInterval(() => { if (!$('v-stock').hidden && !ST.busy && !document.hidden) stLoad(); }, 30000);
 
+  // ---------- PRINT BILL (invoice) + common DASHBOARD ----------
+  const INV = { list: [], ok: false, p: 'g' };
+  const PANEL = { g: 'gold', s: 'silver', x: 'exchange', y: 'sexchange' };
+  const TYPE_NAME = { gold: 'Gold Bill', silver: 'Silver Bill', exchange: 'Gold Exchange', sexchange: 'Silver Exchange' };
+  const AMOUNT = { g: ['g-bTotal'], s: ['s-bTotal'], x: ['x-bal', 'x-balLbl'], y: ['y-bTotal'] };
+  const rupees = (t) => Number(String(t).replace(/[^0-9.]/g, '')) || 0;
+  const invDate = (iso) => new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+
+  function captureBill(p) {
+    const sections = [];
+    $(PANEL[p]).querySelectorAll('.bill').forEach((bill) => {
+      if (bill.offsetParent === null) return;
+      const card = bill.closest('.card'), title = card && card.querySelector('h2') ? card.querySelector('h2').textContent.trim() : '';
+      const rows = [];
+      bill.querySelectorAll('.ln').forEach((ln) => {
+        if (ln.offsetParent === null || ln.children.length < 2) return;
+        const label = ln.children[0].textContent.trim(), value = ln.children[ln.children.length - 1].textContent.trim();
+        if (label) rows.push([label, value]);
+      });
+      const tot = bill.querySelector('.total');
+      sections.push({ title, rows, total: tot ? [tot.children[0].textContent.trim(), tot.querySelector('strong').textContent.trim()] : null });
+    });
+    return sections;
+  }
+  function amountOf(p) {
+    const [v, l] = AMOUNT[p], lbl = l ? $(l).textContent : $(v).closest('.total').children[0].textContent;
+    return { amount: rupees($(v).textContent), text: $(v).textContent, label: lbl.trim() };
+  }
+
+  function invHTML(i) {
+    const sec = i.sections.map((s) => `<div class="inv-sec">${s.title ? `<h4>${esc(s.title)}</h4>` : ''}<table>${s.rows.map((r) => `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join('')}${s.total ? `<tr class="tot"><td>${esc(s.total[0])}</td><td>${esc(s.total[1])}</td></tr>` : ''}</table></div>`).join('');
+    return `<div class="inv">
+      <div class="inv-h"><img src="mj-logo.png" alt="Mahavir Jewellers"><div class="meta"><b>${i.type === 'sexchange' ? 'Voucher' : 'Invoice'}</b>No. ${esc(i.no)}<br>${invDate(i.at)}<br>${esc(TYPE_NAME[i.type] || '')}</div></div>
+      <div class="inv-to"><div><small>Bill To</small><b>${esc(i.client)}</b>${i.address ? `<div>${esc(i.address).replace(/\n/g, '<br>')}</div>` : ''}</div><div><small>Product</small><b>${esc(i.product || '—')}</b></div></div>
+      ${sec}
+      <div class="inv-grand"><span>${esc(i.amountLabel || 'Total Amount')}</span><b>₹${Number(i.amount).toLocaleString('en-IN')}</b></div>
+      <div class="inv-sign"><div>Customer Signature</div><div>For Mahavir Jewellers</div></div>
+    </div>`;
+  }
+  function printInvoice(i) {
+    $('inv-print').innerHTML = invHTML(i);
+    document.body.classList.add('print-inv');
+    const done = () => { document.body.classList.remove('print-inv'); window.removeEventListener('afterprint', done); };
+    window.addEventListener('afterprint', done);
+    const img = $('inv-print').querySelector('img');
+    const go = () => setTimeout(() => window.print(), 50);
+    if (img && !img.complete) { img.onload = go; img.onerror = go; } else go();
+  }
+
+  const DEFAULT_PRODUCT = { g: () => '22K Gold Jewellery', s: () => PRODUCTS[prod].name, x: () => '22K Gold Jewellery (Exchange)', y: () => 'Old Silver' };
+  document.querySelectorAll('[data-print]').forEach((b) => b.addEventListener('click', () => {
+    const p = b.dataset.print; INV.p = p;
+    const a = amountOf(p);
+    $('pb-title').textContent = 'Print ' + TYPE_NAME[PANEL[p]];
+    $('pb-product').value = DEFAULT_PRODUCT[p]();
+    $('pb-amtLbl').textContent = a.label; $('pb-amt').textContent = a.text;
+    $('pb-dlg').showModal(); $('pb-client').focus();
+  }));
+  $('pb-cancel').addEventListener('click', () => $('pb-dlg').close());
+  $('pb-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const client = $('pb-client').value.trim(); if (!client) { $('pb-client').focus(); return; }
+    const p = INV.p, a = amountOf(p), btn = $('pb-go');
+    const invoice = { type: PANEL[p], client, address: $('pb-address').value.trim(), product: $('pb-product').value.trim(), sections: captureBill(p), amount: a.amount, amountLabel: a.label };
+    btn.disabled = true;
+    try {
+      const r = await fetch('/api/invoices', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'add', invoice }) });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) { alert(d.error === 'storage-not-connected' ? 'Bill storage is not connected yet.' : (d.error || 'Could not save the bill, try again')); return; }
+      INV.list = d.invoices || []; INV.ok = true;
+      $('pb-dlg').close(); $('pb-client').value = ''; $('pb-address').value = '';
+      printInvoice(d.saved);
+    } catch (err) { alert('Could not save the bill. Check the internet and try again.'); }
+    finally { btn.disabled = false; }
+  });
+
+  async function invLoad() {
+    try {
+      const r = await fetch('/api/invoices', { cache: 'no-store' });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.error || 'load');
+      INV.list = d.invoices || []; INV.ok = true; $('dv-msg').hidden = true; invRender();
+    } catch (e) { $('dv-msg').hidden = false; $('dv-msg').textContent = 'Could not load bills. Check the internet and refresh.'; }
+  }
+  function invRender() {
+    const today = dayKey(new Date()), month = today.slice(0, 7);
+    const sum = (l) => l.reduce((s, i) => s + (i.type === 'sexchange' || (i.type === 'exchange' && /return/i.test(i.amountLabel)) ? 0 : i.amount), 0);  // money received
+    const tList = INV.list.filter((i) => dayKey(i.at) === today), mList = INV.list.filter((i) => dayKey(i.at).slice(0, 7) === month);
+    const money = (n) => '₹' + Math.round(n).toLocaleString('en-IN');
+    $('dv-kpis').innerHTML = `<div class="kpi"><small>Bills today</small><strong>${tList.length}</strong><em>${money(sum(tList))}</em></div>` +
+      `<div class="kpi"><small>Bills this month</small><strong>${mList.length}</strong><em>${money(sum(mList))}</em></div>` +
+      `<div class="kpi"><small>Total bills</small><strong>${INV.list.length}</strong></div>` +
+      `<div class="kpi"><small>Last bill</small><strong style="font-size:1.05rem">${INV.list.length ? esc(INV.list[INV.list.length - 1].no) : '—'}</strong></div>`;
+    $('dv-types').innerHTML = '<tr><th>Type</th><th>Bills</th><th>Amount</th></tr>' + Object.keys(TYPE_NAME).map((t) => { const l = mList.filter((i) => i.type === t); return `<tr><td>${TYPE_NAME[t]}</td><td>${l.length}</td><td>${money(l.reduce((s, i) => s + i.amount, 0))}</td></tr>`; }).join('');
+    const recent = INV.list.slice().reverse().slice(0, 20);
+    $('dv-list').innerHTML = recent.length ? recent.map((i) => `<div class="inv-row"><span class="t">${esc(i.no)} · ${esc(i.client)}</span><span class="a">₹${Number(i.amount).toLocaleString('en-IN')}</span><span class="m">${TYPE_NAME[i.type]} · ${esc(i.product || '')} · ${when(i.at)}</span><button type="button" class="lnk" data-reprint="${esc(i.no)}">Print again</button></div>`).join('') : '<div class="empty">No bills printed yet</div>';
+  }
+  $('dv-list').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-reprint]'); if (!b) return;
+    const i = INV.list.find((x) => x.no === b.dataset.reprint); if (i) printInvoice(i);
+  });
+
   // Views: #home (default) → Home; #gold #silver #exchange #sexchange → Calculator tabs; #stock → Stock
   const tabs = document.querySelectorAll('.tab');
   const CALC = ['gold', 'silver', 'exchange', 'sexchange'];
@@ -1134,10 +1312,11 @@ img { max-width: 100%; }
   let lastView = '';
   function route() {
     const h = location.hash.slice(1);
-    const view = CALC.includes(h) ? 'calc' : h === 'stock' ? 'stock' : 'home';
-    $('v-home').hidden = view !== 'home'; $('v-calc').hidden = view !== 'calc'; $('v-stock').hidden = view !== 'stock';
+    const view = CALC.includes(h) ? 'calc' : h === 'stock' ? 'stock' : h === 'dash' ? 'dash' : 'home';
+    $('v-home').hidden = view !== 'home'; $('v-calc').hidden = view !== 'calc'; $('v-stock').hidden = view !== 'stock'; $('v-dash').hidden = view !== 'dash';
     if (view === 'calc') showCalc(h);
     if (view === 'stock') stLoad();
+    if (view === 'dash') { stLoad(); invLoad(); }
     if (view !== lastView && lastView) window.scrollTo(0, 0);
     lastView = view;
   }
