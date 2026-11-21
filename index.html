@@ -61,19 +61,23 @@ header img { width: 100%; max-width: 300px; height: auto; display: block; }
 .mkt .chip.gst { border-color: color-mix(in srgb, var(--gold) 45%, var(--line)); }
 
 /* Tabs */
-.tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; width: 100%; max-width: 720px; margin: 0 auto; padding: 5px; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
-.tab { font: inherit; font-weight: 600; font-size: 1.05rem; letter-spacing: .08em; text-transform: uppercase; padding: 12px 10px; border: 0; border-radius: 12px; cursor: pointer; background: transparent; color: var(--muted); display: flex; align-items: center; justify-content: center; gap: 10px; transition: background .2s, color .2s; }
-.tab .dot { width: 12px; height: 12px; border-radius: 50%; }
+.tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; width: 100%; max-width: 880px; margin: 0 auto; }
+.tab { font: inherit; font-weight: 600; font-size: .95rem; letter-spacing: .06em; text-transform: uppercase; padding: 13px 10px; border: 1px solid var(--line); border-radius: 14px; cursor: pointer; background: #fff; color: var(--muted); display: flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; line-height: 1.2; transition: background .2s, color .2s, border-color .2s; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+.tab:hover { border-color: var(--gold-light); }
+.tab .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
 .tab[data-tab="gold"] .dot { background: linear-gradient(135deg, #b8892b, #e6cf8f); }
 .tab[data-tab="silver"] .dot { background: linear-gradient(135deg, #8b95a2, #dde2e8); }
-.tab[aria-selected="true"][data-tab="gold"] { background: linear-gradient(135deg, #b8892b 0%, #d9b964 50%, #a9802c 100%); color: #fff; box-shadow: 0 8px 18px -10px rgba(138,102,32,.7); }
-.tab[aria-selected="true"][data-tab="silver"] { background: linear-gradient(135deg, #8b95a2 0%, #b9c1ca 50%, #6f7a87 100%); color: #fff; box-shadow: 0 8px 18px -10px rgba(80,90,105,.7); }
-.tab[aria-selected="true"] .dot { background: #fff; }
 .tab[data-tab="exchange"] .dot { background: linear-gradient(135deg, #8a6620, #d9b964); }
 .tab[data-tab="sexchange"] .dot { background: linear-gradient(135deg, #5f6b78, #c3cad2); }
-.tab[aria-selected="true"][data-tab="sexchange"] { background: linear-gradient(135deg, #5f6b78 0%, #9aa4b0 50%, #4f5a66 100%); color: #fff; box-shadow: 0 8px 18px -10px rgba(80,90,105,.7); }
-.tab[aria-selected="true"][data-tab="exchange"] { background: linear-gradient(135deg, #8a6620 0%, #c9a24e 50%, #7a5a1c 100%); color: #fff; box-shadow: 0 8px 18px -10px rgba(122,90,28,.7); }
-@media (max-width: 600px) { .tabs { grid-template-columns: 1fr 1fr; } .tab { font-size: .85rem; letter-spacing: .04em; gap: 6px; padding: 11px 4px; line-height: 1.15; text-align: center; } }
+.tab[aria-selected="true"] { color: #fff; border-color: transparent; }
+.tab[aria-selected="true"][data-tab="gold"] { background: linear-gradient(135deg, #b8892b 0%, #d9b964 50%, #a9802c 100%); box-shadow: 0 8px 18px -10px rgba(138,102,32,.7); }
+.tab[aria-selected="true"][data-tab="silver"] { background: linear-gradient(135deg, #8b95a2 0%, #b9c1ca 50%, #6f7a87 100%); box-shadow: 0 8px 18px -10px rgba(80,90,105,.7); }
+.tab[aria-selected="true"][data-tab="exchange"] { background: linear-gradient(135deg, #8a6620 0%, #c9a24e 50%, #7a5a1c 100%); box-shadow: 0 8px 18px -10px rgba(122,90,28,.7); }
+.tab[aria-selected="true"][data-tab="sexchange"] { background: linear-gradient(135deg, #5f6b78 0%, #9aa4b0 50%, #4f5a66 100%); box-shadow: 0 8px 18px -10px rgba(80,90,105,.7); }
+.tab[aria-selected="true"][data-tab] .dot { background: #fff; }
+@media (max-width: 760px) { .tabs { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; } }
+@media (max-width: 360px) { .tab { white-space: normal; text-align: center; font-size: .78rem; } }
+@media (max-width: 480px) { .tab { font-size: .82rem; letter-spacing: .04em; gap: 6px; padding: 12px 6px; } }
 .steps .ln b { font-weight: 600; color: var(--ink); }
 .steps .ln.sub { color: var(--muted); font-size: .9rem; }
 
@@ -417,6 +421,7 @@ img { max-width: 100%; }
         <label class="eyebrow" for="s-prod">Product</label>
         <div class="inputbox selectbox"><select id="s-prod"></select><span class="post" id="s-prodLab">Labour ₹8 / g</span></div>
       </div>
+      <div class="pctrate" id="s-pct" hidden><span>90% Rate</span><b id="s-pctV">—</b></div>
       <div class="row3">
         <div class="field">
           <label class="eyebrow" for="s-wt">Weight</label>
@@ -431,7 +436,6 @@ img { max-width: 100%; }
           <div class="inputbox"><input type="number" id="s-pcs" inputmode="numeric" min="1" step="1" value="1"><span class="post">pcs</span></div>
         </div>
       </div>
-      <div class="pctrate" id="s-pct" hidden><span>90% Rate</span><b id="s-pctV">—</b></div>
       <label class="switch" for="s-gst"><span class="lbl">Add GST 3% <small style="color:var(--muted);font-weight:400">(CGST 1.5% + SGST 1.5%)</small></span><input type="checkbox" id="s-gst" checked><span class="track" aria-hidden="true"></span></label>
       <div class="bill" aria-live="polite">
         <div class="ln"><span id="s-bMetalLbl">Silver value</span><span id="s-bMetal">—</span></div>
@@ -641,7 +645,7 @@ img { max-width: 100%; }
     $('s-prodLab').textContent = 'Labour ' + inr(P.labour) + (perG ? ' / g' : '');
     $('s-pcsField').hidden = true;  // pieces not used: Ring labour is a fixed amount
     $('s-pct').hidden = !P.pct;
-    if (P.pct) $('s-pctV').textContent = inr(round(num('rateAgKg') * P.pct / 100)) + ' / kg';
+    if (P.pct) $('s-pctV').textContent = inr(round(num('rateAgKg') / 100 * P.pct / 100)) + ' / 10g';
     const wt = num('s-wt');
     const pcs = 1;
     const metalVal = sg * wt;
