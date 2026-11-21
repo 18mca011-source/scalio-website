@@ -258,7 +258,7 @@ img { max-width: 100%; }
           <div class="inputbox"><input type="number" id="g-mk" inputmode="decimal" min="0" step="0.01" value="12"><span class="post">%</span></div>
         </div>
       </div>
-      <label class="switch" for="g-discOn"><span class="lbl">Making Discount</span><input type="checkbox" id="g-discOn"><span class="track" aria-hidden="true"></span></label>
+      <label class="switch" for="g-discOn"><span class="lbl">Any Discount</span><input type="checkbox" id="g-discOn"><span class="track" aria-hidden="true"></span></label>
       <div class="field" id="g-discField" hidden>
         <label class="eyebrow" for="g-disc">Discount Amount <span class="hint">· ₹</span></label>
         <div class="inputbox"><span class="pre">₹</span><input type="number" id="g-disc" inputmode="decimal" min="0" step="1" value="0"></div>
@@ -267,7 +267,7 @@ img { max-width: 100%; }
       <div class="bill" aria-live="polite">
         <div class="ln"><span id="g-bMetalLbl">Gold value</span><span id="g-bMetal">—</span></div>
         <div class="ln"><span id="g-bMkLbl">Making</span><span id="g-bMk">—</span></div>
-        <div class="ln minus" id="g-bDiscRow"><span>Making discount</span><span id="g-bDisc">—</span></div>
+        <div class="ln minus" id="g-bDiscRow"><span>Discount</span><span id="g-bDisc">—</span></div>
         <div class="ln"><span>Subtotal (before GST)</span><span id="g-bSub">—</span></div>
         <div class="gstrows" id="g-bGstRow">
           <div class="ln"><span>CGST 1.5%</span><span id="g-bCgst">—</span></div>
@@ -436,10 +436,16 @@ img { max-width: 100%; }
           <div class="inputbox"><input type="number" id="s-pcs" inputmode="numeric" min="1" step="1" value="1"><span class="post">pcs</span></div>
         </div>
       </div>
+      <label class="switch" for="s-discOn"><span class="lbl">Any Discount</span><input type="checkbox" id="s-discOn"><span class="track" aria-hidden="true"></span></label>
+      <div class="field" id="s-discField" hidden>
+        <label class="eyebrow" for="s-disc">Discount Amount <span class="hint">· ₹</span></label>
+        <div class="inputbox"><span class="pre">₹</span><input type="number" id="s-disc" inputmode="decimal" min="0" step="1" value="0"></div>
+      </div>
       <label class="switch" for="s-gst"><span class="lbl">Add GST 3% <small style="color:var(--muted);font-weight:400">(CGST 1.5% + SGST 1.5%)</small></span><input type="checkbox" id="s-gst" checked><span class="track" aria-hidden="true"></span></label>
       <div class="bill" aria-live="polite">
         <div class="ln"><span id="s-bMetalLbl">Silver value</span><span id="s-bMetal">—</span></div>
         <div class="ln"><span id="s-bLabLbl">Labour</span><span id="s-bLab">—</span></div>
+        <div class="ln minus" id="s-bDiscRow" hidden><span>Discount</span><span id="s-bDisc">—</span></div>
         <div class="ln"><span>Subtotal (before GST)</span><span id="s-bSub">—</span></div>
         <div class="gstrows" id="s-bGstRow">
           <div class="ln"><span>CGST 1.5%</span><span id="s-bCgst">—</span></div>
@@ -613,7 +619,7 @@ img { max-width: 100%; }
     const making = metalVal * mkPct / 100;
     const discOn = !$(p + '-discOn') || $(p + '-discOn').checked;
     if ($(p + '-discField')) $(p + '-discField').hidden = !discOn;
-    const disc = discOn ? Math.min(num(p + '-disc'), making) : 0;
+    const disc = discOn ? Math.min(num(p + '-disc'), metalVal + making) : 0;
     const sub = metalVal + making - disc;
     const gstOn = $(p + '-gst').checked;
     const half = gstOn ? Math.round(Math.round(sub) * 0.015) : 0;
@@ -632,7 +638,7 @@ img { max-width: 100%; }
     $(p + '-bTotal').textContent = inr(round(total));
 
     const lines = ['*MAHAVIR JEWELLERS*', todayStr, '', `*${name} — ${wt} grams*`, `Rate: ${inr(perG, 2)} per gram`, `${metalLbl}: ${inr(round(metalVal))}`, `Making (${mkPct}%): ${inr(round(making))}`];
-    if (disc > 0) lines.push(`Making discount: −${inr(round(disc))}`);
+    if (disc > 0) lines.push(`Discount: −${inr(round(disc))}`);
     if (gstOn) lines.push(`CGST 1.5%: ${inr(round(half))}`, `SGST 1.5%: ${inr(round(half))}`);
     lines.push(`*Total Amount: ${inr(round(total))}*`);
     bills[p] = lines.join('\n');
@@ -651,7 +657,10 @@ img { max-width: 100%; }
     const metalVal = sg * wt;
     const labour = perG ? P.labour * wt : P.labour * pcs;
     const labTxt = perG ? `${wt} g × ${inr(P.labour)}` : 'fixed';
-    const sub = metalVal + labour;
+    const sDiscOn = $('s-discOn').checked;
+    $('s-discField').hidden = !sDiscOn;
+    const sDisc = sDiscOn ? Math.min(num('s-disc'), metalVal + labour) : 0;
+    const sub = metalVal + labour - sDisc;
     const gstOn = $('s-gst').checked;
     const half = gstOn ? Math.round(Math.round(sub) * 0.015) : 0;
     const total = Math.round(sub) + half * 2;
@@ -660,6 +669,8 @@ img { max-width: 100%; }
     $('s-bMetal').textContent = inr(round(metalVal));
     $('s-bLabLbl').textContent = `Labour – ${P.name} (${labTxt})`;
     $('s-bLab').textContent = inr(round(labour));
+    $('s-bDiscRow').hidden = sDisc <= 0;
+    $('s-bDisc').textContent = '− ' + inr(round(sDisc));
     $('s-bSub').textContent = inr(round(sub));
     $('s-bGstRow').hidden = !gstOn;
     $('s-bCgst').textContent = inr(round(half));
@@ -667,6 +678,7 @@ img { max-width: 100%; }
     $('s-bTotal').textContent = inr(round(total));
 
     const lines = ['*MAHAVIR JEWELLERS*', todayStr, '', `*Silver ${P.name} — ${wt} grams*`, `Rate: ${inr(sg, 2)} per gram`, `Silver value: ${inr(round(metalVal))}`, `Labour (${labTxt}): ${inr(round(labour))}`];
+    if (sDisc > 0) lines.push(`Discount: −${inr(round(sDisc))}`);
     if (gstOn) lines.push(`CGST 1.5%: ${inr(round(half))}`, `SGST 1.5%: ${inr(round(half))}`);
     lines.push(`*Total Amount: ${inr(round(total))}*`);
     bills.s = lines.join('\n');
@@ -718,7 +730,7 @@ img { max-width: 100%; }
       catch (e) { fallback(); }
     });
     $(p + '-reset').addEventListener('click', () => {
-      $(p + '-wt').value = ''; if (p === 'g') { $('g-disc').value = '0'; $('g-discOn').checked = false; } else if (p === 's') { $('s-pcs').value = '1'; syncPg(); } else if (p === 'x') { $('x-nwt').value = '0'; syncX(); } else { syncY(); } $(p + '-fb').hidden = true; render(); $(p + '-wt').focus();
+      $(p + '-wt').value = ''; if (p === 'g') { $('g-disc').value = '0'; $('g-discOn').checked = false; } else if (p === 's') { $('s-pcs').value = '1'; $('s-disc').value = '0'; $('s-discOn').checked = false; syncPg(); } else if (p === 'x') { $('x-nwt').value = '0'; syncX(); } else { syncY(); } $(p + '-fb').hidden = true; render(); $(p + '-wt').focus();
     });
   });
 
