@@ -20,10 +20,27 @@ const fs = require('fs');
 const R = (n) => Math.round(Number(n) * 1000) / 1000; // grams, 3 decimals
 const id = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 
+// Finds the Upstash REST address/token whatever prefix Vercel gave them (KV_*, UPSTASH_*, STORAGE_KV_*, …),
+// or works them out from an Upstash REDIS_URL / KV_URL (rediss://default:TOKEN@host.upstash.io:6379).
+function upstash() {
+  const env = process.env, keys = Object.keys(env);
+  const pick = (re) => { const k = keys.find((n) => re.test(n) && env[n]); return k ? env[k] : ''; };
+  let url = pick(/(^|_)KV_REST_API_URL$/) || pick(/UPSTASH_REDIS_REST_URL$/);
+  let token = pick(/(^|_)KV_REST_API_TOKEN$/) || pick(/UPSTASH_REDIS_REST_TOKEN$/);
+  if (!url || !token) {
+    const raw = pick(/(^|_)REDIS_URL$/) || pick(/(^|_)KV_URL$/);
+    try {
+      const u = new URL(raw);
+      if (u.hostname.endsWith('upstash.io') && u.password) { url = 'https://' + u.hostname; token = decodeURIComponent(u.password); }
+    } catch (e) {}
+  }
+  return url && token ? { url, token } : null;
+}
+
 function store() {
-  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
-  if (url && token) {
+  const up = upstash();
+  if (up) {
+    const { url, token } = up;
     const call = async (cmd) => {
       const r = await fetch(url, { method: 'POST', headers: { Authorization: 'Bearer ' + token, 'Content-Type': 'application/json' }, body: JSON.stringify(cmd) });
       if (!r.ok) throw new Error('storage ' + r.status);
@@ -43,6 +60,9 @@ function store() {
   }
   return null;
 }
+
+// Names only (never values) of storage-looking settings, to see what Vercel connected
+const storageNames = () => Object.keys(process.env).filter((n) => /KV|REDIS|UPSTASH/i.test(n)).sort();
 
 async function readBody(req) {
   if (req.body && typeof req.body === 'object') return req.body;
@@ -110,7 +130,7 @@ function apply(doc, a) {
 module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   const s = store();
-  if (!s) return res.status(503).json({ error: 'storage-not-connected' });
+  if (!s) return res.status(503).json({ error: 'storage-not-connected', found: storageNames() });
   try {
     let doc = (await s.load()) || { boxes: [], trips: [] };
     if (req.method === 'POST') {
